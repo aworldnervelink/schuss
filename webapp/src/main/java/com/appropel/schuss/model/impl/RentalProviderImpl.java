@@ -1,6 +1,6 @@
 package com.appropel.schuss.model.impl;
 
-import com.appropel.schuss.model.read.RentalShop;
+import com.appropel.schuss.model.read.RentalProvider;
 
 import javax.jdo.annotations.Column;
 import javax.jdo.annotations.IdGeneratorStrategy;
@@ -11,8 +11,8 @@ import javax.jdo.annotations.Persistent;
 /**
  * Implementation of RentalShop.
  */
-@PersistenceCapable(identityType = IdentityType.APPLICATION, table = "rental_shop", detachable = "true")
-public final class RentalShopImpl implements RentalShop
+@PersistenceCapable(identityType = IdentityType.APPLICATION, table = "rental_provider", detachable = "true")
+public final class RentalProviderImpl implements RentalProvider
 {
     /** Object unique identifier. */
     @Persistent(primaryKey = "true", valueStrategy = IdGeneratorStrategy.INCREMENT)

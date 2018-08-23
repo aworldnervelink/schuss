@@ -1,6 +1,6 @@
 package com.appropel.schuss.model.read;
 
-public interface RentalShop
+public interface RentalProvider
 {
     /**
      * Returns the identifier.

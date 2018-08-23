@@ -1,4 +1,5 @@
 apply plugin: 'java-library'
+apply plugin: 'org.liquibase.gradle'
 
 sourceCompatibility = "1.7"
 targetCompatibility = "1.7"
@@ -85,6 +86,21 @@ ext {
 }
 
 println "DB URL: " + dbUrl
+
+//
+// Integrate Liquibase
+//
+liquibase {
+    activities {
+        main {
+            changeLogFile "src/main/resources/database/changelog/db.changelog-master.xml"
+            url dbUrl
+            username dbUser
+            password dbPassword
+            changeLogParameters([ 'db.name': dbName])
+        }
+    }
+}
 
 //
 // Run this task to get an output file of what DataNucleus thinks the schema looks like.
