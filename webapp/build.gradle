@@ -1,8 +1,8 @@
 apply plugin: 'java-library'
 apply plugin: 'org.liquibase.gradle'
 
-sourceCompatibility = "1.7"
-targetCompatibility = "1.7"
+sourceCompatibility = "1.8"
+targetCompatibility = "1.8"
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
@@ -22,6 +22,12 @@ dependencies {
 
     // Postgres JDBC driver
     compile 'org.postgresql:postgresql:42.2.2'
+
+    // Spring ORM
+    compile 'org.springframework:spring-orm:4.3.5.RELEASE'
+
+    // Google Guava
+    compile 'com.google.guava:guava:26.0-jre'
 }
 
 //
