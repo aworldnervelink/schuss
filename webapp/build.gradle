@@ -1,0 +1,49 @@
+apply plugin: 'java-library'
+
+sourceCompatibility = "1.7"
+targetCompatibility = "1.7"
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    // DataNucleus RDBMS support (JDO persistence API)
+    compile 'org.datanucleus:javax.jdo:3.2.0-m8'
+    compile 'org.datanucleus:datanucleus-core:5.1.5'
+    compile 'org.datanucleus:datanucleus-enhancer:3.1.1'
+    compile 'org.datanucleus:datanucleus-api-jdo:5.1.4'
+    compile 'org.datanucleus:datanucleus-rdbms:5.1.5'
+    compile 'org.datanucleus:datanucleus-geospatial:5.1.1'
+    compile 'org.datanucleus:datanucleus-accessplatform-jdo-rdbms:5.0.6'
+    compile 'com.vividsolutions:jts:1.13'
+
+    compile project(path: ':model')
+}
+
+classes.doLast {
+    // enhancing model implementation classes with DataNucleus
+
+    def entityFiles = fileTree(new File(buildDir, 'classes/java/main/com/appropel/schuss/model/impl'))
+    entityFiles.exclude("Q*");
+
+    println "Enhancing with DataNucleus the following files"
+    entityFiles.getFiles().each {
+        println it
+    }
+
+    // define Ant task for DataNucleus Enhancer
+    ant.taskdef(
+            name: 'datanucleusenhancer',
+            classpath: sourceSets.main.compileClasspath.asPath,
+            classname: 'org.datanucleus.enhancer.EnhancerTask'
+    )
+
+    // run the DataNucleus Enhancer as an Ant task
+    ant.datanucleusenhancer(
+            classpath: sourceSets.main.runtimeClasspath.asPath,
+            dir: 'src/main/resources',
+            destination: new File(buildDir, 'classes/java/main'),
+            verbose: true,
+            api: "JDO") {
+        entityFiles.addToAntBuilder(ant, 'fileset', FileCollection.AntType.FileSet)
+    }
+}
