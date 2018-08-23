@@ -6,21 +6,27 @@ targetCompatibility = "1.7"
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
+    // Depend on the model
+    compile project(path: ':model')
+
     // DataNucleus RDBMS support (JDO persistence API)
     compile 'org.datanucleus:javax.jdo:3.2.0-m8'
     compile 'org.datanucleus:datanucleus-core:5.1.5'
     compile 'org.datanucleus:datanucleus-enhancer:3.1.1'
     compile 'org.datanucleus:datanucleus-api-jdo:5.1.4'
     compile 'org.datanucleus:datanucleus-rdbms:5.1.5'
-    compile 'org.datanucleus:datanucleus-geospatial:5.1.1'
+//    compile 'org.datanucleus:datanucleus-geospatial:5.1.1'
     compile 'org.datanucleus:datanucleus-accessplatform-jdo-rdbms:5.0.6'
     compile 'com.vividsolutions:jts:1.13'
 
-    compile project(path: ':model')
+    // Postgres JDBC driver
+    compile 'org.postgresql:postgresql:42.2.2'
 }
 
+//
+// Enhance model implementation classes with DataNucleus
+//
 classes.doLast {
-    // enhancing model implementation classes with DataNucleus
 
     def entityFiles = fileTree(new File(buildDir, 'classes/java/main/com/appropel/schuss/model/impl'))
     entityFiles.exclude("Q*");
@@ -47,3 +53,71 @@ classes.doLast {
         entityFiles.addToAntBuilder(ant, 'fileset', FileCollection.AntType.FileSet)
     }
 }
+
+//
+// Define database connection
+//
+
+def dbHostLocal = ""
+def dbPortLocal = ""
+def dbUserLocal = ""
+def dbPasswordLocal = ""
+def dbNameLocal = ""
+
+Properties localProperties = new Properties()
+File localPropertiesFile = new File("${projectDir}/src/main/resources/local.properties")
+if (localPropertiesFile.exists()) {
+    localProperties.load(localPropertiesFile.newDataInputStream())
+    dbHostLocal     = localProperties.getProperty('RDS_HOSTNAME')
+    dbPortLocal     = localProperties.getProperty('RDS_PORT')
+    dbUserLocal     = localProperties.getProperty('RDS_USERNAME')
+    dbPasswordLocal = localProperties.getProperty('RDS_PASSWORD')
+    dbNameLocal     = localProperties.getProperty('RDS_DB_NAME', "schuss")
+}
+
+ext {
+    dbHost      = System.getenv("RDS_HOSTNAME") != null ? System.getenv("RDS_HOSTNAME") : dbHostLocal
+    dbPort      = System.getenv("RDS_PORT")     != null ? System.getenv("RDS_PORT")     : dbPortLocal
+    dbUser      = System.getenv("RDS_USERNAME") != null ? System.getenv("RDS_USERNAME") : dbUserLocal
+    dbPassword  = System.getenv("RDS_PASSWORD") != null ? System.getenv("RDS_PASSWORD") : dbPasswordLocal
+    dbName      = System.getenv("RDS_DB_NAME")  != null ? System.getenv("RDS_DB_NAME")  : dbNameLocal
+    dbUrl       = 'jdbc:postgresql://' + dbHost + ':' + dbPort + '/' + dbName
+}
+
+println "DB URL: " + dbUrl
+
+//
+// Run this task to get an output file of what DataNucleus thinks the schema looks like.
+//
+task datanucleusSchema(type: JavaExec) {
+    dependsOn classes
+    classpath sourceSets.main.runtimeClasspath
+    systemProperties = [
+            "datanucleus.ConnectionURL": dbUrl,
+            "datanucleus.ConnectionUserName": dbUser,
+            "datanucleus.ConnectionPassword": dbPassword
+    ]
+    main = "org.datanucleus.store.schema.SchemaTool"
+    args "-create", "-ddlFile", "build/schema.sql", "-completeDdl",
+            "-props", "src/main/resources/datanucleus.properties",
+            "-pu", "schuss"
+
+}
+
+//
+// Run this task to get an output of what DataNucleus thinks is incorrect in the schema.
+//
+task datanucleusValidate(type: JavaExec) {
+    dependsOn classes
+    classpath sourceSets.main.runtimeClasspath
+    systemProperties = [
+            "datanucleus.ConnectionURL": dbUrl,
+            "datanucleus.ConnectionUserName": dbUser,
+            "datanucleus.ConnectionPassword": dbPassword
+    ]
+    main = "org.datanucleus.store.schema.SchemaTool"
+    args "-validate", "-props", "src/main/resources/datanucleus.properties",
+            "-pu", "schuss"
+}
+
+
