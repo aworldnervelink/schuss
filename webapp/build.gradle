@@ -53,6 +53,10 @@ dependencies {
 
     // Liquibase core
     compile 'org.liquibase:liquibase-core:3.4.2'
+
+    // Retrofit
+    compile 'com.squareup.retrofit2:retrofit:2.1.0'
+    compile 'com.squareup.retrofit2:converter-jackson:2.1.0'
 }
 
 //
@@ -165,6 +169,24 @@ task datanucleusValidate(type: JavaExec) {
     main = "org.datanucleus.store.schema.SchemaTool"
     args "-validate", "-props", "src/main/resources/datanucleus.properties",
             "-pu", "schuss"
+}
+
+//
+// Build a jar of the remote service
+//
+configurations {
+    remoteservice
+}
+
+task remoteServiceJar(type: Jar) {
+    baseName = 'schuss-service'
+    dependsOn classes
+    from sourceSets.main.output
+    include('com/appropel/schuss/service/**')
+}
+
+artifacts {
+    remoteservice remoteServiceJar
 }
 
 //
