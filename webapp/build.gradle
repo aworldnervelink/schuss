@@ -1,8 +1,17 @@
-apply plugin: 'java-library'
+group 'com.appropel.schuss'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'java'
 apply plugin: 'org.liquibase.gradle'
+apply plugin: 'org.springframework.boot'    // http://docs.spring.io/spring-boot/docs/current/reference/html/build-tool-plugins-gradle-plugin.html
 
 sourceCompatibility = "1.8"
 targetCompatibility = "1.8"
+
+bootJar {
+    baseName = 'schuss-spring-boot'
+    version =  '1.0.0'
+}
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
@@ -26,8 +35,20 @@ dependencies {
     // Spring ORM
     compile 'org.springframework:spring-orm:4.3.5.RELEASE'
 
+    // Spring Boot
+    compile 'org.springframework.boot:spring-boot-starter-web:2.0.4.RELEASE'
+
     // Google Guava
     compile 'com.google.guava:guava:26.0-jre'
+
+    // Jackson databind
+    compile 'com.fasterxml.jackson.core:jackson-databind:2.9.6'
+
+    // Hikari connection pool
+    compile 'com.zaxxer:HikariCP:2.6.1'
+
+    // Liquibase core
+    compile 'org.liquibase:liquibase-core:3.4.2'
 }
 
 //

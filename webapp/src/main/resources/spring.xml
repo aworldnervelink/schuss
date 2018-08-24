@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx-3.1.xsd
+        http://www.springframework.org/schema/context
+		http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/util
+        http://www.springframework.org/schema/util/spring-util-3.0.xsd">
+
+    <context:annotation-config/>
+
+    <!--
+        Configure JDO with our database connection. See:
+        http://docs.spring.io/spring/docs/4.3.6.BUILD-SNAPSHOT/spring-framework-reference/htmlsingle/#orm-jdo-setup
+    -->
+
+    <!-- This bean fills in properties using the file datanucleus.properties. -->
+    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="ignoreResourceNotFound" value="true"/>
+        <property name="locations">
+            <list>
+                <value>classpath:datanucleus.properties</value>
+                <value>classpath:local.properties</value>
+            </list>
+        </property>
+    </bean>
+
+    <!--
+        See VX-90... the important connection params are expected to be in the environment to support
+        deployment via AWS.
+    -->
+    <bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource" destroy-method="close">
+        <property name="driverClassName" value="${datanucleus.ConnectionDriverName}"/>
+        <property name="jdbcUrl" value="jdbc:postgresql://${RDS_HOSTNAME}:${RDS_PORT}/${RDS_DB_NAME}"/>
+        <property name="username" value="${RDS_USERNAME}"/>
+        <property name="password" value="${RDS_PASSWORD}"/>
+    </bean>
+
+    <!--
+        See VX-108... The webapp automatically run Liquibase when it starts up
+    -->
+    <bean id="liquibase" class="liquibase.integration.spring.SpringLiquibase">
+        <property name="dataSource" ref="dataSource" />
+        <property name="changeLog"
+                  value="classpath:/database/changelog/db.changelog-master.xml"/>
+        <property name="changeLogParameters" ref="lbParameters"/>
+        <!--
+            contexts specifies the runtime contexts to use.
+        -->
+        <!--<property name="contexts" value="production" />-->
+    </bean>
+
+    <util:map id="lbParameters">
+        <entry key="db.name" value="${RDS_DB_NAME}"/>
+    </util:map>
+
+    <bean id="pmf" class="org.datanucleus.api.jdo.JDOPersistenceManagerFactory" destroy-method="close">
+        <constructor-arg>
+            <bean class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+                <property name="locations" value="classpath:datanucleus.properties"/>
+            </bean>
+        </constructor-arg>
+        <property name="connectionFactory" ref="dataSource"/>
+        <property name="nontransactionalRead" value="true"/>
+    </bean>
+
+    <bean id="txManager" class="org.springframework.orm.jdo.JdoTransactionManager">
+        <property name="persistenceManagerFactory" ref="pmf"/>
+    </bean>
+
+    <tx:annotation-driven transaction-manager="txManager"/>
+
+    <bean id="pmfProxy" class="org.springframework.orm.jdo.TransactionAwarePersistenceManagerFactoryProxy">
+        <property name="targetPersistenceManagerFactory" ref="pmf"/>
+        <property name="allowCreate" value="false"/>
+    </bean>
+
+    <bean id="localeResolver" class="org.springframework.web.servlet.i18n.AcceptHeaderLocaleResolver">
+        <property name="defaultLocale" value="en_US" />
+    </bean>
+
+    <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+        <property name="basename" value="locale/messages" />
+        <property name="defaultEncoding" value="UTF-8" />
+    </bean>
+</beans>

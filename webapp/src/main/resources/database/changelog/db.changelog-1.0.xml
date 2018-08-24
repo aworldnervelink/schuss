@@ -13,7 +13,7 @@
             <column name="name" type="varchar(64)">
                 <constraints nullable="false" primaryKey="false" unique="false"/>
             </column>
-            <column name="logoUrl" type="varchar(256)">
+            <column name="logo_url" type="varchar(256)">
                 <constraints nullable="false" primaryKey="false" unique="false"/>
             </column>
         </createTable>

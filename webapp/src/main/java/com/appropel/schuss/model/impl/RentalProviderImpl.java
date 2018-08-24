@@ -27,7 +27,7 @@ public final class RentalProviderImpl implements RentalProvider
     /**
      * Logo URL.
      */
-    @Column(length = 256)
+    @Column(name = "logo_url", length = 256)
     private String logoUrl;
 
     @Override
