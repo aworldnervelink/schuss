@@ -4,6 +4,10 @@ version '1.0-SNAPSHOT'
 apply plugin: 'java'
 apply plugin: 'org.liquibase.gradle'
 apply plugin: 'org.springframework.boot'    // http://docs.spring.io/spring-boot/docs/current/reference/html/build-tool-plugins-gradle-plugin.html
+apply plugin: 'checkstyle'
+apply plugin: 'pmd'
+apply plugin: 'findbugs'
+apply plugin: 'pl.squirrel.classycle'
 
 sourceCompatibility = "1.8"
 targetCompatibility = "1.8"
@@ -163,4 +167,44 @@ task datanucleusValidate(type: JavaExec) {
             "-pu", "schuss"
 }
 
+//
+// Code checks
+//
+checkstyle {
+    configFile = new File(rootDir, "config/checkstyle.xml")
+    toolVersion = "7.6"
+}
+
+// Workaround, see: https://github.com/gradle/gradle/issues/881
+tasks.withType(Checkstyle).each { checkstyleTask ->
+    checkstyleTask.doLast {
+        reports.all { report ->
+            def outputFile = report.destination
+            if (outputFile.exists() && outputFile.text.contains("<error ")) {
+                throw new GradleException("There were checkstyle warnings! For more info check $outputFile")
+            }
+        }
+    }
+}
+
+pmd {
+    ruleSetFiles = files(new File(rootDir, 'config/pmd.xml'))
+}
+
+findbugs {
+    sourceSets = [sourceSets.main]
+    reportsDir = file("$project.buildDir/findbugsReports")
+    effort = "max"
+    reportLevel = "high"
+}
+
+tasks.withType(FindBugs) {
+    reports {
+        xml.enabled project.hasProperty('findbugsXml')
+        html.enabled !xml.isEnabled()
+    }
+}
+
+classycleMain.definitionFilePath = 'config/classycle.txt'
+classycleMain.outputs.dir('$buildDir/reports/classycle')
 

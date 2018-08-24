@@ -13,6 +13,9 @@ import java.util.List;
 import javax.jdo.JDOQLTypedQuery;
 import javax.jdo.PersistenceManager;
 
+/**
+ * Implementation of rental provider DAO.
+ */
 @Transactional
 @Repository
 @SuppressWarnings("checkstyle:DesignForExtension")

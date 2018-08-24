@@ -1,0 +1,33 @@
+# This is the rules file for the Classycle tool.
+# see http://classycle.sourceforge.net/
+
+show allResults
+
+#
+# Definition of class sets.
+#
+
+{package} = com.appropel.schuss
+
+# Definitions of the primary software layers
+[model] = ${package}.model.*
+[dao] = ${package}.dao.*
+[logic] = ${package}.logic.*
+[rest] = ${package}.rest.*
+[service] = ${package}.service.*
+
+layer model = [model]
+layer dao = [dao]
+layer logic = [logic]
+layer rest = [rest]
+layer service = [service]
+
+#
+# Architectural checks.
+#
+
+# Check for package cycles.
+check absenceOfPackageCycles > 1 in ${package}
+
+# Check that the layers are proper. Note that the ordering is from lowest to highest.
+check layeringOf model dao logic rest service

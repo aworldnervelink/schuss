@@ -14,11 +14,15 @@ import java.util.List;
 
 import javax.servlet.ServletResponse;
 
+/**
+ * Controller for rental provider methods.
+ */
 @RestController
 @Transactional
 @SuppressWarnings("checkstyle:DesignForExtension")  // Cannot be final for AOP enhancement
 public class RentalProviderController extends BaseController
 {
+    /** Path for this controller. */
     public static final String RENTAL_PROVIDER_PATH = "rentalProvider";
 
     /** DAO for rentals. */
@@ -33,6 +37,7 @@ public class RentalProviderController extends BaseController
     /**
      * Get method for rental providers.
      *
+     * @param response servlet response
      * @throws IOException .
      */
     @RequestMapping(value = RENTAL_PROVIDER_PATH, method = RequestMethod.GET)
