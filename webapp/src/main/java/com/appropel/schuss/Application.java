@@ -1,4 +1,4 @@
-package com.appropel.schuss.application;
+package com.appropel.schuss;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
