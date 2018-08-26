@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Schuss</string>
+    <string name="where_to_rent">Choose a location to rent from</string>
 </resources>

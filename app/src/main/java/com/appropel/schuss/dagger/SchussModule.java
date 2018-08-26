@@ -41,7 +41,7 @@ public final class SchussModule
      *
      * @param appContext application context.
      */
-    public SchussModule(@NonNull final Context appContext)
+    SchussModule(@NonNull final Context appContext)
     {
         this.appContext = checkNotNull(appContext);
     }

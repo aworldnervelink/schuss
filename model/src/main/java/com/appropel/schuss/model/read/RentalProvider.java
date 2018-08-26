@@ -1,5 +1,11 @@
 package com.appropel.schuss.model.read;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+import org.immutables.value.Value;
+
+@Value.Immutable
+@JsonDeserialize(builder = ImmutableRentalProvider.Builder.class)
 public interface RentalProvider
 {
     /**

@@ -1,8 +1,14 @@
 apply plugin: 'java-library'
 
-dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-}
-
 sourceCompatibility = "1.7"
 targetCompatibility = "1.7"
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    // Immutables
+    compileOnly 'org.immutables:value:2.6.3'
+
+    // Jackson databind
+    compile 'com.fasterxml.jackson.core:jackson-databind:2.9.6'
+}
