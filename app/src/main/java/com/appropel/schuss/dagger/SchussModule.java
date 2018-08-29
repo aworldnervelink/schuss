@@ -2,9 +2,13 @@ package com.appropel.schuss.dagger;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.annotation.VisibleForTesting;
 
+import com.appropel.schuss.common.util.Preferences;
 import com.appropel.schuss.service.SchussService;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
+import net.orange_box.storebox.StoreBox;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -71,6 +75,20 @@ public final class SchussModule
     public ObjectMapper provideObjectMapper()
     {
         return new ObjectMapper();
+    }
+
+    /**
+     * Provides a preferences interface which is backed by the StoreBox library.
+     * See: https://github.com/martino2k6/StoreBox .
+     *
+     * @return preferences interface.
+     */
+    @Provides
+    @Singleton
+    @VisibleForTesting
+    public Preferences providePreferences()
+    {
+        return StoreBox.create(appContext, Preferences.class);
     }
 
     /**
