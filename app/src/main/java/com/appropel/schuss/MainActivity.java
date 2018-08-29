@@ -1,20 +1,28 @@
 package com.appropel.schuss;
 
+import android.graphics.drawable.PictureDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.appropel.schuss.dagger.DaggerWrapper;
+import com.appropel.schuss.dagger.SchussModule;
 import com.appropel.schuss.databinding.RentalProviderBinding;
 import com.appropel.schuss.model.read.RentalProvider;
 import com.appropel.schuss.service.SchussService;
+import com.appropel.schuss.view.util.SvgDecoder;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.model.StreamEncoder;
+import com.caverock.androidsvg.SVG;
 import com.xwray.groupie.GroupAdapter;
 import com.xwray.groupie.databinding.BindableItem;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.InputStream;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -86,6 +94,7 @@ public class MainActivity extends AppCompatActivity
 
         @Override public void bind(RentalProviderBinding binding, int position) {
             binding.setRentalProvider(rentalProvider);
+            Glide.with(MainActivity.this).load(SchussModule.APP_SERVER_URL + "images/" + rentalProvider.getLogoUrl()).into(binding.logoView);
         }
 
         @Override public int getLayout() {

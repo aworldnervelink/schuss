@@ -30,7 +30,7 @@ public final class SchussModule
 
     /** URL to app server. */
     // TODO: configurable
-    private static final String APP_SERVER_URL = "http://192.168.1.4:8080/";
+    public static final String APP_SERVER_URL = "http://192.168.1.4:8080/";
 
     /** Application context. */
     @NonNull
