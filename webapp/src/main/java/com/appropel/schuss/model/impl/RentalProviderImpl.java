@@ -30,6 +30,12 @@ public final class RentalProviderImpl implements RentalProvider
     @Column(name = "logo_url", length = 256)
     private String logoUrl;
 
+    /**
+     * Background URL.
+     */
+    @Column(name = "background_url", length = 256)
+    private String backgroundUrl;
+
     @Override
     public long getId()
     {
@@ -46,5 +52,11 @@ public final class RentalProviderImpl implements RentalProvider
     public String getLogoUrl()
     {
         return logoUrl;
+    }
+
+    @Override
+    public String getBackgroundUrl()
+    {
+        return backgroundUrl;
     }
 }

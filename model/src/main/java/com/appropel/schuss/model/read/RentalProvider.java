@@ -22,4 +22,10 @@ public interface RentalProvider
      * Returns a URL pointing to the facility's logo.
      */
     String getLogoUrl();
+
+    /**
+     * Returns a URL pointing to the facility's background image.
+     * @return
+     */
+    String getBackgroundUrl();
 }

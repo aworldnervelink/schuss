@@ -1,7 +1,5 @@
 package com.appropel.schuss;
 
-import android.graphics.drawable.PictureDrawable;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,26 +10,28 @@ import com.appropel.schuss.dagger.SchussModule;
 import com.appropel.schuss.databinding.RentalProviderBinding;
 import com.appropel.schuss.model.read.RentalProvider;
 import com.appropel.schuss.service.SchussService;
-import com.appropel.schuss.view.util.SvgDecoder;
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.model.StreamEncoder;
-import com.caverock.androidsvg.SVG;
+import com.bumptech.glide.load.MultiTransformation;
+import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.xwray.groupie.GroupAdapter;
 import com.xwray.groupie.databinding.BindableItem;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.InputStream;
 import java.util.List;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import jp.wasabeef.glide.transformations.gpu.BrightnessFilterTransformation;
+import jp.wasabeef.glide.transformations.gpu.ContrastFilterTransformation;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static com.bumptech.glide.request.RequestOptions.bitmapTransform;
 
 public class MainActivity extends AppCompatActivity
 {
@@ -94,6 +94,13 @@ public class MainActivity extends AppCompatActivity
 
         @Override public void bind(RentalProviderBinding binding, int position) {
             binding.setRentalProvider(rentalProvider);
+
+            MultiTransformation multi = new MultiTransformation(
+                    new CenterCrop(),
+                    new ContrastFilterTransformation(0.5f),
+                    new BrightnessFilterTransformation(0.5f));
+
+            Glide.with(MainActivity.this).load(SchussModule.APP_SERVER_URL + "images/" + rentalProvider.getBackgroundUrl()).apply(bitmapTransform(multi)).into(binding.backgroundView);
             Glide.with(MainActivity.this).load(SchussModule.APP_SERVER_URL + "images/" + rentalProvider.getLogoUrl()).into(binding.logoView);
         }
 
