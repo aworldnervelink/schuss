@@ -22,11 +22,14 @@ import retrofit2.converter.jackson.JacksonConverterFactory;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
+/**
+ * Module for Dagger injection.
+ */
 @Module
 public final class SchussModule
 {
     /** Logger. */
-    private static final Logger LOGGER = LoggerFactory.getLogger(SchussModule.class);
+    static final Logger LOGGER = LoggerFactory.getLogger(SchussModule.class);
 
     /** URL to app server. */
     // TODO: configurable
@@ -37,7 +40,7 @@ public final class SchussModule
     private final Context appContext;
 
     /**
-     * Parametrized constructor.
+     * Parameterized constructor.
      *
      * @param appContext application context.
      */

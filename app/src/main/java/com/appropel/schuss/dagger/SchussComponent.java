@@ -1,6 +1,6 @@
 package com.appropel.schuss.dagger;
 
-import com.appropel.schuss.MainActivity;
+import com.appropel.schuss.view.activity.MainActivity;
 
 import javax.inject.Singleton;
 
@@ -13,5 +13,7 @@ import dagger.Component;
 @Singleton
 public interface SchussComponent
 {
+    // CSOFF: EmptyLineSeparator
+    // CSOFF: JavadocMethod
     void inject(MainActivity mainActivity);
 }

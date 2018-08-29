@@ -4,6 +4,9 @@ import android.app.Application;
 
 import com.appropel.schuss.dagger.DaggerWrapper;
 
+/**
+ * Application which initializes Dagger injection.
+ */
 public final class SchussApplication extends Application
 {
     @Override

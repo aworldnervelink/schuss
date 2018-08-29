@@ -1,10 +1,11 @@
-package com.appropel.schuss;
+package com.appropel.schuss.view.activity;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
+import com.appropel.schuss.R;
 import com.appropel.schuss.dagger.DaggerWrapper;
 import com.appropel.schuss.dagger.SchussModule;
 import com.appropel.schuss.databinding.RentalProviderBinding;
@@ -33,19 +34,24 @@ import retrofit2.Response;
 
 import static com.bumptech.glide.request.RequestOptions.bitmapTransform;
 
-public class MainActivity extends AppCompatActivity
+/**
+ * Main activity.
+ */
+public final class MainActivity extends AppCompatActivity
 {
     /** Logger. */
-    private static final Logger LOGGER = LoggerFactory.getLogger(MainActivity.class);
+    static final Logger LOGGER = LoggerFactory.getLogger(MainActivity.class);
 
+    /** View that holds a list of rental providers. */
     @BindView(R.id.provider_view)
     RecyclerView providerView;
 
+    /** Remote service. */
     @Inject
     SchussService service;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
+    protected void onCreate(final Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -66,7 +72,8 @@ public class MainActivity extends AppCompatActivity
                 .enqueue(new Callback<List<RentalProvider>>()
                 {
                     @Override
-                    public void onResponse(final Call<List<RentalProvider>> call, final Response<List<RentalProvider>> response)
+                    public void onResponse(final Call<List<RentalProvider>> call,
+                                           final Response<List<RentalProvider>> response)
                     {
                         for (RentalProvider provider : response.body())
                         {
@@ -76,23 +83,34 @@ public class MainActivity extends AppCompatActivity
                     }
 
                     @Override
-                    public void onFailure(final Call<List<RentalProvider>> call, final Throwable t)
+                    public void onFailure(final Call<List<RentalProvider>> call, final Throwable th)
                     {
-                        LOGGER.error("Efic fail", t);
+                        LOGGER.error("Efic fail", th);
                     }
                 });
 
     }
 
-    public class RentalProviderItem extends BindableItem<RentalProviderBinding>
+    /**
+     * Individual rental provider item. TODO: refactor me out
+     */
+    public final class RentalProviderItem extends BindableItem<RentalProviderBinding>
     {
-        private RentalProvider rentalProvider;
+        /** Rental provider. */
+        private final RentalProvider rentalProvider;
 
-        public RentalProviderItem(RentalProvider rentalProvider) {
+        /**
+         * Constructs a new {@code RentalProviderItem}.
+         * @param rentalProvider rental provider that is wrapped
+         */
+        public RentalProviderItem(final RentalProvider rentalProvider)
+        {
+            super();
             this.rentalProvider = rentalProvider;
         }
 
-        @Override public void bind(RentalProviderBinding binding, int position) {
+        @Override public void bind(final RentalProviderBinding binding, final int position)
+        {
             binding.setRentalProvider(rentalProvider);
 
             MultiTransformation multi = new MultiTransformation(
@@ -100,11 +118,17 @@ public class MainActivity extends AppCompatActivity
                     new ContrastFilterTransformation(0.5f),
                     new BrightnessFilterTransformation(0.5f));
 
-            Glide.with(MainActivity.this).load(SchussModule.APP_SERVER_URL + "images/" + rentalProvider.getBackgroundUrl()).apply(bitmapTransform(multi)).into(binding.backgroundView);
-            Glide.with(MainActivity.this).load(SchussModule.APP_SERVER_URL + "images/" + rentalProvider.getLogoUrl()).into(binding.logoView);
+            Glide.with(MainActivity.this)
+                    .load(SchussModule.APP_SERVER_URL + "images/" + rentalProvider.getBackgroundUrl())
+                    .apply(bitmapTransform(multi))
+                    .into(binding.backgroundView);
+            Glide.with(MainActivity.this)
+                    .load(SchussModule.APP_SERVER_URL + "images/" + rentalProvider.getLogoUrl())
+                    .into(binding.logoView);
         }
 
-        @Override public int getLayout() {
+        @Override public int getLayout()
+        {
             return R.layout.rental_provider;
         }
     }
