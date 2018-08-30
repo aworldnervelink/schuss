@@ -1,0 +1,59 @@
+# This is the rules file for the Classycle tool.
+# see http://classycle.sourceforge.net/
+
+show allResults
+
+#
+# Definition of class sets.
+#
+
+{package} = com.appropel.schuss
+
+# Dagger definitions.
+[dagger] = ${package}.dagger.*
+[dagger-internal] = *MembersInjector
+[non-dagger] = ${package}.* excluding [dagger] [dagger-internal]
+
+# Definitions of the primary software layers
+[common] = ${package}.common.*
+[controller] = ${package}.controller.* ${package}.parse.controller.*
+[model] = ${package}.model.* ${package}.parse.model.*
+[view] = ${package}.view.* ${package}.parse.view.*
+[databinding] = ${package}.databinding.*
+
+layer common = [common]
+layer controller = [controller]
+layer model = [model]
+layer view = [view]
+
+# Other useful definitions
+[common-android] = ${package}.common.android.*
+[model-impl] = ${package}.model.impl.*
+[non-controller] = ${package}.* excluding [controller] [model-impl] [dagger]
+
+# Definition of where Android may be referenced.
+[android] = android.* excluding android.annotation.* android.support.annotation.* android.os.Build
+[android-allowed] = [view] [common-android] [dagger] [databinding]
+[non-android-allowed] = ${package}.* excluding [android-allowed]
+
+#
+# Architectural checks.
+#
+
+# Check for package cycles.
+check absenceOfPackageCycles > 1 in [non-dagger]
+
+# Check that only the dagger package references Dagger.
+check [non-dagger] directlyIndependentOf dagger.*
+
+# Check that nobody uses Android logging - SLF4J is the preferred method.
+check ${package}.* independentOf android.util.Log
+
+# Check that only certain well-defined parts of the app are dependent on Android.
+check [non-android-allowed] directlyIndependentOf [android]
+
+# Check that only the Controller layer uses the Model implementation.
+check [non-controller] directlyIndependentOf [model-impl]
+
+# Check that the layers are proper. Note that the ordering is from lowest to highest.
+check layeringOf common model controller view

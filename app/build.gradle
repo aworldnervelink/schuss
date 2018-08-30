@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.noveogroup.android.check'
+apply plugin: 'pl.squirrel.classycle'
 
 android {
     compileSdkVersion 27
@@ -99,3 +100,6 @@ check {
         config project.file('../config/findbugs-filter.xml')
     }
 }
+
+classycleRelease.definitionFilePath = 'config/classycle.txt'
+classycleRelease.outputs.dir('$buildDir/reports/classycle')
