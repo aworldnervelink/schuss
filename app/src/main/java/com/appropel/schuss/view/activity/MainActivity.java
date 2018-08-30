@@ -2,25 +2,25 @@ package com.appropel.schuss.view.activity;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 
 import com.appropel.schuss.R;
-import com.appropel.schuss.dagger.DaggerWrapper;
 import com.appropel.schuss.dagger.SchussModule;
 import com.appropel.schuss.databinding.RentalProviderBinding;
 import com.appropel.schuss.model.read.RentalProvider;
 import com.appropel.schuss.service.SchussService;
+import com.appropel.schuss.view.event.ChangeFragmentEvent;
+import com.appropel.schuss.view.event.ImmutableChangeFragmentEvent;
+import com.appropel.schuss.view.fragment.CreateAccountFragment;
+import com.appropel.schuss.view.util.FragmentHolder;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.MultiTransformation;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
-import com.xwray.groupie.GroupAdapter;
 import com.xwray.groupie.databinding.BindableItem;
 
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.util.List;
 
 import javax.inject.Inject;
 
@@ -28,9 +28,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import jp.wasabeef.glide.transformations.gpu.BrightnessFilterTransformation;
 import jp.wasabeef.glide.transformations.gpu.ContrastFilterTransformation;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 import static com.bumptech.glide.request.RequestOptions.bitmapTransform;
 
@@ -42,9 +39,13 @@ public final class MainActivity extends AppCompatActivity
     /** Logger. */
     static final Logger LOGGER = LoggerFactory.getLogger(MainActivity.class);
 
-    /** View that holds a list of rental providers. */
-    @BindView(R.id.provider_view)
-    RecyclerView providerView;
+    /** Fragment holder. */
+    @BindView(R.id.fragment_holder)
+    FragmentHolder fragmentHolder;
+
+//    /** View that holds a list of rental providers. */
+//    @BindView(R.id.provider_view)
+//    RecyclerView providerView;
 
     /** Remote service. */
     @Inject
@@ -54,7 +55,7 @@ public final class MainActivity extends AppCompatActivity
     protected void onCreate(final Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.main);
     }
 
     @Override
@@ -63,6 +64,10 @@ public final class MainActivity extends AppCompatActivity
         super.onStart();
         ButterKnife.bind(this);
 
+        onChangeFragmentEvent(
+                ImmutableChangeFragmentEvent.builder().fragmentClass(CreateAccountFragment.class).build());
+
+        /*
         final GroupAdapter adapter = new GroupAdapter();
         providerView.setAdapter(adapter);
         providerView.setLayoutManager(new LinearLayoutManager(this));
@@ -88,8 +93,24 @@ public final class MainActivity extends AppCompatActivity
                         LOGGER.error("Efic fail", th);
                     }
                 });
-
+        */
     }
+
+    /**
+     * Event handler that fires when a different fragment should be displayed.
+     *
+     * @param event event.
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onChangeFragmentEvent(final ChangeFragmentEvent event)
+    {
+//        if (event.getFragmentClass().equals(MainTabFragment.class))
+//        {
+//            getFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+//        }
+        fragmentHolder.changeFragment(event.getFragmentClass(), null, true);
+    }
+
 
     /**
      * Individual rental provider item. TODO: refactor me out

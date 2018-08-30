@@ -1,6 +1,7 @@
 package com.appropel.schuss.dagger;
 
 import com.appropel.schuss.view.activity.MainActivity;
+import com.appropel.schuss.view.fragment.CreateAccountFragment;
 
 import javax.inject.Singleton;
 
@@ -15,5 +16,6 @@ public interface SchussComponent
 {
     // CSOFF: EmptyLineSeparator
     // CSOFF: JavadocMethod
+    void inject(CreateAccountFragment createAccountFragment);
     void inject(MainActivity mainActivity);
 }

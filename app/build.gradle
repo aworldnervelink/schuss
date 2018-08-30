@@ -69,6 +69,16 @@ dependencies {
     // StoreBox shared preferences library.
     implementation 'net.orange-box.storebox:storebox-lib:1.4.0'
 
+    // Saripaar validation library.
+    implementation 'com.mobsandgeeks:android-saripaar:2.0.3'
+
+    // Greenrobot Event Bus.
+    implementation 'org.greenrobot:eventbus:3.0.0'
+
+    // Immutables
+    compileOnly 'org.immutables:value:2.6.3'
+    annotationProcessor 'org.immutables:value:2.6.3'
+
     implementation 'com.android.support:appcompat-v7:27.1.1'
     implementation 'com.android.support.constraint:constraint-layout:1.1.2'
     testImplementation 'junit:junit:4.12'
