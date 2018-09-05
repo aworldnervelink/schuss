@@ -4,10 +4,12 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 
 import com.appropel.schuss.R;
 import com.appropel.schuss.dagger.DaggerWrapper;
+import com.appropel.schuss.view.validation.ValidationAlertView;
 import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
 import com.mobsandgeeks.saripaar.annotation.Email;
@@ -17,6 +19,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnTextChanged;
 import butterknife.Unbinder;
 
 /**
@@ -28,7 +31,12 @@ public final class CreateAccountFragment extends ValidatableFragment implements 
     @NotEmpty
     @Email
     @BindView(R.id.email_address_edit_text)
+    @ValidationAlertView(R.id.email_validation)
     EditText emailAddressEditText;
+
+    /** Register button. */
+    @BindView(R.id.register_button)
+    Button registerButton;
 
     /** View unbinder. */
     private Unbinder unbinder;
@@ -43,16 +51,27 @@ public final class CreateAccountFragment extends ValidatableFragment implements 
         return view;
     }
 
+    /**
+     * Calls the validator to update the state of the UI when user typing login or password.
+     */
+    @OnTextChanged({
+            R.id.email_address_edit_text,
+    })
+    protected void validate()
+    {
+        validateChange();
+    }
+
     @Override
     public void onValidationSucceeded()
     {
-        // TODO
+        registerButton.setEnabled(true);
     }
 
     @Override
     public void onValidationFailed(final List<ValidationError> errors)
     {
-        // TODO
+        registerButton.setEnabled(false);
     }
 
     @Override
