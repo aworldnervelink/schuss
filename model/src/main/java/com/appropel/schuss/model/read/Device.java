@@ -12,6 +12,11 @@ import org.immutables.value.Value;
 public interface Device
 {
     /**
+     * Returns the identifier.
+     */
+    long getId();
+
+    /**
      * Returns the Google Advertising ID.
      *
      * @return advertising id
@@ -24,10 +29,4 @@ public interface Device
      * @return model name or an empty string.
      */
     String getModelName();
-
-    /**
-     * Returns the {@link User} that owns this device.
-     * @return associated user
-     */
-    User getUser();
 }

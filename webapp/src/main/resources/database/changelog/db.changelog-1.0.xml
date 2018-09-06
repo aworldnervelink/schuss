@@ -19,4 +19,32 @@
         </createTable>
     </changeSet>
 
+    <changeSet id="createUser" author="kroll">
+        <createTable tableName="user">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="email" type="varchar(256)">
+                <constraints nullable="false" primaryKey="false" unique="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="createDevice" author="kroll">
+        <createTable tableName="device">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="advertising_id" type="varchar(128)">
+                <constraints nullable="false" primaryKey="false" unique="false"/>
+            </column>
+            <column name="model_name" type="varchar(256)">
+                <constraints nullable="false" primaryKey="false" unique="false"/>
+            </column>
+            <column name="user_id" type="bigint">
+                <constraints nullable="false" primaryKey="false" unique="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
 </databaseChangeLog>

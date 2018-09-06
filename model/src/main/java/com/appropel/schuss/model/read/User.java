@@ -15,6 +15,11 @@ import java.util.Set;
 public interface User
 {
     /**
+     * Returns the identifier.
+     */
+    long getId();
+
+    /**
      * Returns the user's e-mail address.
      * @return e-mail address.
      */
