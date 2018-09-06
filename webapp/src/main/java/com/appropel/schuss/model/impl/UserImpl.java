@@ -17,6 +17,7 @@ import javax.jdo.annotations.Persistent;
 /**
  * End user of the app.
  */
+@SuppressWarnings("PMD")
 @PersistenceCapable(identityType = IdentityType.APPLICATION, table = "user", detachable = "true")
 public final class UserImpl implements User
 {

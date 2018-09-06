@@ -4,22 +4,34 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.VisibleForTesting;
 
+import com.appropel.schuss.common.util.ContextUtils;
+import com.appropel.schuss.common.util.EventBusFacade;
+import com.appropel.schuss.common.util.EventBusWrapper;
 import com.appropel.schuss.common.util.Preferences;
+import com.appropel.schuss.controller.DefaultSchussController;
+import com.appropel.schuss.controller.SchussController;
+import com.appropel.schuss.model.read.ProtocolHeaders;
 import com.appropel.schuss.service.SchussService;
+import com.appropel.schuss.view.util.DefaultContextUtils;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import net.orange_box.storebox.StoreBox;
 
+import org.greenrobot.eventbus.EventBus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
+import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.jackson.JacksonConverterFactory;
@@ -66,6 +78,18 @@ public final class SchussModule
     }
 
     /**
+     * Provides the event bus.
+     *
+     * @return event bus.
+     */
+    @Provides
+    @Singleton
+    public EventBusFacade provideEventBus()
+    {
+        return new EventBusWrapper(new EventBus());
+    }
+
+    /**
      * Provides predefined Jackson Object Mapper.
      *
      * @return Jackson Object Mapper.
@@ -92,14 +116,27 @@ public final class SchussModule
     }
 
     /**
+     * Provides Android Context utilities.
+     *
+     * @return context utilities
+     */
+    @Provides
+    @Singleton
+    public ContextUtils provideContextUtils()
+    {
+        return new DefaultContextUtils(appContext);
+    }
+
+    /**
      * Provides the remote interface to the app server.
      *
      * @param objectMapper Jackson ObjectMapper
+     * @param preferences  preferences
      * @return Retrofit REST interface.
      */
     @Provides
     @Singleton
-    public SchussService provideRetrofitService(final ObjectMapper objectMapper)
+    public SchussService provideRetrofitService(final ObjectMapper objectMapper, final Preferences preferences)
     {
         final OkHttpClient.Builder httpClientBuilder = new OkHttpClient()
                 .newBuilder()
@@ -119,6 +156,19 @@ public final class SchussModule
         final HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor(httpLogger);
         httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
         httpClientBuilder.addInterceptor(httpLoggingInterceptor);
+        httpClientBuilder.addNetworkInterceptor(new Interceptor()
+        {
+            @Override
+            public Response intercept(final Chain chain) throws IOException
+            {
+                final Request.Builder builder = chain.request().newBuilder();
+                if (preferences.getAdvertisingId() != null)
+                {
+                    builder.addHeader(ProtocolHeaders.ADVERTISING_ID.toString(), preferences.getAdvertisingId());
+                }
+                return chain.proceed(builder.build());
+            }
+        });
 
         final Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(APP_SERVER_URL)
@@ -127,5 +177,24 @@ public final class SchussModule
                 .build();
 
         return retrofit.create(SchussService.class);
+    }
+
+    /**
+     * Provides the main Controller.
+     *
+     * @param eventBus       event bus.
+     * @param contextUtils   context utils
+     * @param preferences    preferences
+     * @return controller.
+     */
+    @Provides
+    @Singleton
+    public SchussController provideController(final EventBusFacade eventBus,
+                                              final ContextUtils contextUtils,
+                                              final Preferences preferences)
+    {
+        return new DefaultSchussController(eventBus,
+                                           contextUtils,
+                                           preferences);
     }
 }

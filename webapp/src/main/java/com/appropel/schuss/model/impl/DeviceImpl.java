@@ -1,10 +1,8 @@
 package com.appropel.schuss.model.impl;
 
 import com.appropel.schuss.model.read.Device;
-import com.appropel.schuss.model.read.User;
 
 import javax.jdo.annotations.Column;
-import javax.jdo.annotations.Element;
 import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.PersistenceCapable;

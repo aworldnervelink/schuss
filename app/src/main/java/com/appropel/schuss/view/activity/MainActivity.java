@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
 import com.appropel.schuss.R;
+import com.appropel.schuss.controller.SchussController;
+import com.appropel.schuss.dagger.DaggerWrapper;
 import com.appropel.schuss.dagger.SchussModule;
 import com.appropel.schuss.databinding.RentalProviderBinding;
 import com.appropel.schuss.model.read.RentalProvider;
@@ -51,11 +53,20 @@ public final class MainActivity extends AppCompatActivity
     @Inject
     SchussService service;
 
+    /** Controller. */
+    @Inject
+    SchussController controller;
+
     @Override
     protected void onCreate(final Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
+
+        DaggerWrapper.INSTANCE.getComponent().inject(this);
+
+        // Request advertising ID.
+        controller.requestAdvertisingId();
     }
 
     @Override
