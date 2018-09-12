@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 import org.immutables.value.Value;
+import org.immutables.value.internal.$processor$.meta.$GsonMirrors;
 
 import java.util.Set;
 
@@ -27,7 +28,7 @@ public interface User
 
     /**
      * Returns the devices that the user has run the application on.
-     * @return set of devices.
+     * @return immutable set of devices.
      */
     @JsonIgnore
     Set<Device> getDevices();

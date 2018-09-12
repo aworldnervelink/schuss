@@ -1,6 +1,5 @@
 package com.appropel.schuss.dao;
 
-import com.appropel.schuss.model.impl.RentalProviderImpl;
 import com.appropel.schuss.model.read.RentalProvider;
 
 import java.util.List;
@@ -8,7 +7,7 @@ import java.util.List;
 /**
  * DAO methods for rental providers.
  */
-public interface RentalProviderDao extends Dao<RentalProviderImpl>
+public interface RentalProviderDao extends Dao<RentalProvider>
 {
     /**
      * Returns a list of rental providers.

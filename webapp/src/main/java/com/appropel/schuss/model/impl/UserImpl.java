@@ -27,12 +27,22 @@ public final class UserImpl implements User
 
     /** E-mail address. */
     @Column(name = "email", length = 256)
-    private String email;
+    private final String email;
 
     /** Devices. */
     @Persistent(defaultFetchGroup = "true")
     @Element(column = "user_id")
     private Set<DeviceImpl> devices = new HashSet<>();
+
+    /**
+     * Constructs a new {@code UserImpl}.
+     * @param email e-mail address
+     */
+    public UserImpl(final String email)
+    {
+        // TODO: validation?
+        this.email = email;
+    }
 
     @Override
     public long getId()
@@ -50,5 +60,14 @@ public final class UserImpl implements User
     public Set<Device> getDevices()
     {
         return ImmutableSet.copyOf(devices);
+    }
+
+    /**
+     * Adds a new device.
+     * @param device device
+     */
+    public void addDevice(final DeviceImpl device)
+    {
+        devices.add(device);
     }
 }

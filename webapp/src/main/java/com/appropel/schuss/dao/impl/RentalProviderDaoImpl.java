@@ -20,7 +20,7 @@ import javax.jdo.PersistenceManager;
 @Repository
 @SuppressWarnings("checkstyle:DesignForExtension")
 // Cannot be final for AOP enhancement
-public class RentalProviderDaoImpl extends DaoBase<RentalProviderImpl> implements RentalProviderDao
+public class RentalProviderDaoImpl extends DaoBase<RentalProvider> implements RentalProviderDao
 {
     @Override
     public List<RentalProvider> getRentalProviders()

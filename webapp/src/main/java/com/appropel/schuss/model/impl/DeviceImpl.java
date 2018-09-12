@@ -20,11 +20,20 @@ public final class DeviceImpl implements Device
 
     /** Google Advertising ID. */
     @Column(length = 128, name = "advertising_id")
-    private String advertisingId;
+    private final String advertisingId;
 
     /** Model name (manufacturer/model). */
     @Column(length = 256, name = "model_name")
     private String modelName;
+
+    /**
+     * Constructs a new {@code DeviceImpl}.
+     * @param advertisingId Google advertising identifier
+     */
+    public DeviceImpl(final String advertisingId)
+    {
+        this.advertisingId = advertisingId;
+    }
 
     @Override
     public long getId()
