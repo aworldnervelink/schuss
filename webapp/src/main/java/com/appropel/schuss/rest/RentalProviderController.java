@@ -23,7 +23,7 @@ import javax.servlet.ServletResponse;
 public class RentalProviderController extends BaseController
 {
     /** Path for this controller. */
-    public static final String RENTAL_PROVIDER_PATH = "rentalProvider";
+    public static final String RENTAL_PROVIDER_PATH = "/rentalProvider";
 
     /** DAO for rentals. */
     private RentalProviderDao rentalProviderDao;

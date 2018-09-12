@@ -185,16 +185,19 @@ public final class SchussModule
      * @param eventBus       event bus.
      * @param contextUtils   context utils
      * @param preferences    preferences
+     * @param service        remote service
      * @return controller.
      */
     @Provides
     @Singleton
     public SchussController provideController(final EventBusFacade eventBus,
                                               final ContextUtils contextUtils,
-                                              final Preferences preferences)
+                                              final Preferences preferences,
+                                              final SchussService service)
     {
         return new DefaultSchussController(eventBus,
                                            contextUtils,
-                                           preferences);
+                                           preferences,
+                                           service);
     }
 }

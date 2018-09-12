@@ -10,4 +10,10 @@ public interface SchussController
      * {@link com.appropel.schuss.controller.event.AdvertisingIdChangeEvent}
      */
     void requestAdvertisingId();
+
+    /**
+     * Registers a new user of the application.
+     * @param emailAddress e-mail address
+     */
+    void register(String emailAddress);
 }

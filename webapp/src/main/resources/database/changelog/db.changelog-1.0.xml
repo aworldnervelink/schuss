@@ -39,7 +39,7 @@
                 <constraints nullable="false" primaryKey="false" unique="false"/>
             </column>
             <column name="model_name" type="varchar(256)">
-                <constraints nullable="false" primaryKey="false" unique="false"/>
+                <constraints nullable="true" primaryKey="false" unique="false"/>
             </column>
             <column name="user_id" type="bigint">
                 <constraints nullable="false" primaryKey="false" unique="false"/>

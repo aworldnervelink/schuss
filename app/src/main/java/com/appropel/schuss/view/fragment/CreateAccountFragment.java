@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.appropel.schuss.R;
+import com.appropel.schuss.controller.SchussController;
 import com.appropel.schuss.dagger.DaggerWrapper;
 import com.appropel.schuss.view.validation.ValidationAlertView;
 import com.mobsandgeeks.saripaar.ValidationError;
@@ -17,8 +18,11 @@ import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.OnTextChanged;
 import butterknife.Unbinder;
 
@@ -37,6 +41,10 @@ public final class CreateAccountFragment extends ValidatableFragment implements 
     /** Register button. */
     @BindView(R.id.register_button)
     Button registerButton;
+
+    /** Controller. */
+    @Inject
+    SchussController controller;
 
     /** View unbinder. */
     private Unbinder unbinder;
@@ -72,6 +80,16 @@ public final class CreateAccountFragment extends ValidatableFragment implements 
     public void onValidationFailed(final List<ValidationError> errors)
     {
         registerButton.setEnabled(false);
+    }
+
+    /**
+     * Handler for when the user clicks the 'Register' button.
+     */
+    @OnClick(R.id.register_button)
+    public void onRegisterClicked()
+    {
+        final String emailAddress = emailAddressEditText.getText().toString();
+        controller.register(emailAddress);
     }
 
     @Override

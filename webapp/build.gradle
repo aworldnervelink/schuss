@@ -55,8 +55,11 @@ dependencies {
     compile 'org.liquibase:liquibase-core:3.4.2'
 
     // Retrofit
-    compile 'com.squareup.retrofit2:retrofit:2.1.0'
-    compile 'com.squareup.retrofit2:converter-jackson:2.1.0'
+    compile 'com.squareup.retrofit2:retrofit:2.4.0'
+    compile 'com.squareup.retrofit2:converter-jackson:2.4.0'
+
+    // Logging
+    compile group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.3'
 }
 
 //

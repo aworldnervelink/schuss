@@ -27,7 +27,7 @@ public final class UserImpl implements User
 
     /** E-mail address. */
     @Column(name = "email", length = 256)
-    private final String email;
+    private String email;
 
     /** Devices. */
     @Persistent(defaultFetchGroup = "true")

@@ -11,6 +11,7 @@ import javax.jdo.annotations.Persistent;
 /**
  * Device running the application.
  */
+@SuppressWarnings("PMD")
 @PersistenceCapable(identityType = IdentityType.APPLICATION, table = "device", detachable = "true")
 public final class DeviceImpl implements Device
 {
@@ -20,7 +21,7 @@ public final class DeviceImpl implements Device
 
     /** Google Advertising ID. */
     @Column(length = 128, name = "advertising_id")
-    private final String advertisingId;
+    private String advertisingId;
 
     /** Model name (manufacturer/model). */
     @Column(length = 256, name = "model_name")

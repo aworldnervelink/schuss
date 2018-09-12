@@ -1,6 +1,5 @@
 package com.appropel.schuss.logic.impl;
 
-import com.appropel.schuss.dao.DeviceDao;
 import com.appropel.schuss.dao.UserDao;
 import com.appropel.schuss.logic.UserLogic;
 import com.appropel.schuss.model.impl.DeviceImpl;
@@ -21,28 +20,17 @@ public class UserLogicImpl implements UserLogic
     /** User DAO. */
     private UserDao userDao;
 
-    /** Device DAO. */
-    private DeviceDao deviceDao;
-
     @Autowired
     public void setUserDao(final UserDao userDao)
     {
         this.userDao = userDao;
     }
 
-    @Autowired
-    public void setDeviceDao(final DeviceDao deviceDao)
-    {
-        this.deviceDao = deviceDao;
-    }
-
     @Override
     public void createUser(final String emailAddress, final String advertisingId)
     {
-        final DeviceImpl device = new DeviceImpl(advertisingId);
-        deviceDao.add(device);
-
         final UserImpl user = new UserImpl(emailAddress);
+        final DeviceImpl device = new DeviceImpl(advertisingId);
         user.addDevice(device);
         userDao.add(user);
     }

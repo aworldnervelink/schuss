@@ -1,0 +1,32 @@
+<!-- Default logback configuration -->
+<configuration packagingData="true" debug="true">
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{yyyy-MM-dd'T'HH:mm:ss.SSS} %-4relative [%thread] %-5level %logger{35} - %msg %n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- Keep our stuff at DEBUG level. -->
+    <logger name="com.appropel" level="DEBUG" />
+
+    <!--
+        See http://www.datanucleus.org/products/accessplatform/logging.html . Adjust these levels if you
+        need further insight into the persistence layer.
+    -->
+    <logger name="DataNucleus.Persistence" level="INFO" />
+    <logger name="DataNucleus.Transaction" level="INFO" />
+    <logger name="DataNucleus.Connection" level="INFO" />
+    <logger name="DataNucleus.Query" level="INFO" />
+    <logger name="DataNucleus.Cache" level="INFO" />
+    <logger name="DataNucleus.MetaData" level="INFO" />
+    <logger name="DataNucleus.Datastore" level="INFO" />
+    <logger name="DataNucleus.General" level="INFO" />
+    <logger name="DataNucleus.Lifecycle" level="INFO" />
+    <logger name="DataNucleus.ValueGeneration" level="INFO" />
+    <logger name="DataNucleus.JDO" level="INFO" />
+
+    <root level="INFO">
+        <appender-ref ref="STDOUT" />
+    </root>
+</configuration>
