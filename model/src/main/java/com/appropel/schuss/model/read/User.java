@@ -22,9 +22,15 @@ public interface User
 
     /**
      * Returns the user's e-mail address.
-     * @return e-mail address.
+     * @return e-mail address
      */
     String getEmail();
+
+    /**
+     * Returns the user's (encrypted) password.
+     * @return encrypted password
+     */
+    String getPassword();
 
     /**
      * Returns the devices that the user has run the application on.

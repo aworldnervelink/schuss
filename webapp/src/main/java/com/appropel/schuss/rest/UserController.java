@@ -30,6 +30,9 @@ public class UserController extends BaseController
     /** Email parameter. */
     public static final String EMAIL_PARAM = "email";
 
+    /** Password parameter. */
+    public static final String PASSWORD_PARAM = "password";
+
     /** Advertising ID parameter. */
     public static final String ADVERTISING_ID_PARAM = "advertisingId";
 
@@ -46,15 +49,17 @@ public class UserController extends BaseController
      * Creates new user.
      *
      * @param email           email
+     * @param password        encrypted password
      * @param advertisingId   advertising ID
      * @param response        servlet response
      * @throws IOException .
      */
     @RequestMapping(value = USER_PATH + CREATE_METHOD, method = RequestMethod.POST)
     public void createUser(@RequestParam(value = EMAIL_PARAM) final String email,
+                           @RequestParam(value = PASSWORD_PARAM) final String password,
                            @RequestParam(value = ADVERTISING_ID_PARAM) final String advertisingId,
                            final HttpServletResponse response) throws IOException
     {
-        userLogic.createUser(email, advertisingId);
+        userLogic.createUser(email, password, advertisingId);
     }
 }

@@ -27,9 +27,9 @@ public class UserLogicImpl implements UserLogic
     }
 
     @Override
-    public void createUser(final String emailAddress, final String advertisingId)
+    public void createUser(final String emailAddress, final String password, final String advertisingId)
     {
-        final UserImpl user = new UserImpl(emailAddress);
+        final UserImpl user = new UserImpl(emailAddress, password);
         final DeviceImpl device = new DeviceImpl(advertisingId);
         user.addDevice(device);
         userDao.add(user);

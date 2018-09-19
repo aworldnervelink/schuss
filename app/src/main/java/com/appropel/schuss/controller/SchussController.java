@@ -14,6 +14,7 @@ public interface SchussController
     /**
      * Registers a new user of the application.
      * @param emailAddress e-mail address
+     * @param password password
      */
-    void register(String emailAddress);
+    void register(String emailAddress, String password);
 }

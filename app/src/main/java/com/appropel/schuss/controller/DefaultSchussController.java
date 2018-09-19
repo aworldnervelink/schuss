@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import at.favre.lib.crypto.bcrypt.BCrypt;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -74,9 +75,11 @@ public final class DefaultSchussController implements SchussController
     }
 
     @Override
-    public void register(final String emailAddress)
+    public void register(final String emailAddress, final String password)
     {
-        service.createUser(emailAddress, preferences.getAdvertisingId())
+        service.createUser(emailAddress,
+                            BCrypt.withDefaults().hashToString(12, password.toCharArray()),
+                            preferences.getAdvertisingId())
                 .enqueue(new Callback<Void>()
                 {
                     @Override

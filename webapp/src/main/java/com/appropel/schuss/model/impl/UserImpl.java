@@ -14,6 +14,8 @@ import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 /**
  * End user of the app.
  */
@@ -29,6 +31,10 @@ public final class UserImpl implements User
     @Column(name = "email", length = 256)
     private String email;
 
+    /** Password. */
+    @Column(name = "password", length = 256)
+    private String password;
+
     /** Devices. */
     @Persistent(defaultFetchGroup = "true")
     @Element(column = "user_id")
@@ -37,11 +43,12 @@ public final class UserImpl implements User
     /**
      * Constructs a new {@code UserImpl}.
      * @param email e-mail address
+     * @param password hashed password
      */
-    public UserImpl(final String email)
+    public UserImpl(final String email, final String password)
     {
-        // TODO: validation?
-        this.email = email;
+        this.email = checkNotNull(email);
+        this.password = checkNotNull(password);
     }
 
     @Override
@@ -54,6 +61,12 @@ public final class UserImpl implements User
     public String getEmail()
     {
         return email;
+    }
+
+    @Override
+    public String getPassword()
+    {
+        return password;
     }
 
     @Override

@@ -8,6 +8,8 @@ import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 /**
  * Device running the application.
  */
@@ -33,7 +35,7 @@ public final class DeviceImpl implements Device
      */
     public DeviceImpl(final String advertisingId)
     {
-        this.advertisingId = advertisingId;
+        this.advertisingId = checkNotNull(advertisingId);
     }
 
     @Override

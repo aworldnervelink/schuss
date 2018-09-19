@@ -14,6 +14,7 @@ import com.appropel.schuss.view.validation.ValidationAlertView;
 import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
 import com.mobsandgeeks.saripaar.annotation.Email;
+import com.mobsandgeeks.saripaar.annotation.Length;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 import com.mobsandgeeks.saripaar.annotation.Password;
 
@@ -41,6 +42,7 @@ public final class CreateAccountFragment extends ValidatableFragment implements 
 
     /** Password. */
     @NotEmpty
+    @Length(max = 70)
     @Password
     @BindView(R.id.password_edit_text)
     @ValidationAlertView(R.id.password_validation)
@@ -98,7 +100,8 @@ public final class CreateAccountFragment extends ValidatableFragment implements 
     public void onRegisterClicked()
     {
         final String emailAddress = emailAddressEditText.getText().toString();
-        controller.register(emailAddress);
+        final String password = passwordEditText.getText().toString();
+        controller.register(emailAddress, password);
     }
 
     @Override
