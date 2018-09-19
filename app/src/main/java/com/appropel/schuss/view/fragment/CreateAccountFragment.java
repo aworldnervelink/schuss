@@ -15,6 +15,7 @@ import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
 import com.mobsandgeeks.saripaar.annotation.Email;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
+import com.mobsandgeeks.saripaar.annotation.Password;
 
 import java.util.List;
 
@@ -37,6 +38,13 @@ public final class CreateAccountFragment extends ValidatableFragment implements 
     @BindView(R.id.email_address_edit_text)
     @ValidationAlertView(R.id.email_validation)
     EditText emailAddressEditText;
+
+    /** Password. */
+    @NotEmpty
+    @Password
+    @BindView(R.id.password_edit_text)
+    @ValidationAlertView(R.id.password_validation)
+    EditText passwordEditText;
 
     /** Register button. */
     @BindView(R.id.register_button)
@@ -64,6 +72,7 @@ public final class CreateAccountFragment extends ValidatableFragment implements 
      */
     @OnTextChanged({
             R.id.email_address_edit_text,
+            R.id.password_edit_text
     })
     protected void validate()
     {

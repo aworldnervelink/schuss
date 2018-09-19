@@ -5,4 +5,5 @@
     <string name="email_address">E-mail Address</string>
     <string name="register">Register</string>
     <string name="please_wait">Please wait while we gather information for you.</string>
+    <string name="password">Password</string>
 </resources>
