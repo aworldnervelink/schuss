@@ -58,6 +58,9 @@ dependencies {
     compile 'com.squareup.retrofit2:retrofit:2.4.0'
     compile 'com.squareup.retrofit2:converter-jackson:2.4.0'
 
+    // BCrypt password encryption
+    implementation 'at.favre.lib:bcrypt:0.5.0'
+
     // Logging
     compile group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.3'
 }

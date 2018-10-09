@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import at.favre.lib.crypto.bcrypt.BCrypt;
+
 /**
  * Implementation of user logic.
  */
@@ -29,7 +31,8 @@ public class UserLogicImpl implements UserLogic
     @Override
     public void createUser(final String emailAddress, final String password, final String advertisingId)
     {
-        final UserImpl user = new UserImpl(emailAddress, password);
+        final String encryptedPassword = BCrypt.withDefaults().hashToString(12, password.toCharArray());
+        final UserImpl user = new UserImpl(emailAddress, encryptedPassword);
         final DeviceImpl device = new DeviceImpl(advertisingId);
         user.addDevice(device);
         userDao.add(user);
