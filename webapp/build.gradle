@@ -7,7 +7,7 @@ apply plugin: 'org.springframework.boot'    // http://docs.spring.io/spring-boot
 apply plugin: 'checkstyle'
 apply plugin: 'pmd'
 apply plugin: 'findbugs'
-apply plugin: 'pl.squirrel.classycle'
+apply plugin: 'com.anagaf.classycle'
 
 sourceCompatibility = "1.8"
 targetCompatibility = "1.8"
@@ -232,9 +232,6 @@ tasks.withType(FindBugs) {
         html.enabled !xml.isEnabled()
     }
 }
-
-classycleMain.definitionFilePath = 'config/classycle.txt'
-classycleMain.outputs.dir('$buildDir/reports/classycle')
 
 // Forwarding generated sources to a special directory and making them available
 // in the IDE
