@@ -186,6 +186,7 @@ public final class SchussModule
      * @param contextUtils   context utils
      * @param preferences    preferences
      * @param service        remote service
+     * @param objectMapper   object mapper
      * @return controller.
      */
     @Provides
@@ -193,11 +194,13 @@ public final class SchussModule
     public SchussController provideController(final EventBusFacade eventBus,
                                               final ContextUtils contextUtils,
                                               final Preferences preferences,
-                                              final SchussService service)
+                                              final SchussService service,
+                                              final ObjectMapper objectMapper)
     {
         return new DefaultSchussController(eventBus,
                                            contextUtils,
                                            preferences,
-                                           service);
+                                           service,
+                                           objectMapper);
     }
 }

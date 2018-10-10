@@ -4,16 +4,13 @@ import com.appropel.schuss.common.util.ContextUtils;
 import com.appropel.schuss.common.util.EventBusFacade;
 import com.appropel.schuss.common.util.Preferences;
 import com.appropel.schuss.service.SchussService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 /**
  * Default implementation of the Controller.
@@ -35,6 +32,9 @@ public final class DefaultSchussController implements SchussController
     /** Remote service. */
     final SchussService service;
 
+    /** Object mapper. */
+    final ObjectMapper objectMapper;
+
     /** Executor service for background tasks. */
     private final ExecutorService executorService =
             Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
@@ -46,16 +46,19 @@ public final class DefaultSchussController implements SchussController
      * @param contextUtils   context utilities
      * @param preferences    preferences
      * @param service        remote service
+     * @param objectMapper   object mapper
      */
     public DefaultSchussController(final EventBusFacade eventBus,
                                    final ContextUtils contextUtils,
                                    final Preferences preferences,
-                                   final SchussService service)
+                                   final SchussService service,
+                                   final ObjectMapper objectMapper)
     {
         this.eventBus = eventBus;
         this.contextUtils = contextUtils;
         this.preferences = preferences;
         this.service = service;
+        this.objectMapper = objectMapper;
     }
 
     @Override
@@ -79,16 +82,10 @@ public final class DefaultSchussController implements SchussController
         service.createUser(emailAddress,
                             password,
                             preferences.getAdvertisingId())
-                .enqueue(new Callback<Void>()
+                .enqueue(new SchussServiceCallback<Void>(eventBus, objectMapper)
                 {
                     @Override
-                    public void onResponse(final Call<Void> call, final Response<Void> response)
-                    {
-                        // TODO
-                    }
-
-                    @Override
-                    public void onFailure(final Call<Void> call, final Throwable th)
+                    void onRequestSuccess(final Void responseBody)
                     {
                         // TODO
                     }
