@@ -1,6 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.noveogroup.android.check'
-apply plugin: 'com.anagaf.classycle'
+//apply plugin: 'com.anagaf.classycle'
 
 android {
     compileSdkVersion 27
@@ -108,5 +108,3 @@ check {
         config project.file('../config/findbugs-filter.xml')
     }
 }
-
-//classycle.definitionFilePath = "config/classycle.txt"

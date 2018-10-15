@@ -12,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.nio.charset.Charset;
+
 import at.favre.lib.crypto.bcrypt.BCrypt;
 
 /**
@@ -22,6 +24,9 @@ import at.favre.lib.crypto.bcrypt.BCrypt;
 @SuppressWarnings({"checkstyle:DesignForExtension", "PMD.GodClass"})  // Cannot be final for AOP enhancement
 public class UserLogicImpl implements UserLogic
 {
+    /** UTF-8 character set. */
+    private static final Charset UTF8 = Charset.forName("UTF-8");
+
     /** Logger. */
     private static final Logger LOGGER = LoggerFactory.getLogger(UserLogicImpl.class);
 
@@ -63,7 +68,8 @@ public class UserLogicImpl implements UserLogic
         {
             if (existingUser != null)
             {
-                if (BCrypt.verifyer().verify(password.getBytes(), existingUser.getPassword().getBytes()).verified)
+                if (BCrypt.verifyer().verify(
+                        password.getBytes(UTF8), existingUser.getPassword().getBytes(UTF8)).verified)
                 {
                     LOGGER.info("Logged in user {}", emailAddress);
                 }

@@ -54,6 +54,7 @@ public class UserController extends BaseController
      * @param email           email
      * @param password        encrypted password
      * @param advertisingId   advertising ID
+     * @param newAccount      new account flag
      * @param response        servlet response
      * @throws IOException .
      */
