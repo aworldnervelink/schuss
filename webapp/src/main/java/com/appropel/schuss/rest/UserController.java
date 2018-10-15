@@ -36,6 +36,9 @@ public class UserController extends BaseController
     /** Advertising ID parameter. */
     public static final String ADVERTISING_ID_PARAM = "advertisingId";
 
+    /** Create new account parameter. */
+    public static final String NEW_ACCOUNT_PARAM = "newAccount";
+
     /** User business logic. */
     private UserLogic userLogic;
 
@@ -58,8 +61,9 @@ public class UserController extends BaseController
     public void signIn(@RequestParam(value = EMAIL_PARAM) final String email,
                        @RequestParam(value = PASSWORD_PARAM) final String password,
                        @RequestParam(value = ADVERTISING_ID_PARAM) final String advertisingId,
+                       @RequestParam(value = NEW_ACCOUNT_PARAM) final boolean newAccount,
                        final HttpServletResponse response) throws IOException
     {
-        userLogic.signIn(email, password, advertisingId);
+        userLogic.signIn(email, password, advertisingId, newAccount);
     }
 }

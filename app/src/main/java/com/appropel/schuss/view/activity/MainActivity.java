@@ -12,7 +12,7 @@ import com.appropel.schuss.model.read.RentalProvider;
 import com.appropel.schuss.service.SchussService;
 import com.appropel.schuss.view.event.ChangeFragmentEvent;
 import com.appropel.schuss.view.event.ImmutableChangeFragmentEvent;
-import com.appropel.schuss.view.fragment.CreateAccountFragment;
+import com.appropel.schuss.view.fragment.LoginFragment;
 import com.appropel.schuss.view.util.FragmentHolder;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.MultiTransformation;
@@ -76,7 +76,7 @@ public final class MainActivity extends AppCompatActivity
         ButterKnife.bind(this);
 
         onChangeFragmentEvent(
-                ImmutableChangeFragmentEvent.builder().fragmentClass(CreateAccountFragment.class).build());
+                ImmutableChangeFragmentEvent.builder().fragmentClass(LoginFragment.class).build());
 
         /*
         final GroupAdapter adapter = new GroupAdapter();

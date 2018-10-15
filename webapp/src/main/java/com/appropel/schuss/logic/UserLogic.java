@@ -11,6 +11,7 @@ public interface UserLogic
      * @param emailAddress e-mail address
      * @param password encrypted password
      * @param advertisingId Google advertising identifier
+     * @param newAccount true if a new account should be created
      */
-    void signIn(final String emailAddress, final String password, final String advertisingId);
+    void signIn(final String emailAddress, final String password, final String advertisingId, final boolean newAccount);
 }

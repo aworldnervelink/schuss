@@ -1,11 +1,13 @@
 <resources>
     <string name="app_name">Schuss</string>
     <string name="where_to_rent">Choose a location to rent from</string>
-    <string name="welcome_msg">Welcome to Schuss! Please enter your information below. If you are a new user an account will be created for you.</string>
+    <string name="welcome_msg">Welcome to Schuss! Please enter your information below.</string>
     <string name="email_address">E-mail Address</string>
     <string name="register">Sign In</string>
     <string name="please_wait">Please wait while we gather information for you.</string>
     <string name="password">Password</string>
     <string name="log_in">Log in to existing account</string>
     <string name="register_new">Register a new account</string>
+    <string name="create_new">Create new account</string>
+    <string name="sign_in">Sign in to existing account</string>
 </resources>

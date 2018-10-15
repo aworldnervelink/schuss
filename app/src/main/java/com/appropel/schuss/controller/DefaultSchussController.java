@@ -77,11 +77,12 @@ public final class DefaultSchussController implements SchussController
     }
 
     @Override
-    public void signIn(final String emailAddress, final String password)
+    public void signIn(final String emailAddress, final String password, final boolean newAccount)
     {
         service.signIn(emailAddress,
-                            password,
-                            preferences.getAdvertisingId())
+                       password,
+                       preferences.getAdvertisingId(),
+                       newAccount)
                 .enqueue(new SchussServiceCallback<Void>(eventBus, objectMapper)
                 {
                     @Override

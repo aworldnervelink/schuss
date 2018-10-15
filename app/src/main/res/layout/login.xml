@@ -93,4 +93,28 @@
         app:layout_constraintBaseline_toBaselineOf="@+id/password_edit_text"
         app:layout_constraintStart_toStartOf="parent"/>
 
+    <RadioGroup
+        android:layout_width="wrap_content"
+        android:layout_height="63dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/password_edit_text">
+
+        <RadioButton
+            android:id="@+id/create_new_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:checked="true"
+            android:text="@string/create_new"/>
+
+        <RadioButton
+            android:id="@+id/sign_in_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/sign_in"/>
+    </RadioGroup>
+
 </android.support.constraint.ConstraintLayout>

@@ -29,10 +29,12 @@ public interface SchussService
      * @param email           e-mail address
      * @param password        hashed password
      * @param advertisingId   advertising ID (unique, user-resettable ID, provided by Google Play services)
+     * @param newAccount      flag indicating a new account
      * @return request call
      */
     @POST(UserController.USER_PATH + UserController.SIGN_IN_METHOD)
     Call<Void> signIn(@Query(UserController.EMAIL_PARAM) String email,
                       @Query(UserController.PASSWORD_PARAM) String password,
-                      @Query(UserController.ADVERTISING_ID_PARAM) String advertisingId);
+                      @Query(UserController.ADVERTISING_ID_PARAM) String advertisingId,
+                      @Query(UserController.NEW_ACCOUNT_PARAM) boolean newAccount);
 }

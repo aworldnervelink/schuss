@@ -15,6 +15,7 @@ public interface SchussController
      * Registers a new user of the application or logs in an existing user.
      * @param emailAddress e-mail address
      * @param password password
+     * @param newAccount new account flag
      */
-    void signIn(String emailAddress, String password);
+    void signIn(String emailAddress, String password, final boolean newAccount);
 }

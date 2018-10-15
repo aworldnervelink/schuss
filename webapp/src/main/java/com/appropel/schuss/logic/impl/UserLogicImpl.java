@@ -35,29 +35,48 @@ public class UserLogicImpl implements UserLogic
     }
 
     @Override
-    public void signIn(final String emailAddress, final String password, final String advertisingId)
+    public void signIn(final String emailAddress,
+                       final String password,
+                       final String advertisingId,
+                       final boolean newAccount)
     {
-
-        // See if user exists
         final User existingUser = userDao.findUser(emailAddress);
-        if (existingUser != null)
+        if (newAccount)
         {
-            if (BCrypt.verifyer().verify(password.getBytes(), existingUser.getPassword().getBytes()).verified)
+            if (existingUser == null)
             {
-                LOGGER.info("Logged in user {}", emailAddress);
+                // Create a new user
+                final String encryptedPassword = BCrypt.withDefaults().hashToString(12, password.toCharArray());
+                final UserImpl user = new UserImpl(emailAddress, encryptedPassword);
+                final DeviceImpl device = new DeviceImpl(advertisingId);
+                user.addDevice(device);
+                userDao.add(user);
+                LOGGER.info("Created new user {}.", emailAddress);
             }
             else
             {
-                LOGGER.error("Wrong password for {}", emailAddress);
+                LOGGER.info("User {} already exists, unable to create", emailAddress);
+                // TODO: asked to create but user exists. Return an error.
             }
-            return;
         }
-
-        // Create a new user
-        final String encryptedPassword = BCrypt.withDefaults().hashToString(12, password.toCharArray());
-        final UserImpl user = new UserImpl(emailAddress, encryptedPassword);
-        final DeviceImpl device = new DeviceImpl(advertisingId);
-        user.addDevice(device);
-        userDao.add(user);
+        else
+        {
+            if (existingUser != null)
+            {
+                if (BCrypt.verifyer().verify(password.getBytes(), existingUser.getPassword().getBytes()).verified)
+                {
+                    LOGGER.info("Logged in user {}", emailAddress);
+                }
+                else
+                {
+                    LOGGER.info("Wrong password for {}", emailAddress);
+                }
+            }
+            else
+            {
+                LOGGER.info("User {} does not exist, cannot login", emailAddress);
+                // TODO: logged in but user does not exist.
+            }
+        }
     }
 }

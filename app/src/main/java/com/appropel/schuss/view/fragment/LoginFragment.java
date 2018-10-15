@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
 
 import com.appropel.schuss.R;
 import com.appropel.schuss.controller.SchussController;
@@ -31,7 +32,7 @@ import butterknife.Unbinder;
 /**
  * Fragment which allows the user to create a new account.
  */
-public final class CreateAccountFragment extends ValidatableFragment implements Validator.ValidationListener
+public final class LoginFragment extends ValidatableFragment implements Validator.ValidationListener
 {
     /** E-mail address. */
     @NotEmpty
@@ -51,6 +52,10 @@ public final class CreateAccountFragment extends ValidatableFragment implements 
     /** Register button. */
     @BindView(R.id.register_button)
     Button registerButton;
+
+    /** 'Create new' radio button. */
+    @BindView(R.id.create_new_button)
+    RadioButton createNewButton;
 
     /** Controller. */
     @Inject
@@ -101,7 +106,8 @@ public final class CreateAccountFragment extends ValidatableFragment implements 
     {
         final String emailAddress = emailAddressEditText.getText().toString();
         final String password = passwordEditText.getText().toString();
-        controller.signIn(emailAddress, password);
+        final boolean newAccount = createNewButton.isChecked();
+        controller.signIn(emailAddress, password, newAccount);
     }
 
     @Override
