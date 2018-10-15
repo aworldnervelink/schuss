@@ -1,6 +1,7 @@
 package com.appropel.schuss.rest;
 
 import com.appropel.schuss.logic.UserLogic;
+import com.appropel.schuss.logic.ServiceException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -65,6 +66,14 @@ public class UserController extends BaseController
                        @RequestParam(value = NEW_ACCOUNT_PARAM) final boolean newAccount,
                        final HttpServletResponse response) throws IOException
     {
-        userLogic.signIn(email, password, advertisingId, newAccount);
+        try
+        {
+            userLogic.signIn(email, password, advertisingId, newAccount);
+        }
+        catch (ServiceException e)
+        {
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            writeAsJson(response.getOutputStream(), e.getServiceError());
+        }
     }
 }

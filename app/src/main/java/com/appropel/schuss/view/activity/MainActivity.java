@@ -2,9 +2,12 @@ package com.appropel.schuss.view.activity;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.Toast;
 
 import com.appropel.schuss.R;
+import com.appropel.schuss.common.util.EventBusFacade;
 import com.appropel.schuss.controller.SchussController;
+import com.appropel.schuss.controller.event.AppServerRequestFailure;
 import com.appropel.schuss.dagger.DaggerWrapper;
 import com.appropel.schuss.dagger.SchussModule;
 import com.appropel.schuss.databinding.RentalProviderBinding;
@@ -49,6 +52,10 @@ public final class MainActivity extends AppCompatActivity
 //    @BindView(R.id.provider_view)
 //    RecyclerView providerView;
 
+    /** Event bus. */
+    @Inject
+    EventBusFacade eventBus;
+
     /** Remote service. */
     @Inject
     SchussService service;
@@ -74,6 +81,7 @@ public final class MainActivity extends AppCompatActivity
     {
         super.onStart();
         ButterKnife.bind(this);
+        eventBus.register(this);
 
         onChangeFragmentEvent(
                 ImmutableChangeFragmentEvent.builder().fragmentClass(LoginFragment.class).build());
@@ -122,6 +130,22 @@ public final class MainActivity extends AppCompatActivity
         fragmentHolder.changeFragment(event.getFragmentClass(), null, true);
     }
 
+    /**
+     * Event handler that fires when an error occurs.
+     * @param event event
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onAppServerRequestFailure(final AppServerRequestFailure event)
+    {
+        Toast.makeText(this, "Error: " + event.getError().toString(), Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    protected void onStop()
+    {
+        eventBus.unregister(this);
+        super.onStop();
+    }
 
     /**
      * Individual rental provider item. TODO: refactor me out

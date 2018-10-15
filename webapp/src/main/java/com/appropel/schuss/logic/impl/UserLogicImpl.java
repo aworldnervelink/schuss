@@ -5,6 +5,8 @@ import com.appropel.schuss.logic.UserLogic;
 import com.appropel.schuss.model.impl.DeviceImpl;
 import com.appropel.schuss.model.impl.UserImpl;
 import com.appropel.schuss.model.read.User;
+import com.appropel.schuss.logic.ServiceError;
+import com.appropel.schuss.logic.ServiceException;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -61,7 +63,7 @@ public class UserLogicImpl implements UserLogic
             else
             {
                 LOGGER.info("User {} already exists, unable to create", emailAddress);
-                // TODO: asked to create but user exists. Return an error.
+                throw new ServiceException(ServiceError.USERNAME_IS_NOT_AVAILABLE);
             }
         }
         else
@@ -76,12 +78,13 @@ public class UserLogicImpl implements UserLogic
                 else
                 {
                     LOGGER.info("Wrong password for {}", emailAddress);
+                    throw new ServiceException(ServiceError.AUTHENTICATION_FAILED);
                 }
             }
             else
             {
                 LOGGER.info("User {} does not exist, cannot login", emailAddress);
-                // TODO: logged in but user does not exist.
+                throw new ServiceException(ServiceError.AUTHENTICATION_FAILED);
             }
         }
     }
