@@ -77,9 +77,9 @@ public final class DefaultSchussController implements SchussController
     }
 
     @Override
-    public void register(final String emailAddress, final String password)
+    public void signIn(final String emailAddress, final String password)
     {
-        service.createUser(emailAddress,
+        service.signIn(emailAddress,
                             password,
                             preferences.getAdvertisingId())
                 .enqueue(new SchussServiceCallback<Void>(eventBus, objectMapper)

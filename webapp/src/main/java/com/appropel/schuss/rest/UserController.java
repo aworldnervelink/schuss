@@ -24,8 +24,8 @@ public class UserController extends BaseController
     /** Path for this controller. */
     public static final String USER_PATH = "/user";
 
-    /** Create user method. */
-    public static final String CREATE_METHOD = "/create";
+    /** Sign in method. */
+    public static final String SIGN_IN_METHOD = "/signIn";
 
     /** Email parameter. */
     public static final String EMAIL_PARAM = "email";
@@ -46,7 +46,7 @@ public class UserController extends BaseController
     }
 
     /**
-     * Creates new user.
+     * Creates new user or logs in an existing one.
      *
      * @param email           email
      * @param password        encrypted password
@@ -54,12 +54,12 @@ public class UserController extends BaseController
      * @param response        servlet response
      * @throws IOException .
      */
-    @RequestMapping(value = USER_PATH + CREATE_METHOD, method = RequestMethod.POST)
-    public void createUser(@RequestParam(value = EMAIL_PARAM) final String email,
-                           @RequestParam(value = PASSWORD_PARAM) final String password,
-                           @RequestParam(value = ADVERTISING_ID_PARAM) final String advertisingId,
-                           final HttpServletResponse response) throws IOException
+    @RequestMapping(value = USER_PATH + SIGN_IN_METHOD, method = RequestMethod.POST)
+    public void signIn(@RequestParam(value = EMAIL_PARAM) final String email,
+                       @RequestParam(value = PASSWORD_PARAM) final String password,
+                       @RequestParam(value = ADVERTISING_ID_PARAM) final String advertisingId,
+                       final HttpServletResponse response) throws IOException
     {
-        userLogic.createUser(email, password, advertisingId);
+        userLogic.signIn(email, password, advertisingId);
     }
 }

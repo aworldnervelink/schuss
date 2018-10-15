@@ -236,3 +236,34 @@ tasks.withType(FindBugs) {
 classycleMain.definitionFilePath = 'config/classycle.txt'
 classycleMain.outputs.dir('$buildDir/reports/classycle')
 
+// Forwarding generated sources to a special directory and making them available
+// in the IDE
+//
+// This workaround is necessary since JDO annotation processor puts its generated
+// source to build/classes directory.
+
+def generatedSourcesPath = "${projectDir}/generated-src"
+def generatedSourcesDir = file("$generatedSourcesPath")
+
+compileJava {
+    doFirst {
+        delete fileTree(dir: generatedSourcesDir)
+        generatedSourcesDir.mkdirs()
+        options.compilerArgs = [
+                '-s', "${generatedSourcesPath}"
+        ]
+    }
+}
+
+sourceSets {
+    main {
+        java {
+            srcDirs += generatedSourcesDir
+        }
+    }
+}
+
+task cleanGeneratedSources(type: Delete) {
+    delete generatedSourcesPath
+}
+clean.dependsOn cleanGeneratedSources

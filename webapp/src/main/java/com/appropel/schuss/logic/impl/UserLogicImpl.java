@@ -4,7 +4,10 @@ import com.appropel.schuss.dao.UserDao;
 import com.appropel.schuss.logic.UserLogic;
 import com.appropel.schuss.model.impl.DeviceImpl;
 import com.appropel.schuss.model.impl.UserImpl;
+import com.appropel.schuss.model.read.User;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,6 +22,9 @@ import at.favre.lib.crypto.bcrypt.BCrypt;
 @SuppressWarnings({"checkstyle:DesignForExtension", "PMD.GodClass"})  // Cannot be final for AOP enhancement
 public class UserLogicImpl implements UserLogic
 {
+    /** Logger. */
+    private static final Logger LOGGER = LoggerFactory.getLogger(UserLogicImpl.class);
+
     /** User DAO. */
     private UserDao userDao;
 
@@ -29,8 +35,25 @@ public class UserLogicImpl implements UserLogic
     }
 
     @Override
-    public void createUser(final String emailAddress, final String password, final String advertisingId)
+    public void signIn(final String emailAddress, final String password, final String advertisingId)
     {
+
+        // See if user exists
+        final User existingUser = userDao.findUser(emailAddress);
+        if (existingUser != null)
+        {
+            if (BCrypt.verifyer().verify(password.getBytes(), existingUser.getPassword().getBytes()).verified)
+            {
+                LOGGER.info("Logged in user {}", emailAddress);
+            }
+            else
+            {
+                LOGGER.error("Wrong password for {}", emailAddress);
+            }
+            return;
+        }
+
+        // Create a new user
         final String encryptedPassword = BCrypt.withDefaults().hashToString(12, password.toCharArray());
         final UserImpl user = new UserImpl(emailAddress, encryptedPassword);
         final DeviceImpl device = new DeviceImpl(advertisingId);

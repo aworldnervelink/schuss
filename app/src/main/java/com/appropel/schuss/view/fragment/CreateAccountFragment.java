@@ -101,7 +101,7 @@ public final class CreateAccountFragment extends ValidatableFragment implements 
     {
         final String emailAddress = emailAddressEditText.getText().toString();
         final String password = passwordEditText.getText().toString();
-        controller.register(emailAddress, password);
+        controller.signIn(emailAddress, password);
     }
 
     @Override

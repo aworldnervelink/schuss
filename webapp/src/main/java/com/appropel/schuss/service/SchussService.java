@@ -24,15 +24,15 @@ public interface SchussService
     Call<List<RentalProvider>> getRentalProviders();
 
     /**
-     * Creates new user.
+     * Creates new user or logs in existing user.
      *
      * @param email           e-mail address
      * @param password        hashed password
      * @param advertisingId   advertising ID (unique, user-resettable ID, provided by Google Play services)
      * @return request call
      */
-    @POST(UserController.USER_PATH + UserController.CREATE_METHOD)
-    Call<Void> createUser(@Query(UserController.EMAIL_PARAM) String email,
-                          @Query(UserController.PASSWORD_PARAM) String password,
-                          @Query(UserController.ADVERTISING_ID_PARAM) String advertisingId);
+    @POST(UserController.USER_PATH + UserController.SIGN_IN_METHOD)
+    Call<Void> signIn(@Query(UserController.EMAIL_PARAM) String email,
+                      @Query(UserController.PASSWORD_PARAM) String password,
+                      @Query(UserController.ADVERTISING_ID_PARAM) String advertisingId);
 }
