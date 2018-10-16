@@ -88,8 +88,8 @@ public final class DefaultSchussController implements SchussController
                     @Override
                     void onRequestSuccess(final String response)
                     {
-                        LOGGER.info("Server sent back token {}", response);
                         preferences.setUserToken(response);
+                        preferences.setEmailAddress(emailAddress);
                         // TODO: move to another UI screen
                     }
                 });

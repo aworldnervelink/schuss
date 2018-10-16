@@ -7,8 +7,10 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.TextView;
 
 import com.appropel.schuss.R;
+import com.appropel.schuss.common.util.Preferences;
 import com.appropel.schuss.controller.SchussController;
 import com.appropel.schuss.dagger.DaggerWrapper;
 import com.appropel.schuss.view.validation.ValidationAlertView;
@@ -57,9 +59,17 @@ public final class LoginFragment extends ValidatableFragment implements Validato
     @BindView(R.id.create_new_button)
     RadioButton createNewButton;
 
+    /** 'Create new' radio button. */
+    @BindView(R.id.sign_in_button)
+    RadioButton signInButton;
+
     /** Controller. */
     @Inject
     SchussController controller;
+
+    /** Preferences. */
+    @Inject
+    Preferences preferences;
 
     /** View unbinder. */
     private Unbinder unbinder;
@@ -72,6 +82,19 @@ public final class LoginFragment extends ValidatableFragment implements Validato
         DaggerWrapper.INSTANCE.getComponent().inject(this);
 
         return view;
+    }
+
+    @Override
+    public void onStart()
+    {
+        super.onStart();
+
+        if (preferences.getEmailAddress() != null)
+        {
+            emailAddressEditText.setText(preferences.getEmailAddress(), TextView.BufferType.EDITABLE);
+            signInButton.setChecked(true);
+            passwordEditText.requestFocusFromTouch();
+        }
     }
 
     /**
