@@ -68,7 +68,7 @@ public class UserController extends BaseController
     {
         try
         {
-            userLogic.signIn(email, password, advertisingId, newAccount);
+            writeAsJson(response.getOutputStream(), userLogic.signIn(email, password, advertisingId, newAccount));
         }
         catch (ServiceException e)
         {

@@ -83,11 +83,12 @@ public final class DefaultSchussController implements SchussController
                        password,
                        preferences.getAdvertisingId(),
                        newAccount)
-                .enqueue(new SchussServiceCallback<Void>(eventBus, objectMapper)
+                .enqueue(new SchussServiceCallback<String>(eventBus, objectMapper)
                 {
                     @Override
-                    void onRequestSuccess(final Void responseBody)
+                    void onRequestSuccess(final String response)
                     {
+                        LOGGER.info("Server sent back token {}", response);
                         // TODO
                     }
                 });

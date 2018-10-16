@@ -5,8 +5,14 @@ package com.appropel.schuss.model.read;
  */
 public enum ProtocolHeaders
 {
+    /** JWT security token. */
+    TOKEN("token"),
+
     /** User advertising ID. */
-    ADVERTISING_ID("Advertising-Id");
+    ADVERTISING_ID("Advertising-Id"),
+
+    /** User's e-mail address. */
+    EMAIL_ADDRESS("Email-Address");
 
     /** HTTP Header name. */
     private String name;

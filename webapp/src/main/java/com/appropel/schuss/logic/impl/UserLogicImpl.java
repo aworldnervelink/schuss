@@ -7,6 +7,7 @@ import com.appropel.schuss.model.impl.UserImpl;
 import com.appropel.schuss.model.read.User;
 import com.appropel.schuss.logic.ServiceError;
 import com.appropel.schuss.logic.ServiceException;
+import com.appropel.schuss.security.JwtTokenService;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,14 +36,23 @@ public class UserLogicImpl implements UserLogic
     /** User DAO. */
     private UserDao userDao;
 
+    /** JWT token service. */
+    private JwtTokenService tokenService;
+
     @Autowired
     public void setUserDao(final UserDao userDao)
     {
         this.userDao = userDao;
     }
 
+    @Autowired
+    public void setTokenService(final JwtTokenService tokenService)
+    {
+        this.tokenService = tokenService;
+    }
+
     @Override
-    public void signIn(final String emailAddress,
+    public String signIn(final String emailAddress,
                        final String password,
                        final String advertisingId,
                        final boolean newAccount)
@@ -59,6 +69,7 @@ public class UserLogicImpl implements UserLogic
                 user.addDevice(device);
                 userDao.add(user);
                 LOGGER.info("Created new user {}.", emailAddress);
+                return tokenService.getToken(user.getEmail(), advertisingId);
             }
             else
             {
@@ -74,6 +85,8 @@ public class UserLogicImpl implements UserLogic
                         password.getBytes(UTF8), existingUser.getPassword().getBytes(UTF8)).verified)
                 {
                     LOGGER.info("Logged in user {}", emailAddress);
+                    return tokenService.getToken(existingUser.getEmail(), advertisingId);
+
                 }
                 else
                 {

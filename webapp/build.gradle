@@ -61,6 +61,9 @@ dependencies {
     // BCrypt password encryption
     implementation 'at.favre.lib:bcrypt:0.5.0'
 
+    // JSON Web Tokens
+    compile 'io.jsonwebtoken:jjwt:0.7.0'
+
     // Logging
     compile group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.3'
 }

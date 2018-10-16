@@ -55,9 +55,9 @@ abstract class SchussServiceCallback<T> implements Callback<T>
     /**
      * Method to be called in case of request success.
      *
-     * @param responseBody response body
+     * @param response response body
      */
-    abstract void onRequestSuccess(T responseBody);
+    abstract void onRequestSuccess(T response);
 
     @Override
     public void onResponse(final Call<T> call, final Response<T> response)

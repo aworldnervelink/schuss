@@ -12,6 +12,10 @@ public interface UserLogic
      * @param password encrypted password
      * @param advertisingId Google advertising identifier
      * @param newAccount true if a new account should be created
+     * @return JWT token
      */
-    void signIn(final String emailAddress, final String password, final String advertisingId, final boolean newAccount);
+    String signIn(final String emailAddress,
+                  final String password,
+                  final String advertisingId,
+                  final boolean newAccount);
 }
