@@ -162,9 +162,10 @@ public final class SchussModule
             public Response intercept(final Chain chain) throws IOException
             {
                 final Request.Builder builder = chain.request().newBuilder();
-                if (preferences.getAdvertisingId() != null)
+                if (preferences.getUserToken() != null)
                 {
-                    builder.addHeader(ProtocolHeaders.ADVERTISING_ID.toString(), preferences.getAdvertisingId());
+                    builder.addHeader(ProtocolHeaders.TOKEN.toString(), preferences.getUserToken());
+
                 }
                 return chain.proceed(builder.build());
             }

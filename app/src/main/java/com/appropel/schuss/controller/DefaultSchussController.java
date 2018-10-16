@@ -89,7 +89,8 @@ public final class DefaultSchussController implements SchussController
                     void onRequestSuccess(final String response)
                     {
                         LOGGER.info("Server sent back token {}", response);
-                        // TODO
+                        preferences.setUserToken(response);
+                        // TODO: move to another UI screen
                     }
                 });
     }

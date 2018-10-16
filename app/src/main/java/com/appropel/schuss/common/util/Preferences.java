@@ -10,6 +10,7 @@ public interface Preferences
     // CSOFF: JavadocVariable
     String KEY_EMAIL_ADDRESS = "emailAddress";
     String KEY_ADVERTISING_ID = "advertisingId";
+    String KEY_USER_TOKEN = "key_userToken";
 
     /**
      * Returns the user's e-mail address.
@@ -40,4 +41,20 @@ public interface Preferences
      */
     @KeyByString(KEY_ADVERTISING_ID)
     void setAdvertisingId(String advertisingId);
+
+    /**
+     * Returns the JWT token of the currently logged-in user.
+     *
+     * @return token
+     */
+    @KeyByString(KEY_USER_TOKEN)
+    String getUserToken();
+
+    /**
+     * Sets the JWT token of the currently logged-in user.
+     *
+     * @param userToken user JWT token
+     */
+    @KeyByString(KEY_USER_TOKEN)
+    void setUserToken(String userToken);
 }

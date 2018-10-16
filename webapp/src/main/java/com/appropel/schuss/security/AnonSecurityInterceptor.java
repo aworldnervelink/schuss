@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Vx security interceptor for anonymous users. Check is user token is valid.
+ * Security interceptor that checks if user token is valid.
  */
 @Component
 public final class AnonSecurityInterceptor extends HandlerInterceptorAdapter
