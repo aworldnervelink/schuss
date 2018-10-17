@@ -4,6 +4,8 @@ import com.appropel.schuss.common.util.ContextUtils;
 import com.appropel.schuss.common.util.EventBusFacade;
 import com.appropel.schuss.common.util.Preferences;
 import com.appropel.schuss.service.SchussService;
+import com.appropel.schuss.view.event.ChangeFragmentEvent;
+import com.appropel.schuss.view.fragment.HomeFragment;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.slf4j.Logger;
@@ -90,7 +92,7 @@ public final class DefaultSchussController implements SchussController
                     {
                         preferences.setUserToken(response);
                         preferences.setEmailAddress(emailAddress);
-                        // TODO: move to another UI screen
+                        eventBus.post(ChangeFragmentEvent.of(HomeFragment.class));
                     }
                 });
     }
