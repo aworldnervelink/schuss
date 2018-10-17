@@ -3,9 +3,8 @@ package com.appropel.schuss.controller;
 import com.appropel.schuss.common.util.ContextUtils;
 import com.appropel.schuss.common.util.EventBusFacade;
 import com.appropel.schuss.common.util.Preferences;
+import com.appropel.schuss.common.util.UserInterface;
 import com.appropel.schuss.service.SchussService;
-import com.appropel.schuss.view.event.ChangeFragmentEvent;
-import com.appropel.schuss.view.fragment.HomeFragment;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.slf4j.Logger;
@@ -37,6 +36,9 @@ public final class DefaultSchussController implements SchussController
     /** Object mapper. */
     final ObjectMapper objectMapper;
 
+    /** User interface. */
+    final UserInterface userInterface;
+
     /** Executor service for background tasks. */
     private final ExecutorService executorService =
             Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
@@ -49,18 +51,21 @@ public final class DefaultSchussController implements SchussController
      * @param preferences    preferences
      * @param service        remote service
      * @param objectMapper   object mapper
+     * @param userInterface  user interface
      */
     public DefaultSchussController(final EventBusFacade eventBus,
                                    final ContextUtils contextUtils,
                                    final Preferences preferences,
                                    final SchussService service,
-                                   final ObjectMapper objectMapper)
+                                   final ObjectMapper objectMapper,
+                                   final UserInterface userInterface)
     {
         this.eventBus = eventBus;
         this.contextUtils = contextUtils;
         this.preferences = preferences;
         this.service = service;
         this.objectMapper = objectMapper;
+        this.userInterface = userInterface;
     }
 
     @Override
@@ -92,7 +97,7 @@ public final class DefaultSchussController implements SchussController
                     {
                         preferences.setUserToken(response);
                         preferences.setEmailAddress(emailAddress);
-                        eventBus.post(ChangeFragmentEvent.of(HomeFragment.class));
+                        userInterface.showHomeScreen();
                     }
                 });
     }

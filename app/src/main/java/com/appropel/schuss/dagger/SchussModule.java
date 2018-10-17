@@ -8,10 +8,12 @@ import com.appropel.schuss.common.util.ContextUtils;
 import com.appropel.schuss.common.util.EventBusFacade;
 import com.appropel.schuss.common.util.EventBusWrapper;
 import com.appropel.schuss.common.util.Preferences;
+import com.appropel.schuss.common.util.UserInterface;
 import com.appropel.schuss.controller.DefaultSchussController;
 import com.appropel.schuss.controller.SchussController;
 import com.appropel.schuss.model.read.ProtocolHeaders;
 import com.appropel.schuss.service.SchussService;
+import com.appropel.schuss.view.fragment.DefaultUserInterface;
 import com.appropel.schuss.view.util.DefaultContextUtils;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -181,6 +183,19 @@ public final class SchussModule
     }
 
     /**
+     * Provides the user interface/screen switcher.
+     *
+     * @param eventBus event bus.
+     * @return event bus.
+     */
+    @Provides
+    @Singleton
+    public UserInterface provideUserInterface(final EventBusFacade eventBus)
+    {
+        return new DefaultUserInterface(eventBus);
+    }
+
+    /**
      * Provides the main Controller.
      *
      * @param eventBus       event bus.
@@ -188,6 +203,7 @@ public final class SchussModule
      * @param preferences    preferences
      * @param service        remote service
      * @param objectMapper   object mapper
+     * @param userInterface  user interface
      * @return controller.
      */
     @Provides
@@ -196,12 +212,14 @@ public final class SchussModule
                                               final ContextUtils contextUtils,
                                               final Preferences preferences,
                                               final SchussService service,
-                                              final ObjectMapper objectMapper)
+                                              final ObjectMapper objectMapper,
+                                              final UserInterface userInterface)
     {
         return new DefaultSchussController(eventBus,
                                            contextUtils,
                                            preferences,
                                            service,
-                                           objectMapper);
+                                           objectMapper,
+                                           userInterface);
     }
 }

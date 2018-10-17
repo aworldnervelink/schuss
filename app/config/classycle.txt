@@ -9,22 +9,22 @@ show allResults
 
 {package} = com.appropel.schuss
 
-# Dagger definitions.
-[dagger] = ${package}.dagger.*
-[dagger-internal] = *MembersInjector
-[non-dagger] = ${package}.* excluding [dagger] [dagger-internal]
-
 # Definitions of the primary software layers
 [common] = ${package}.common.*
 [controller] = ${package}.controller.* ${package}.parse.controller.*
 [model] = ${package}.model.* ${package}.parse.model.*
 [view] = ${package}.view.* ${package}.parse.view.*
-[databinding] = ${package}.databinding.*
+[databinding] = ${package}.databinding.* ${package}.DataBinderMapperImpl
 
 layer common = [common]
 layer controller = [controller]
 layer model = [model]
 layer view = [view]
+
+# Dagger definitions.
+[dagger] = ${package}.dagger.*
+[dagger-internal] = *MembersInjector
+[non-dagger] = ${package}.* excluding [dagger] [dagger-internal] [databinding]
 
 # Other useful definitions
 [common-android] = ${package}.common.android.*
