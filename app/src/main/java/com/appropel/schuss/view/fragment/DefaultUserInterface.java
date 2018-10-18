@@ -23,6 +23,12 @@ public final class DefaultUserInterface implements UserInterface
     }
 
     @Override
+    public void showEditPersonScreen()
+    {
+        // TODO
+    }
+
+    @Override
     public void showHomeScreen()
     {
         eventBus.post(ChangeFragmentEvent.of(HomeFragment.class));

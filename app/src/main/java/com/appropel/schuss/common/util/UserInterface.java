@@ -7,6 +7,11 @@ package com.appropel.schuss.common.util;
 public interface UserInterface
 {
     /**
+     * Shows the edit person screen.
+     */
+    void showEditPersonScreen();
+
+    /**
      * Shows the home screen.
      */
     void showHomeScreen();

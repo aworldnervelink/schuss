@@ -11,4 +11,5 @@
     <string name="create_new">Create new account</string>
     <string name="sign_in">Sign in to existing account</string>
     <string name="my_people">My People</string>
+    <string name="add_person">Add a Person</string>
 </resources>
