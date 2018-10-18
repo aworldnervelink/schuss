@@ -50,4 +50,29 @@
         </createTable>
     </changeSet>
 
+    <changeSet id="createPerson" author="kroll">
+        <createTable tableName="person">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="email" type="varchar(256)">
+                <constraints nullable="false" primaryKey="false" unique="false"/>
+            </column>
+            <column name="first_name" type="varchar(64)">
+                <constraints nullable="false" primaryKey="false" unique="false"/>
+            </column>
+            <column name="guardian_first_name" type="varchar(64)">
+                <constraints nullable="false" primaryKey="false" unique="false"/>
+            </column>
+            <column name="guardian_last_name" type="varchar(64)">
+                <constraints nullable="false" primaryKey="false" unique="false"/>
+            </column>
+            <column name="last_name" type="varchar(64)">
+                <constraints nullable="false" primaryKey="false" unique="false"/>
+            </column>
+            <column name="phone_number" type="varchar(24)">
+                <constraints nullable="false" primaryKey="false" unique="false"/>
+            </column>
+        </createTable>
+    </changeSet>
 </databaseChangeLog>

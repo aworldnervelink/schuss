@@ -1,6 +1,7 @@
 package com.appropel.schuss.model.impl;
 
 import com.appropel.schuss.model.read.Device;
+import com.appropel.schuss.model.read.Person;
 import com.appropel.schuss.model.read.User;
 import com.google.common.collect.ImmutableSet;
 
@@ -73,6 +74,12 @@ public final class UserImpl implements User
     public Set<Device> getDevices()
     {
         return ImmutableSet.copyOf(devices);
+    }
+
+    @Override
+    public Set<Person> getPersons()
+    {
+        return null;    // TODO!!
     }
 
     /**

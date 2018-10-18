@@ -9,7 +9,7 @@ import org.immutables.value.internal.$processor$.meta.$GsonMirrors;
 import java.util.Set;
 
 /**
- * Represents a user of the application.
+ * Represents a user of the application - can also be thought of as an account.
  */
 @Value.Immutable
 @JsonDeserialize(builder = ImmutableUser.Builder.class)
@@ -38,4 +38,9 @@ public interface User
      */
     @JsonIgnore
     Set<Device> getDevices();
+
+    /**
+     * Returns a set of all Persons associated to this user account.
+     */
+    Set<Person> getPersons();
 }

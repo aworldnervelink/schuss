@@ -6,6 +6,7 @@
 
     <persistence-unit name="schuss">
         <class>com.appropel.schuss.model.impl.DeviceImpl</class>
+        <class>com.appropel.schuss.model.impl.PersonImpl</class>
         <class>com.appropel.schuss.model.impl.RentalProviderImpl</class>
         <class>com.appropel.schuss.model.impl.UserImpl</class>
     </persistence-unit>
