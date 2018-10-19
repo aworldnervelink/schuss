@@ -25,7 +25,7 @@ public final class DefaultUserInterface implements UserInterface
     @Override
     public void showEditPersonScreen()
     {
-        // TODO
+        eventBus.post(ChangeFragmentEvent.of(EditPersonFragment.class));
     }
 
     @Override

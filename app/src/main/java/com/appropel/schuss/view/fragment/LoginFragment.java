@@ -44,6 +44,7 @@ public final class LoginFragment extends ValidatableFragment implements Validato
     EditText emailAddressEditText;
 
     /** Password. */
+    // https://www.lukew.com/ff/entry.asp?1653=
     @NotEmpty
     @Length(max = 70)
     @Password

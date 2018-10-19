@@ -12,4 +12,9 @@
     <string name="sign_in">Sign in to existing account</string>
     <string name="my_people">My People</string>
     <string name="add_person">Add a Person</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="guardian_first_name">Guardian First Name</string>
+    <string name="guardian_last_name">Guardian Last Name</string>
+    <string name="phone_number">Phone Number</string>
 </resources>

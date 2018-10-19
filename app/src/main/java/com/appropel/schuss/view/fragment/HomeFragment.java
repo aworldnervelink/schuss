@@ -12,6 +12,7 @@ import com.appropel.schuss.dagger.DaggerWrapper;
 
 import javax.inject.Inject;
 
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 
@@ -31,6 +32,7 @@ public final class HomeFragment extends Fragment
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState)
     {
         final View view = inflater.inflate(R.layout.home, container, false);
+        unbinder = ButterKnife.bind(this, view);
         DaggerWrapper.INSTANCE.getComponent().inject(this);
 
         return view;    // NOPMD TODO

@@ -84,7 +84,8 @@ dependencies {
     annotationProcessor 'org.immutables:value:2.6.3'
 
     // Google Advertising
-    implementation ('com.google.android.gms:play-services-ads:17.0.0') {
+    // TODO: Version is out of date, updating causes app to crash, app ID needs to be added
+    implementation ('com.google.android.gms:play-services-ads:15.0.1') {
         exclude group: 'com.android.support'
     }
 
