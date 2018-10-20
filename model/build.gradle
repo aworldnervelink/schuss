@@ -8,7 +8,28 @@ dependencies {
 
     // Immutables
     compileOnly 'org.immutables:value:2.6.3'
+    annotationProcessor 'org.immutables:value:2.6.3'
 
     // Jackson databind
     compile 'com.fasterxml.jackson.core:jackson-databind:2.9.6'
 }
+
+//
+// Build a jar of the model
+//
+configurations {
+    modelExport
+}
+
+task modelJar(type: Jar) {
+    baseName = 'schuss-model'
+    dependsOn classes
+    from sourceSets.main.output
+    include('com/appropel/**')
+}
+
+artifacts {
+    modelExport modelJar
+}
+
+

@@ -44,4 +44,34 @@ public interface Person
      * Returns the person's contact phone number.
      */
     String getPhoneNumber();
+
+//    /**
+//     * Constructs an immutable Person.
+//     * @param id id
+//     * @param firstName first name
+//     * @param lastName last name
+//     * @param guardianFirstName guardian first name
+//     * @param guardianLastName guardian last name
+//     * @param emailAddress e-mail address
+//     * @param phoneNumber phone number
+//     * @return immutable instance
+//     */
+//    public static Person of(final long id,
+//                     final String firstName,
+//                     final String lastName,
+//                     final String guardianFirstName,
+//                     final String guardianLastName,
+//                     final String emailAddress,
+//                     final String phoneNumber)
+//    {
+//        return ImmutablePerson.builder()
+//                .id(id)
+//                .firstName(firstName)
+//                .lastName(lastName)
+//                .guardianFirstName(guardianFirstName)
+//                .guardianLastName(guardianLastName)
+//                .emailAddress(emailAddress)
+//                .phoneNumber(phoneNumber)
+//                .build();
+//    }
 }

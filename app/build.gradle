@@ -30,7 +30,7 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     // Depend on business model
-    implementation project(path: ':model')
+    implementation project(path: ':model', configuration: 'modelExport')
 
     // Depend on remote web service
     implementation project(path: ':webapp', configuration: 'remoteservice')

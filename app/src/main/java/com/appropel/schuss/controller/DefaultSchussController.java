@@ -4,6 +4,7 @@ import com.appropel.schuss.common.util.ContextUtils;
 import com.appropel.schuss.common.util.EventBusFacade;
 import com.appropel.schuss.common.util.Preferences;
 import com.appropel.schuss.common.util.UserInterface;
+import com.appropel.schuss.model.read.Person;
 import com.appropel.schuss.service.SchussService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -98,6 +99,20 @@ public final class DefaultSchussController implements SchussController
                         preferences.setUserToken(response);
                         preferences.setEmailAddress(emailAddress);
                         userInterface.showHomeScreen();
+                    }
+                });
+    }
+
+    @Override
+    public void updatePerson(final Person person)
+    {
+        service.updatePerson(person)
+                .enqueue(new SchussServiceCallback<Void>(eventBus, objectMapper)
+                {
+                    @Override
+                    void onRequestSuccess(final Void response)
+                    {
+                        // TODO
                     }
                 });
     }

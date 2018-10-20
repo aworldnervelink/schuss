@@ -4,6 +4,7 @@ import com.appropel.schuss.dao.UserDao;
 import com.appropel.schuss.logic.UserLogic;
 import com.appropel.schuss.model.impl.DeviceImpl;
 import com.appropel.schuss.model.impl.UserImpl;
+import com.appropel.schuss.model.read.Person;
 import com.appropel.schuss.model.read.User;
 import com.appropel.schuss.logic.ServiceError;
 import com.appropel.schuss.logic.ServiceException;
@@ -100,5 +101,15 @@ public class UserLogicImpl implements UserLogic
                 throw new ServiceException(ServiceError.AUTHENTICATION_FAILED);
             }
         }
+    }
+
+    @Override
+    public void updatePerson(final User user, final Person person)
+    {
+//        if (person.getId() == 0)
+//        {
+//            // This is a new Person.
+//            ((UserImpl) user).addPerson(person);
+//        }
     }
 }

@@ -41,6 +41,11 @@ public final class UserImpl implements User
     @Element(column = "user_id")
     private Set<DeviceImpl> devices = new HashSet<>();
 
+    /** Devices. */
+    @Persistent(defaultFetchGroup = "true")
+    @Element(column = "user_id")
+    private Set<PersonImpl> persons = new HashSet<>();
+
     /**
      * Constructs a new {@code UserImpl}.
      * @param email e-mail address
@@ -79,7 +84,7 @@ public final class UserImpl implements User
     @Override
     public Set<Person> getPersons()
     {
-        return null;    // TODO!!
+        return ImmutableSet.copyOf(persons);
     }
 
     /**
@@ -89,5 +94,14 @@ public final class UserImpl implements User
     public void addDevice(final DeviceImpl device)
     {
         devices.add(device);
+    }
+
+    /**
+     * Adds a new person.
+     * @param person person
+     */
+    public void addPerson(final PersonImpl person)
+    {
+        persons.add(person);
     }
 }

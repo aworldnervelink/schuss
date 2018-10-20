@@ -1,5 +1,6 @@
 package com.appropel.schuss.service;
 
+import com.appropel.schuss.model.read.Person;
 import com.appropel.schuss.model.read.RentalProvider;
 import com.appropel.schuss.rest.RentalProviderController;
 import com.appropel.schuss.rest.UserController;
@@ -30,11 +31,19 @@ public interface SchussService
      * @param password        hashed password
      * @param advertisingId   advertising ID (unique, user-resettable ID, provided by Google Play services)
      * @param newAccount      flag indicating a new account
-     * @return request call
+     * @return JWT if successful
      */
     @POST(UserController.USER_PATH + UserController.SIGN_IN_METHOD)
     Call<String> signIn(@Query(UserController.EMAIL_PARAM) String email,
                         @Query(UserController.PASSWORD_PARAM) String password,
                         @Query(UserController.ADVERTISING_ID_PARAM) String advertisingId,
                         @Query(UserController.NEW_ACCOUNT_PARAM) boolean newAccount);
+
+    /**
+     * Creates or updates a Person attached to the given User.
+     * @param person person
+     * @return void
+     */
+    @POST(UserController.USER_PATH + UserController.UPDATE_PERSON_METHOD)
+    Call<Void> updatePerson(@Query(UserController.PERSON_PARAM) Person person);
 }

@@ -1,5 +1,8 @@
 package com.appropel.schuss.logic;
 
+import com.appropel.schuss.model.read.Person;
+import com.appropel.schuss.model.read.User;
+
 /**
  * Business methods for managing Users.
  */
@@ -14,8 +17,12 @@ public interface UserLogic
      * @param newAccount true if a new account should be created
      * @return JWT token
      */
-    String signIn(final String emailAddress,
-                  final String password,
-                  final String advertisingId,
-                  final boolean newAccount);
+    String signIn(String emailAddress, String password, String advertisingId, boolean newAccount);
+
+    /**
+     * Creates or edits a Person attached to the given User.
+     * @param user user
+     * @param person person
+     */
+    void updatePerson(User user, Person person);
 }

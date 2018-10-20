@@ -8,17 +8,22 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.appropel.schuss.R;
+import com.appropel.schuss.controller.SchussController;
+import com.appropel.schuss.dagger.DaggerWrapper;
 import com.appropel.schuss.view.validation.ValidationAlertView;
 import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
 import com.mobsandgeeks.saripaar.annotation.Email;
 import com.mobsandgeeks.saripaar.annotation.Length;
-import com.mobsandgeeks.saripaar.annotation.NotEmpty;
+import com.mobsandgeeks.saripaar.annotation.Pattern;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.OnTextChanged;
 import butterknife.Unbinder;
 
@@ -59,8 +64,7 @@ public final class EditPersonFragment extends ValidatableFragment implements Val
     EditText emailAddressEditText;
 
     /** Phone number. */
-    @NotEmpty
-    // TODO: need a phone number pattern
+    @Pattern(regex = "^\\(?([0-9]{3})\\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$")
     @BindView(R.id.phone_number)
     @ValidationAlertView(R.id.phone_number_validation)
     EditText phoneNumberEditText;
@@ -72,12 +76,18 @@ public final class EditPersonFragment extends ValidatableFragment implements Val
     /** View unbinder. */
     private Unbinder unbinder;
 
+    /** Controller. */
+    @Inject
+    SchussController controller;
+
     @Override
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState)
     {
         final View view = inflater.inflate(R.layout.person, container, false);
         unbinder = ButterKnife.bind(this, view);
-//        DaggerWrapper.INSTANCE.getComponent().inject(this);
+        DaggerWrapper.INSTANCE.getComponent().inject(this);
+
+        // TODO: implement autocomplete for e-mail address
 
         return view;    // NOPMD TODO
     }
@@ -108,6 +118,20 @@ public final class EditPersonFragment extends ValidatableFragment implements Val
     public void onValidationFailed(final List<ValidationError> errors)
     {
         okButton.setEnabled(false);
+    }
+
+    /**
+     * Handler for when the user clicks the 'OK' button.
+     */
+    @OnClick(R.id.ok_button)
+    public void onOkButtonClicked()
+    {
+//        final Person person = Person.of(
+//                0,
+//                firstNameEditText.getText().toString(),
+//                lastNameEditText.getText().toString(),
+//        )
+//        controller.updatePerson(person);
     }
 
     @Override

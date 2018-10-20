@@ -1,5 +1,7 @@
 package com.appropel.schuss.controller;
 
+import com.appropel.schuss.model.read.Person;
+
 /**
  * Interface defining the Controller layer.
  */
@@ -18,4 +20,10 @@ public interface SchussController
      * @param newAccount new account flag
      */
     void signIn(String emailAddress, String password, final boolean newAccount);
+
+    /**
+     * Creates or updates a person.
+     * @param person person
+     */
+    void updatePerson(final Person person);
 }

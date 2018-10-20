@@ -2,7 +2,10 @@ package com.appropel.schuss.rest;
 
 import com.appropel.schuss.logic.UserLogic;
 import com.appropel.schuss.logic.ServiceException;
+import com.appropel.schuss.model.read.Person;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,6 +31,9 @@ public class UserController extends BaseController
     /** Sign in method. */
     public static final String SIGN_IN_METHOD = "/signIn";
 
+    /** Update person method. */
+    public static final String UPDATE_PERSON_METHOD = "/updatePerson";
+
     /** Email parameter. */
     public static final String EMAIL_PARAM = "email";
 
@@ -39,6 +45,15 @@ public class UserController extends BaseController
 
     /** Create new account parameter. */
     public static final String NEW_ACCOUNT_PARAM = "newAccount";
+
+    /** User ID parameter. */
+    public static final String USER_ID_PARAM = "userId";
+
+    /** Person parameter. */
+    public static final String PERSON_PARAM = "person";
+
+    /** Logger. */
+    private static final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
 
     /** User business logic. */
     private UserLogic userLogic;
@@ -75,5 +90,18 @@ public class UserController extends BaseController
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
             writeAsJson(response.getOutputStream(), e.getServiceError());
         }
+    }
+
+    /**
+     * Creates or updates a Person connected to the given User.
+     * @param person person
+     * @param response servlet response
+     * @throws IOException .
+     */
+    public void updatePerson(@RequestParam(value = PERSON_PARAM) final Person person,
+                             final HttpServletResponse response) throws IOException
+    {
+        LOGGER.info("person {}", person);
+        LOGGER.info("person class {}", person.getClass().getName());
     }
 }
