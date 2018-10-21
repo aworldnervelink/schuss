@@ -13,7 +13,7 @@ import javax.jdo.annotations.Persistent;
  */
 @SuppressWarnings("PMD")
 @PersistenceCapable(identityType = IdentityType.APPLICATION, table = "person", detachable = "true")
-public final class PersonImpl implements Person
+public final class PersonImpl extends Person
 {
     /** Object unique identifier. */
     @Persistent(primaryKey = "true", valueStrategy = IdGeneratorStrategy.INCREMENT)

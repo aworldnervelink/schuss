@@ -49,7 +49,7 @@ public class Application extends SpringBootServletInitializer
     }
 
     /**
-     * Return custom VX Jackson ObjectMapper.
+     * Return custom Jackson ObjectMapper.
      *
      * @return ObjectMapper.
      */

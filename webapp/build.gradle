@@ -64,6 +64,9 @@ dependencies {
     // JSON Web Tokens
     compile 'io.jsonwebtoken:jjwt:0.7.0'
 
+    // Immutables
+    compileOnly 'org.immutables:value:2.6.3'
+
     // Logging
     compile group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.3'
 }

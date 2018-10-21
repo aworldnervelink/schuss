@@ -10,7 +10,10 @@ import android.widget.EditText;
 import com.appropel.schuss.R;
 import com.appropel.schuss.controller.SchussController;
 import com.appropel.schuss.dagger.DaggerWrapper;
+import com.appropel.schuss.model.read.Person;
+import com.appropel.schuss.view.util.ViewSerializationUtils;
 import com.appropel.schuss.view.validation.ValidationAlertView;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
 import com.mobsandgeeks.saripaar.annotation.Email;
@@ -36,24 +39,28 @@ public final class EditPersonFragment extends ValidatableFragment implements Val
     @Length(min = 1, max = 63)
     @BindView(R.id.first_name)
     @ValidationAlertView(R.id.first_name_validation)
+    @JsonProperty("firstName")
     EditText firstNameEditText;
 
     /** Last name. */
     @Length(min = 1, max = 63)
     @BindView(R.id.last_name)
     @ValidationAlertView(R.id.last_name_validation)
+    @JsonProperty("lastName")
     EditText lastNameEditText;
 
     /** Guardian first name. */
     @Length(min = 0, max = 63)
     @BindView(R.id.guardian_first_name)
     @ValidationAlertView(R.id.guardian_first_name_validation)
+    @JsonProperty("guardianFirstName")
     EditText guardianFirstNameEditText;
 
     /** Guardian last name. */
     @Length(min = 0, max = 63)
     @BindView(R.id.guardian_last_name)
     @ValidationAlertView(R.id.guardian_last_name_validation)
+    @JsonProperty("guardianLastName")
     EditText guardianLastNameEditText;
 
     /** E-mail address. */
@@ -61,13 +68,19 @@ public final class EditPersonFragment extends ValidatableFragment implements Val
     @Email
     @BindView(R.id.email_address)
     @ValidationAlertView(R.id.email_address_validation)
+    @JsonProperty("emailAddress")
     EditText emailAddressEditText;
 
     /** Phone number. */
     @Pattern(regex = "^\\(?([0-9]{3})\\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$")
     @BindView(R.id.phone_number)
     @ValidationAlertView(R.id.phone_number_validation)
+    @JsonProperty("phoneNumber")
     EditText phoneNumberEditText;
+
+    /** Identifier of person being edited. */
+    @JsonProperty("id")
+    long id;
 
     /** OK button. */
     @BindView(R.id.ok_button)
@@ -126,12 +139,8 @@ public final class EditPersonFragment extends ValidatableFragment implements Val
     @OnClick(R.id.ok_button)
     public void onOkButtonClicked()
     {
-//        final Person person = Person.of(
-//                0,
-//                firstNameEditText.getText().toString(),
-//                lastNameEditText.getText().toString(),
-//        )
-//        controller.updatePerson(person);
+        final Person person = ViewSerializationUtils.readValue(this, Person.class);
+        controller.updatePerson(person);
     }
 
     @Override
@@ -140,4 +149,5 @@ public final class EditPersonFragment extends ValidatableFragment implements Val
         unbinder.unbind();
         super.onDestroyView();
     }
+
 }

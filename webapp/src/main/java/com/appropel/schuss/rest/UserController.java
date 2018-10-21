@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -45,12 +46,6 @@ public class UserController extends BaseController
 
     /** Create new account parameter. */
     public static final String NEW_ACCOUNT_PARAM = "newAccount";
-
-    /** User ID parameter. */
-    public static final String USER_ID_PARAM = "userId";
-
-    /** Person parameter. */
-    public static final String PERSON_PARAM = "person";
 
     /** Logger. */
     private static final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
@@ -98,7 +93,8 @@ public class UserController extends BaseController
      * @param response servlet response
      * @throws IOException .
      */
-    public void updatePerson(@RequestParam(value = PERSON_PARAM) final Person person,
+    @RequestMapping(value = USER_PATH + UPDATE_PERSON_METHOD, method = RequestMethod.POST)
+    public void updatePerson(@RequestBody final Person person,
                              final HttpServletResponse response) throws IOException
     {
         LOGGER.info("person {}", person);

@@ -8,6 +8,7 @@ import com.appropel.schuss.rest.UserController;
 import java.util.List;
 
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
@@ -45,5 +46,5 @@ public interface SchussService
      * @return void
      */
     @POST(UserController.USER_PATH + UserController.UPDATE_PERSON_METHOD)
-    Call<Void> updatePerson(@Query(UserController.PERSON_PARAM) Person person);
+    Call<Void> updatePerson(@Body Person person);
 }
