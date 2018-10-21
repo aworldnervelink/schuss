@@ -112,7 +112,7 @@ public final class DefaultSchussController implements SchussController
                     @Override
                     void onRequestSuccess(final Void response)
                     {
-                        // TODO
+                        userInterface.showHomeScreen();
                     }
                 });
     }

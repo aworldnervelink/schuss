@@ -3,6 +3,7 @@ package com.appropel.schuss.logic.impl;
 import com.appropel.schuss.dao.UserDao;
 import com.appropel.schuss.logic.UserLogic;
 import com.appropel.schuss.model.impl.DeviceImpl;
+import com.appropel.schuss.model.impl.PersonImpl;
 import com.appropel.schuss.model.impl.UserImpl;
 import com.appropel.schuss.model.read.Person;
 import com.appropel.schuss.model.read.User;
@@ -12,6 +13,7 @@ import com.appropel.schuss.security.JwtTokenService;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -106,10 +108,13 @@ public class UserLogicImpl implements UserLogic
     @Override
     public void updatePerson(final User user, final Person person)
     {
-//        if (person.getId() == 0)
-//        {
-//            // This is a new Person.
-//            ((UserImpl) user).addPerson(person);
-//        }
+        if (person.getId() == 0)
+        {
+            // This is a new Person.
+            final PersonImpl newPerson = new PersonImpl();
+            BeanUtils.copyProperties(person, newPerson);
+            ((UserImpl) user).addPerson(newPerson);
+            LOGGER.info("Added a new person to {}", user.getEmail());
+        }
     }
 }

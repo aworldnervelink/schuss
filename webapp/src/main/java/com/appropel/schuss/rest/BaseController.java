@@ -1,5 +1,9 @@
 package com.appropel.schuss.rest;
 
+import com.appropel.schuss.dao.UserDao;
+import com.appropel.schuss.model.read.ProtocolHeaders;
+import com.appropel.schuss.model.read.User;
+import com.appropel.schuss.security.JwtTokenService;
 import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -7,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.IOException;
 import java.io.OutputStream;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * Base class for controllers.
@@ -17,10 +23,28 @@ public abstract class BaseController
     /** Jackson object mapper. */
     private ObjectMapper objectMapper;
 
+    /** JWT service. */
+    private JwtTokenService jwtTokenService;
+
+    /** User DAO. */
+    private UserDao userDao;
+
     @Autowired
     public void setObjectMapper(final ObjectMapper objectMapper)
     {
         this.objectMapper = objectMapper;
+    }
+
+    @Autowired
+    public void setJwtTokenService(final JwtTokenService jwtTokenService)
+    {
+        this.jwtTokenService = jwtTokenService;
+    }
+
+    @Autowired
+    public void setUserDao(final UserDao userDao)
+    {
+        this.userDao = userDao;
     }
 
     /**
@@ -46,5 +70,16 @@ public abstract class BaseController
     void writeAsJson(final OutputStream stream, final Object object, final Class view) throws IOException
     {
         objectMapper.disable(MapperFeature.DEFAULT_VIEW_INCLUSION).writerWithView(view).writeValue(stream, object);
+    }
+
+    /**
+     * Returns the current user.
+     * @param request HTTP request that contains a JWT in the headers
+     * @return current user or null if not located
+     */
+    protected User getCurrentUser(final HttpServletRequest request)
+    {
+        final String userId = jwtTokenService.getUserId(request.getHeader(ProtocolHeaders.TOKEN.toString()));
+        return userDao.findUser(userId);
     }
 }

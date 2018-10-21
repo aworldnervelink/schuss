@@ -55,10 +55,20 @@ public final class PersonImpl extends Person
         return firstName;
     }
 
+    public void setFirstName(final String firstName)
+    {
+        this.firstName = firstName;
+    }
+
     @Override
     public String getLastName()
     {
         return lastName;
+    }
+
+    public void setLastName(final String lastName)
+    {
+        this.lastName = lastName;
     }
 
     @Override
@@ -67,10 +77,20 @@ public final class PersonImpl extends Person
         return guardianFirstName;
     }
 
+    public void setGuardianFirstName(final String guardianFirstName)
+    {
+        this.guardianFirstName = guardianFirstName;
+    }
+
     @Override
     public String getGuardianLastName()
     {
         return guardianLastName;
+    }
+
+    public void setGuardianLastName(final String guardianLastName)
+    {
+        this.guardianLastName = guardianLastName;
     }
 
     @Override
@@ -79,9 +99,19 @@ public final class PersonImpl extends Person
         return email;
     }
 
+    public void setEmailAddress(final String email)
+    {
+        this.email = email;
+    }
+
     @Override
     public String getPhoneNumber()
     {
         return phoneNumber;
+    }
+
+    public void setPhoneNumber(final String phoneNumber)
+    {
+        this.phoneNumber = phoneNumber;
     }
 }

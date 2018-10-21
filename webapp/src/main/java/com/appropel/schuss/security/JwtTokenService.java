@@ -97,7 +97,7 @@ public final class JwtTokenService
      * @param advertisingId Advertising ID.
      * @return              True if token valid and relates to user.
      */
-    boolean isTokenValid(final String token, final String userId, final String advertisingId)
+    public boolean isTokenValid(final String token, final String userId, final String advertisingId)
     {
         try
         {
@@ -109,6 +109,25 @@ public final class JwtTokenService
         {
             LOGGER.error(JWT_TOKEN_VALIDATION_ERR, ex.toString());
             return false;
+        }
+    }
+
+    /**
+     * Returns the user ID in the given token.
+     * @param token token string
+     * @return user identifier
+     */
+    public String getUserId(final String token)
+    {
+        try
+        {
+            Claims claims = Jwts.parser().setSigningKey(JWT_TOKENS_KEY).parseClaimsJws(token).getBody();
+            return claims.get(USER_ID_PARAM_KEY).toString();
+        }
+        catch (Exception ex)
+        {
+            LOGGER.error(JWT_TOKEN_VALIDATION_ERR, ex.toString());
+            return null;
         }
     }
 }

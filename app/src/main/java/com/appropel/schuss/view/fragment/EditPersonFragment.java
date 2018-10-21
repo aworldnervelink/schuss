@@ -16,8 +16,8 @@ import com.appropel.schuss.view.validation.ValidationAlertView;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
-import com.mobsandgeeks.saripaar.annotation.Email;
 import com.mobsandgeeks.saripaar.annotation.Length;
+import com.mobsandgeeks.saripaar.annotation.Optional;
 import com.mobsandgeeks.saripaar.annotation.Pattern;
 
 import java.util.List;
@@ -64,15 +64,17 @@ public final class EditPersonFragment extends ValidatableFragment implements Val
     EditText guardianLastNameEditText;
 
     /** E-mail address. */
-    @Length(min = 0, max = 255)
-    @Email
+    // TODO: using this annotation prevents leaving the field empty. Need to fix?
+//    @Email
+    @Length(max = 255)
     @BindView(R.id.email_address)
     @ValidationAlertView(R.id.email_address_validation)
     @JsonProperty("emailAddress")
     EditText emailAddressEditText;
 
     /** Phone number. */
-    @Pattern(regex = "^\\(?([0-9]{3})\\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$")
+    @Optional
+    @Pattern(regex = "^\\(?([0-9]{3})\\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$|^$")
     @BindView(R.id.phone_number)
     @ValidationAlertView(R.id.phone_number_validation)
     @JsonProperty("phoneNumber")

@@ -1,11 +1,10 @@
 package com.appropel.schuss.rest;
 
-import com.appropel.schuss.logic.UserLogic;
 import com.appropel.schuss.logic.ServiceException;
+import com.appropel.schuss.logic.UserLogic;
 import com.appropel.schuss.model.read.Person;
+import com.appropel.schuss.model.read.User;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
@@ -46,9 +46,6 @@ public class UserController extends BaseController
 
     /** Create new account parameter. */
     public static final String NEW_ACCOUNT_PARAM = "newAccount";
-
-    /** Logger. */
-    private static final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
 
     /** User business logic. */
     private UserLogic userLogic;
@@ -90,14 +87,16 @@ public class UserController extends BaseController
     /**
      * Creates or updates a Person connected to the given User.
      * @param person person
+     * @param request servlet request
      * @param response servlet response
      * @throws IOException .
      */
     @RequestMapping(value = USER_PATH + UPDATE_PERSON_METHOD, method = RequestMethod.POST)
     public void updatePerson(@RequestBody final Person person,
+                             final HttpServletRequest request,
                              final HttpServletResponse response) throws IOException
     {
-        LOGGER.info("person {}", person);
-        LOGGER.info("person class {}", person.getClass().getName());
+        final User user = getCurrentUser(request);
+        userLogic.updatePerson(user, person);
     }
 }
