@@ -48,4 +48,11 @@ public interface SchussService
      */
     @POST(PersonController.PERSON_PATH + PersonController.UPDATE_PERSON_METHOD)
     Call<Void> updatePerson(@Body Person person);
+
+    /**
+     * Returns the Persons attached to the current User.
+     * @return list of person
+     */
+    @GET(PersonController.PERSON_PATH + PersonController.GET_PERSONS_METHOD)
+    Call<List<Person>> getPersons();
 }

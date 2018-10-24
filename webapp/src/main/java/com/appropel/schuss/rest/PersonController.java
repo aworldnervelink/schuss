@@ -30,6 +30,9 @@ public class PersonController extends BaseController
     /** Update person method. */
     public static final String UPDATE_PERSON_METHOD = "/updatePerson";
 
+    /** Get persons method. */
+    public static final String GET_PERSONS_METHOD = "/getPersons";
+
     /** User business logic. */
     private UserLogic userLogic;
 
@@ -53,5 +56,18 @@ public class PersonController extends BaseController
     {
         final User user = getCurrentUser(request);
         userLogic.updatePerson(user, person);
+    }
+
+    /**
+     * Returns the list of Persons connected to the current user.
+     * @param request servlet request
+     * @param response servlet response
+     * @throws IOException .
+     */
+    @RequestMapping(value = PERSON_PATH + GET_PERSONS_METHOD, method = RequestMethod.GET)
+    public void getPersons(final HttpServletRequest request, final HttpServletResponse response) throws IOException
+    {
+        final User user = getCurrentUser(request);
+        writeAsJson(response.getOutputStream(), user.getPersons());
     }
 }

@@ -15,10 +15,10 @@ import javax.servlet.http.HttpServletResponse;
  * Security interceptor that checks if user token is valid.
  */
 @Component
-public final class AnonSecurityInterceptor extends HandlerInterceptorAdapter
+public final class SecurityInterceptor extends HandlerInterceptorAdapter
 {
     /** Logger. */
-    private static final Logger LOGGER = LoggerFactory.getLogger(AnonSecurityInterceptor.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(SecurityInterceptor.class);
 
     /** JWT token service. */
     private JwtTokenService tokenService;
@@ -37,23 +37,11 @@ public final class AnonSecurityInterceptor extends HandlerInterceptorAdapter
         if (userToken == null)
         {
             LOGGER.warn("Authentication failed. User's token is null.");
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
             return false;
         }
 
-        String advertisingId = request.getHeader(ProtocolHeaders.ADVERTISING_ID.toString());
-        if (advertisingId == null)
-        {
-            LOGGER.warn("Authentication failed. User's Advertising ID is null.");
-            return false;
-        }
-
-        String userId = request.getHeader(ProtocolHeaders.EMAIL_ADDRESS.toString());
-        if (userId == null)
-        {
-            LOGGER.warn("Authentication failed. User ID is null.");
-            return false;
-        }
-
-        return tokenService.isTokenValid(userToken, userId, advertisingId);
+        return tokenService.isTokenValid(userToken);
+        // TODO: if false, return a specific error code?
     }
 }

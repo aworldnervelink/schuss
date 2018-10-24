@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 
 import com.appropel.schuss.R;
 import com.appropel.schuss.common.util.UserInterface;
+import com.appropel.schuss.controller.SchussController;
 import com.appropel.schuss.dagger.DaggerWrapper;
 
 import javax.inject.Inject;
@@ -25,6 +26,10 @@ public final class HomeFragment extends Fragment
     @Inject
     UserInterface userInterface;
 
+    /** Controller. */
+    @Inject
+    SchussController controller;
+
     /** View unbinder. */
     private Unbinder unbinder;
 
@@ -36,6 +41,13 @@ public final class HomeFragment extends Fragment
         DaggerWrapper.INSTANCE.getComponent().inject(this);
 
         return view;    // NOPMD TODO
+    }
+
+    @Override
+    public void onStart()
+    {
+        super.onStart();
+        controller.getPersons();
     }
 
     /**

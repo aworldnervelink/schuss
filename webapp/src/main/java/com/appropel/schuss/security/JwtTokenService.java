@@ -90,20 +90,17 @@ public final class JwtTokenService
     }
 
     /**
-     * Check whether token valid or not and compare user data and token's user data.
+     * Check whether token is valid or not.
      *
      * @param token         JWT user's token.
-     * @param userId        VX user ID.
-     * @param advertisingId Advertising ID.
      * @return              True if token valid and relates to user.
      */
-    public boolean isTokenValid(final String token, final String userId, final String advertisingId)
+    public boolean isTokenValid(final String token)
     {
         try
         {
             Claims claims = Jwts.parser().setSigningKey(JWT_TOKENS_KEY).parseClaimsJws(token).getBody();
-            return claims.get(USER_ID_PARAM_KEY).equals(userId)
-                    && claims.get(ADVERTISING_ID_PARAM_KEY).equals(advertisingId);
+            return claims.containsKey(USER_ID_PARAM_KEY) && claims.containsKey(ADVERTISING_ID_PARAM_KEY);
         }
         catch (Exception ex)
         {

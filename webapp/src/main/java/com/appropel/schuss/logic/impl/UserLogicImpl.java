@@ -19,6 +19,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.nio.charset.Charset;
+import java.util.List;
 
 import at.favre.lib.crypto.bcrypt.BCrypt;
 
@@ -116,5 +117,11 @@ public class UserLogicImpl implements UserLogic
             ((UserImpl) user).addPerson(newPerson);
             LOGGER.info("Added a new person to {}", user.getEmail());
         }
+    }
+
+    @Override
+    public List<Person> getPersons()
+    {
+        return null;
     }
 }

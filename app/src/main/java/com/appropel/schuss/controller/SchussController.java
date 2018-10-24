@@ -26,4 +26,9 @@ public interface SchussController
      * @param person person
      */
     void updatePerson(final Person person);
+
+    /**
+     * Fetches the list of Persons attached to the current User.
+     */
+    void getPersons();
 }

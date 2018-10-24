@@ -11,6 +11,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -113,6 +114,20 @@ public final class DefaultSchussController implements SchussController
                     void onRequestSuccess(final Void response)
                     {
                         userInterface.showHomeScreen();
+                    }
+                });
+    }
+
+    @Override
+    public void getPersons()
+    {
+        service.getPersons()
+                .enqueue(new SchussServiceCallback<List<Person>>(eventBus, objectMapper)
+                {
+                    @Override
+                    void onRequestSuccess(final List<Person> response)
+                    {
+                        // TODO: post an event with this data
                     }
                 });
     }
