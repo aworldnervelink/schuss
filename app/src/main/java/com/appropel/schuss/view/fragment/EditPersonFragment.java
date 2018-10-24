@@ -74,7 +74,7 @@ public final class EditPersonFragment extends ValidatableFragment implements Val
 
     /** Phone number. */
     @Optional
-    @Pattern(regex = "^\\(?([0-9]{3})\\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$|^$")
+    @Pattern(regex = Person.TELEPHONE_REGEX)
     @BindView(R.id.phone_number)
     @ValidationAlertView(R.id.phone_number_validation)
     @JsonProperty("phoneNumber")

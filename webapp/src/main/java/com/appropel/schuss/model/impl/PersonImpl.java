@@ -2,6 +2,8 @@ package com.appropel.schuss.model.impl;
 
 import com.appropel.schuss.model.read.Person;
 
+import java.util.regex.Matcher;
+
 import javax.jdo.annotations.Column;
 import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.IdentityType;
@@ -110,8 +112,13 @@ public final class PersonImpl extends Person
         return phoneNumber;
     }
 
+    /**
+     * Sets the phone number. The number will be reformatted to (###) ###-####.
+     * @param phoneNumber phone number
+     */
     public void setPhoneNumber(final String phoneNumber)
     {
-        this.phoneNumber = phoneNumber;
+        final Matcher telephoneMatcher = TELEPHONE_PATTERN.matcher(phoneNumber);
+        this.phoneNumber = telephoneMatcher.replaceAll("($1) $2-$3");
     }
 }

@@ -12,6 +12,13 @@ dependencies {
 
     // Jackson databind
     compile 'com.fasterxml.jackson.core:jackson-databind:2.9.6'
+
+    // Guava
+    compileOnly 'com.google.guava:guava:27.0-jre'
+
+    // JUnit testing
+    testCompile 'junit:junit:4.12'
+    testRuntime 'com.google.guava:guava:27.0-jre'
 }
 
 //
@@ -31,5 +38,4 @@ task modelJar(type: Jar) {
 artifacts {
     modelExport modelJar
 }
-
 

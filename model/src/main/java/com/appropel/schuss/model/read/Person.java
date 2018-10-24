@@ -1,13 +1,23 @@
 package com.appropel.schuss.model.read;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.google.common.base.Preconditions;
 
 import org.immutables.value.Value;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Value.Immutable
 @JsonDeserialize(builder = ImmutablePerson.Builder.class)
 public abstract class Person
 {
+    /** Regular expression for a telephone number. */
+    public static final String TELEPHONE_REGEX = "^\\(?([0-9]{3})\\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$|^$";
+
+    /** Regular expression pattern. */
+    protected static final Pattern TELEPHONE_PATTERN = Pattern.compile(TELEPHONE_REGEX);
+
     /**
      * Returns the identifier.
      */
@@ -44,4 +54,11 @@ public abstract class Person
      * Returns the person's contact phone number.
      */
     public abstract String getPhoneNumber();
+
+    @Value.Check
+    protected void check()
+    {
+        final Matcher telephoneMatcher = TELEPHONE_PATTERN.matcher(getPhoneNumber());
+        Preconditions.checkState(telephoneMatcher.matches());
+    }
 }

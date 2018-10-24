@@ -24,6 +24,9 @@ android {
     dataBinding {
         enabled = true
     }
+    lintOptions {
+        tasks.lint.enabled = false
+    }
 }
 
 dependencies {
@@ -82,6 +85,9 @@ dependencies {
     // Immutables
     compileOnly 'org.immutables:value:2.6.3'
     annotationProcessor 'org.immutables:value:2.6.3'
+
+    // Guava
+    // implementation 'com.google.guava:guava:27.0-android'
 
     // Google Advertising
     // TODO: Version is out of date, updating causes app to crash, app ID needs to be added

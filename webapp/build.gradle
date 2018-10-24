@@ -67,6 +67,9 @@ dependencies {
     // Immutables
     compileOnly 'org.immutables:value:2.6.3'
 
+    // Guava
+    compile 'com.google.guava:guava:27.0-jre'
+
     // Logging
     compile group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.3'
 }
