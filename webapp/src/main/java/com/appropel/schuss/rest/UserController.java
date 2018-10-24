@@ -2,12 +2,9 @@ package com.appropel.schuss.rest;
 
 import com.appropel.schuss.logic.ServiceException;
 import com.appropel.schuss.logic.UserLogic;
-import com.appropel.schuss.model.read.Person;
-import com.appropel.schuss.model.read.User;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -15,11 +12,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Controller for rental provider methods.
+ * Controller for user methods.
  */
 @RestController
 @Transactional
@@ -31,9 +27,6 @@ public class UserController extends BaseController
 
     /** Sign in method. */
     public static final String SIGN_IN_METHOD = "/signIn";
-
-    /** Update person method. */
-    public static final String UPDATE_PERSON_METHOD = "/updatePerson";
 
     /** Email parameter. */
     public static final String EMAIL_PARAM = "email";
@@ -82,21 +75,5 @@ public class UserController extends BaseController
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
             writeAsJson(response.getOutputStream(), e.getServiceError());
         }
-    }
-
-    /**
-     * Creates or updates a Person connected to the given User.
-     * @param person person
-     * @param request servlet request
-     * @param response servlet response
-     * @throws IOException .
-     */
-    @RequestMapping(value = USER_PATH + UPDATE_PERSON_METHOD, method = RequestMethod.POST)
-    public void updatePerson(@RequestBody final Person person,
-                             final HttpServletRequest request,
-                             final HttpServletResponse response) throws IOException
-    {
-        final User user = getCurrentUser(request);
-        userLogic.updatePerson(user, person);
     }
 }

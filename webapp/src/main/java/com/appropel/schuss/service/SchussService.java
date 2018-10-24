@@ -2,6 +2,7 @@ package com.appropel.schuss.service;
 
 import com.appropel.schuss.model.read.Person;
 import com.appropel.schuss.model.read.RentalProvider;
+import com.appropel.schuss.rest.PersonController;
 import com.appropel.schuss.rest.RentalProviderController;
 import com.appropel.schuss.rest.UserController;
 
@@ -45,6 +46,6 @@ public interface SchussService
      * @param person person
      * @return void
      */
-    @POST(UserController.USER_PATH + UserController.UPDATE_PERSON_METHOD)
+    @POST(PersonController.PERSON_PATH + PersonController.UPDATE_PERSON_METHOD)
     Call<Void> updatePerson(@Body Person person);
 }
