@@ -3,7 +3,7 @@ package com.appropel.schuss.model.read;
 /**
  * Base class for all profiles.
  */
-public abstract class Profile
+public interface Profile
 {
     /** Enumerates the types of profiles in the system. */
     public enum Type
@@ -14,10 +14,10 @@ public abstract class Profile
     /**
      * Returns the identifier.
      */
-    public abstract long getId();
+    long getId();
 
     /**
      * Returns the type of profile.
      */
-    public abstract Type getProfileType();
+    Type getProfileType();
 }

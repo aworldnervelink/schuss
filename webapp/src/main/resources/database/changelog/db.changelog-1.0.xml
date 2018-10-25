@@ -88,7 +88,7 @@
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="address_id" type="bigint">
-                <constraints nullable="false" primaryKey="true" unique="false"/>
+                <constraints nullable="false" primaryKey="false" unique="false"/>
             </column>
             <column name="email" type="varchar(256)">
                 <constraints nullable="false" primaryKey="false" unique="false"/>
@@ -130,6 +130,48 @@
                                  onUpdate="RESTRICT"
                                  referencedColumnNames="id"
                                  referencedTableName="address"/>
+        <createIndex
+            indexName="idx_address_id"
+            tableName="person"
+            unique="false">
+            <column name="address_id" type="bigint"/>
+        </createIndex>
+
+    </changeSet>
+
+    <changeSet id="createDownhillProfile" author="kroll">
+        <createTable tableName="downhill_profile">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="boot_size" type="varchar(20)">
+                <constraints nullable="false" primaryKey="false" unique="false"/>
+            </column>
+            <column name="helmet_size" type="varchar(20)">
+                <constraints nullable="false" primaryKey="false" unique="false"/>
+            </column>
+            <column name="pole_length" type="varchar(20)">
+                <constraints nullable="false" primaryKey="false" unique="false"/>
+            </column>
+            <column name="ski_size" type="varchar(20)">
+                <constraints nullable="false" primaryKey="false" unique="false"/>
+            </column>
+            <column name="skier_type" type="varchar(30)">
+                <constraints nullable="false" primaryKey="false" unique="false"/>
+            </column>
+            <column name="person_id" type="bigint">
+                <constraints nullable="false" primaryKey="false" unique="false"/>
+            </column>
+        </createTable>
+        <addForeignKeyConstraint baseColumnNames="person_id"
+                                 baseTableName="downhill_profile"
+                                 constraintName="fk_downhill_profile_person"
+                                 deferrable="true"
+                                 initiallyDeferred="true"
+                                 onDelete="CASCADE"
+                                 onUpdate="RESTRICT"
+                                 referencedColumnNames="id"
+                                 referencedTableName="person"/>
 
     </changeSet>
 

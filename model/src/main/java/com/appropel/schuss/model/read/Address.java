@@ -5,12 +5,13 @@ import com.google.common.base.Preconditions;
 
 import org.immutables.value.Value;
 
+import java.io.Serializable;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 @Value.Immutable
 @JsonDeserialize(builder = ImmutableAddress.Builder.class)
-public abstract class Address
+public abstract class Address implements Serializable
 {
     /** Regular expression for a postal code. */
     public static final String POSTAL_CODE_REGEX = "^[0-9]{5}(?:-[0-9]{4})?$";

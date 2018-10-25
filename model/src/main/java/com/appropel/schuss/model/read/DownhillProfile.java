@@ -9,7 +9,7 @@ import org.immutables.value.Value;
  */
 @Value.Immutable
 @JsonDeserialize(builder = ImmutableDownhillProfile.Builder.class)
-public abstract class DownhillProfile extends Profile
+public abstract class DownhillProfile implements Profile
 {
     /** Returns the skier type (experience level). */
     public abstract String getSkierType();

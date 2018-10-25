@@ -6,9 +6,12 @@ import com.appropel.schuss.model.read.Person;
 import org.apache.commons.lang3.builder.CompareToBuilder;
 import org.springframework.util.StringUtils;
 
+import java.util.Set;
+import java.util.TreeSet;
 import java.util.regex.Matcher;
 
 import javax.jdo.annotations.Column;
+import javax.jdo.annotations.Element;
 import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.PersistenceCapable;
@@ -52,6 +55,11 @@ public final class PersonImpl extends Person implements Comparable<Person>
     /** Phone number. */
     @Column(name = "phone_number", length = 24)
     private String phoneNumber;
+
+    /** Profiles. */
+    @Persistent(defaultFetchGroup = "true")
+    @Element(column = "person_id")
+    private Set<ProfileImpl> profiles = new TreeSet<ProfileImpl>();
 
     @Override
     public long getId()
@@ -146,6 +154,20 @@ public final class PersonImpl extends Person implements Comparable<Person>
         {
             this.phoneNumber = "";
         }
+    }
+
+    public Set<ProfileImpl> getProfiles()
+    {
+        return profiles;
+    }
+
+    /**
+     * Adds a new profile.
+     * @param profile profile
+     */
+    public void addProfile(final ProfileImpl profile)
+    {
+        profiles.add(profile);
     }
 
     @Override
