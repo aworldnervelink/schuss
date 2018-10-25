@@ -12,10 +12,12 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text="@string/my_people"
+        android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
 
     <android.support.v7.widget.RecyclerView
+        android:id="@+id/person_list"
         android:layout_width="354dp"
         android:layout_height="360dp"
         android:layout_marginStart="8dp"

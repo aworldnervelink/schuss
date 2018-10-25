@@ -3,6 +3,9 @@ package com.appropel.schuss.model.impl;
 import com.appropel.schuss.model.read.Address;
 import com.appropel.schuss.model.read.Person;
 
+import org.apache.commons.lang3.builder.CompareToBuilder;
+import org.springframework.util.StringUtils;
+
 import java.util.regex.Matcher;
 
 import javax.jdo.annotations.Column;
@@ -16,7 +19,7 @@ import javax.jdo.annotations.Persistent;
  */
 @SuppressWarnings("PMD")
 @PersistenceCapable(identityType = IdentityType.APPLICATION, table = "person", detachable = "true")
-public final class PersonImpl extends Person
+public final class PersonImpl extends Person implements Comparable<Person>
 {
     /** Object unique identifier. */
     @Persistent(primaryKey = "true", valueStrategy = IdGeneratorStrategy.INCREMENT)
@@ -134,7 +137,24 @@ public final class PersonImpl extends Person
      */
     public void setPhoneNumber(final String phoneNumber)
     {
-        final Matcher telephoneMatcher = TELEPHONE_PATTERN.matcher(phoneNumber);
-        this.phoneNumber = telephoneMatcher.replaceAll("($1) $2-$3");
+        if (StringUtils.hasText(phoneNumber))
+        {
+            final Matcher telephoneMatcher = TELEPHONE_PATTERN.matcher(phoneNumber);
+            this.phoneNumber = telephoneMatcher.replaceAll("($1) $2-$3");
+        }
+        else
+        {
+            this.phoneNumber = "";
+        }
+    }
+
+    @Override
+    public int compareTo(final Person other)
+    {
+        return new CompareToBuilder()
+                .append(getFirstName(), other.getFirstName())
+                .append(getLastName(), other.getLastName())
+                .append(getId(), other.getId())
+                .toComparison();
     }
 }

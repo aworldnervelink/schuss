@@ -4,9 +4,11 @@ import com.appropel.schuss.model.read.Device;
 import com.appropel.schuss.model.read.Person;
 import com.appropel.schuss.model.read.User;
 import com.google.common.collect.ImmutableSet;
+import com.google.common.collect.ImmutableSortedSet;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.TreeSet;
 
 import javax.jdo.annotations.Column;
 import javax.jdo.annotations.Element;
@@ -44,7 +46,7 @@ public final class UserImpl implements User
     /** Devices. */
     @Persistent(defaultFetchGroup = "true")
     @Element(column = "user_id")
-    private Set<PersonImpl> persons = new HashSet<>();
+    private Set<PersonImpl> persons = new TreeSet<>();
 
     /**
      * Constructs a new {@code UserImpl}.
@@ -84,7 +86,7 @@ public final class UserImpl implements User
     @Override
     public Set<Person> getPersons()
     {
-        return ImmutableSet.copyOf(persons);
+        return ImmutableSortedSet.copyOf(persons);
     }
 
     /**

@@ -1,5 +1,6 @@
 package com.appropel.schuss.model.read;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 public class PersonTest
@@ -41,5 +42,21 @@ public class PersonTest
                 .phoneNumber("1234567")
                 .emailAddress("")
                 .build();
+    }
+
+    @Test
+    public void testBlankPhoneNumber()
+    {
+        final Person person = ImmutablePerson.builder()
+                .id(42)
+                .firstName("Kevin")
+                .lastName("Roll")
+                .guardianFirstName("Ken")
+                .guardianLastName("Roll")
+                .address(address)
+                .phoneNumber("")
+                .emailAddress("")
+                .build();
+        Assert.assertEquals("", person.getPhoneNumber());   // Check that phone number was not templated
     }
 }

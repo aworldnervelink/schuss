@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable name="person" type="com.appropel.schuss.model.read.Person"/>
+    </data>
+
+    <android.support.constraint.ConstraintLayout android:layout_width="match_parent"
+                                                 android:layout_height="80dp">
+
+        <TextView
+            android:id="@+id/first_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="@{person.firstName}"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <TextView
+            android:id="@+id/last_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="@{person.lastName}"
+            android:textSize="18sp"
+            app:layout_constraintBaseline_toBaselineOf="@+id/first_name"
+            app:layout_constraintStart_toEndOf="@+id/first_name"/>
+
+        <TextView
+            android:id="@+id/address_line_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="@{person.address.addressLine1}"
+            android:textSize="10sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/first_name"/>
+
+        <TextView
+            android:id="@+id/city"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="@{person.address.city}"
+            android:textSize="10sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/address_line_1"/>
+
+        <TextView
+            android:id="@+id/state_province"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="@{person.address.stateProvince}"
+            android:textSize="10sp"
+            app:layout_constraintBaseline_toBaselineOf="@+id/city"
+            app:layout_constraintStart_toEndOf="@+id/city"/>
+
+        <TextView
+            android:id="@+id/postal_code"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="@{person.address.postalCode}"
+            android:textSize="10sp"
+            app:layout_constraintBaseline_toBaselineOf="@+id/state_province"
+            app:layout_constraintStart_toEndOf="@+id/state_province"/>
+    </android.support.constraint.ConstraintLayout>
+</layout>

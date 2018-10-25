@@ -70,6 +70,9 @@ dependencies {
     // Guava
     compile 'com.google.guava:guava:27.0-jre'
 
+    // Apache Commons Lang
+    implementation 'org.apache.commons:commons-lang3:3.8.1'
+
     // Logging
     compile group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.3'
 }

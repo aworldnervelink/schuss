@@ -4,6 +4,7 @@ import com.appropel.schuss.common.util.ContextUtils;
 import com.appropel.schuss.common.util.EventBusFacade;
 import com.appropel.schuss.common.util.Preferences;
 import com.appropel.schuss.common.util.UserInterface;
+import com.appropel.schuss.controller.event.PersonEvent;
 import com.appropel.schuss.model.read.Person;
 import com.appropel.schuss.service.SchussService;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -24,7 +25,7 @@ public final class DefaultSchussController implements SchussController
     static final Logger LOGGER = LoggerFactory.getLogger(DefaultSchussController.class);
 
     /** Event bus. */
-    final EventBusFacade eventBus;  // NOPMD: to be used
+    final EventBusFacade eventBus;
 
     /** Context utilities. */
     final ContextUtils contextUtils;
@@ -127,7 +128,7 @@ public final class DefaultSchussController implements SchussController
                     @Override
                     void onRequestSuccess(final List<Person> response)
                     {
-                        // TODO: post an event with this data
+                        eventBus.post(PersonEvent.of(response));
                     }
                 });
     }
