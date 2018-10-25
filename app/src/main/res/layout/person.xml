@@ -14,11 +14,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginEnd="16dp"
             android:layout_marginBottom="8dp"
             android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="@+id/phone_number"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/phone_number"
             app:srcCompat="@android:drawable/ic_dialog_alert"/>
 
@@ -27,11 +25,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginEnd="16dp"
             android:layout_marginBottom="8dp"
             android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="@+id/email_address"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/email_address"
             app:srcCompat="@android:drawable/ic_dialog_alert"/>
 
@@ -40,11 +36,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
             android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="@+id/postal_code"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/postal_code"
             app:srcCompat="@android:drawable/ic_dialog_alert"/>
 
@@ -64,11 +58,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginEnd="16dp"
             android:layout_marginBottom="8dp"
             android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="@+id/guardian_last_name"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/guardian_last_name"
             app:srcCompat="@android:drawable/ic_dialog_alert"/>
 
@@ -77,11 +69,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginEnd="16dp"
             android:layout_marginBottom="8dp"
             android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="@+id/address_line_1"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/address_line_1"
             app:srcCompat="@android:drawable/ic_dialog_alert"/>
 
@@ -90,11 +80,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginEnd="16dp"
             android:layout_marginBottom="8dp"
             android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="@+id/address_line_2"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/address_line_2"
             app:srcCompat="@android:drawable/ic_dialog_alert"/>
 
@@ -103,11 +91,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginEnd="16dp"
             android:layout_marginBottom="8dp"
             android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="@+id/guardian_first_name"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/guardian_first_name"
             app:srcCompat="@android:drawable/ic_dialog_alert"/>
 
@@ -116,11 +102,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginEnd="16dp"
             android:layout_marginBottom="8dp"
             android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="@+id/last_name"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/last_name"
             app:srcCompat="@android:drawable/ic_dialog_alert"/>
 
@@ -129,11 +113,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginEnd="16dp"
             android:layout_marginBottom="8dp"
             android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="@+id/first_name"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/first_name"
             app:srcCompat="@android:drawable/ic_dialog_alert"/>
 
