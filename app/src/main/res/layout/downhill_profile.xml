@@ -54,7 +54,7 @@
 
         <Spinner
             android:id="@+id/skier_type"
-            android:layout_width="wrap_content"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:entries="@array/skier_type"
@@ -74,7 +74,7 @@
 
         <Spinner
             android:id="@+id/boot_size"
-            android:layout_width="wrap_content"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:entries="@array/boot_size"
@@ -94,7 +94,7 @@
 
         <Spinner
             android:id="@+id/ski_length"
-            android:layout_width="wrap_content"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:entries="@array/ski_length"
@@ -114,7 +114,7 @@
 
         <Spinner
             android:id="@+id/pole_length"
-            android:layout_width="wrap_content"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:entries="@array/pole_length"
@@ -134,7 +134,7 @@
 
         <Spinner
             android:id="@+id/helmet_size"
-            android:layout_width="wrap_content"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:entries="@array/helmet_size"

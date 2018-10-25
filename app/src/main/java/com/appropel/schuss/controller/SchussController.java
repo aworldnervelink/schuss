@@ -1,6 +1,7 @@
 package com.appropel.schuss.controller;
 
 import com.appropel.schuss.model.read.Person;
+import com.appropel.schuss.model.read.Profile;
 
 /**
  * Interface defining the Controller layer.
@@ -31,4 +32,11 @@ public interface SchussController
      * Fetches the list of Persons attached to the current User.
      */
     void getPersons();
+
+    /**
+     * Updates a Profile.
+     * @param person person
+     * @param profile profile
+     */
+    void updateProfile(final Person person, final Profile profile);
 }

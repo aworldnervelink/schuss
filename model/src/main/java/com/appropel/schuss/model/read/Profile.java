@@ -12,7 +12,12 @@ public abstract class Profile
     }
 
     /**
+     * Returns the identifier.
+     */
+    public abstract long getId();
+
+    /**
      * Returns the type of profile.
      */
-    public abstract Type getType();
+    public abstract Type getProfileType();
 }

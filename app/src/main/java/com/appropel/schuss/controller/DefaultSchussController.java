@@ -5,6 +5,7 @@ import com.appropel.schuss.common.util.EventBusFacade;
 import com.appropel.schuss.common.util.Preferences;
 import com.appropel.schuss.controller.event.PersonEvent;
 import com.appropel.schuss.model.read.Person;
+import com.appropel.schuss.model.read.Profile;
 import com.appropel.schuss.service.SchussService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -130,5 +131,11 @@ public final class DefaultSchussController implements SchussController
                         eventBus.post(PersonEvent.of(response));
                     }
                 });
+    }
+
+    @Override
+    public void updateProfile(final Person person, final Profile profile)
+    {
+        // TODO.
     }
 }

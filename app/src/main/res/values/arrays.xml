@@ -155,9 +155,9 @@
 
     <string-array name="helmet_size">
         <item>No Helmet</item>
-        <item>S</item>
-        <item>M</item>
-        <item>L</item>
-        <item>XL</item>
+        <item>S - Small</item>
+        <item>M - Medium</item>
+        <item>L - Large</item>
+        <item>XL - Extra Large</item>
     </string-array>
 </resources>
