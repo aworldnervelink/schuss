@@ -119,6 +119,10 @@ public final class EditPersonFragment extends ValidatableFragment implements Val
     @JsonProperty("id")
     long id;
 
+    /** Address from form. This is a cheat to get it into the serialized JSON. */
+    @JsonProperty("address")
+    Address address;
+
     /** OK button. */
     @BindView(R.id.ok_button)
     Button okButton;
@@ -179,7 +183,7 @@ public final class EditPersonFragment extends ValidatableFragment implements Val
     @OnClick(R.id.ok_button)
     public void onOkButtonClicked()
     {
-//        final Address address = ViewSerializationUtils.readValue(this, Address.class);
+        address = ViewSerializationUtils.readValue(this, Address.class);
         final Person person = ViewSerializationUtils.readValue(this, Person.class);
         controller.updatePerson(person);
     }
