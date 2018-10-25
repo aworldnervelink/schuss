@@ -53,4 +53,111 @@
         <item>WI</item>
         <item>WY</item>
     </string-array>
+
+    <string-array name="skier_type">
+        <item>Type 1 (Beginner)</item>
+        <item>Type 2 (Intermediate)</item>
+        <item>Type 3 (Advanced)</item>
+    </string-array>
+
+    <string-array name="boot_size">
+        <item>No Boots</item>
+        <item>8 Kids</item>
+        <item>9 Kids</item>
+        <item>10 Kids</item>
+        <item>11 Kids</item>
+        <item>12 Kids</item>
+        <item>13 Kids</item>
+        <item>13.5 Kids</item>
+        <item>1 Men</item>
+        <item>2 Men</item>
+        <item>3 Men</item>
+        <item>4 Men</item>
+        <item>4.5 Men</item>
+        <item>5 Men</item>
+        <item>5.5 Men</item>
+        <item>6 Men</item>
+        <item>6.5 Men</item>
+        <item>7 Men</item>
+        <item>7.5 Men</item>
+        <item>8 Men</item>
+        <item>8.5 Men</item>
+        <item>9 Men</item>
+        <item>9.5 Men</item>
+        <item>10 Men</item>
+        <item>10.5 Men</item>
+        <item>11 Men</item>
+        <item>11.5 Men</item>
+        <item>12 Men</item>
+        <item>12.5 Men</item>
+        <item>13 Men</item>
+        <item>13.5 Men</item>
+        <item>14 Men</item>
+        <item>14.5 Men</item>
+        <item>15 Men</item>
+        <item>15.5 Men</item>
+        <item>16 Men</item>
+        <item>5 Women</item>
+        <item>5.5 Women</item>
+        <item>6 Women</item>
+        <item>6.5 Women</item>
+        <item>7 Women</item>
+        <item>7.5 Women</item>
+        <item>8 Women</item>
+        <item>8.5 Women</item>
+        <item>9 Women</item>
+        <item>9.5 Women</item>
+        <item>10 Women</item>
+        <item>10.5 Women</item>
+        <item>11 Women</item>
+        <item>11.5 Women</item>
+        <item>12 Women</item>
+    </string-array>
+
+    <string-array name="ski_length">
+        <item>No Skis</item>
+        <item>115cm</item>
+        <item>120cm</item>
+        <item>125cm</item>
+        <item>130cm</item>
+        <item>135cm</item>
+        <item>140cm</item>
+        <item>145cm</item>
+        <item>150cm</item>
+        <item>155cm</item>
+        <item>160cm</item>
+        <item>165cm</item>
+        <item>170cm</item>
+        <item>175cm</item>
+        <item>180cm</item>
+        <item>185cm</item>
+        <item>190cm</item>
+        <item>195cm</item>
+        <item>200cm</item>
+    </string-array>
+
+    <string-array name="pole_length">
+        <item>No Poles</item>
+        <item>80cm</item>
+        <item>85cm</item>
+        <item>90cm</item>
+        <item>95cm</item>
+        <item>100cm</item>
+        <item>105cm</item>
+        <item>110cm</item>
+        <item>115cm</item>
+        <item>120cm</item>
+        <item>125cm</item>
+        <item>130cm</item>
+        <item>135cm</item>
+        <item>140cm</item>
+    </string-array>
+
+    <string-array name="helmet_size">
+        <item>No Helmet</item>
+        <item>S</item>
+        <item>M</item>
+        <item>L</item>
+        <item>XL</item>
+    </string-array>
 </resources>
