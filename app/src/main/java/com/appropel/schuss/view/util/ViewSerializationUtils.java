@@ -1,7 +1,9 @@
 package com.appropel.schuss.view.util;
 
+import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
@@ -26,9 +28,11 @@ public final class ViewSerializationUtils
                 MapperFeature.AUTO_DETECT_FIELDS,
                 MapperFeature.AUTO_DETECT_GETTERS,
                 MapperFeature.AUTO_DETECT_IS_GETTERS);
+        OBJECT_MAPPER.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
 
         SimpleModule module = new SimpleModule();
         module.addSerializer(TextView.class, new TextViewSerializer());
+        module.addSerializer(Spinner.class, new SpinnerSerializer());
         OBJECT_MAPPER.registerModule(module);
     }
 

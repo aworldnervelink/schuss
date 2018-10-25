@@ -1,5 +1,6 @@
 package com.appropel.schuss.model.impl;
 
+import com.appropel.schuss.model.read.Address;
 import com.appropel.schuss.model.read.Person;
 
 import java.util.regex.Matcher;
@@ -36,6 +37,10 @@ public final class PersonImpl extends Person
     /** Guardian last name. */
     @Column(name = "guardian_last_name", length = 64)
     private String guardianLastName;
+
+    /** Address. */
+    @Column(name = "address_id")
+    private AddressImpl address;
 
     /** E-mail address. */
     @Column(name = "email", length = 256)
@@ -93,6 +98,17 @@ public final class PersonImpl extends Person
     public void setGuardianLastName(final String guardianLastName)
     {
         this.guardianLastName = guardianLastName;
+    }
+
+    @Override
+    public Address getAddress()
+    {
+        return address;
+    }
+
+    public void setAddress(final AddressImpl address)
+    {
+        this.address = address;
     }
 
     @Override

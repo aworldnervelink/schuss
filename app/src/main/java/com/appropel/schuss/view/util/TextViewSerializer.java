@@ -16,24 +16,15 @@ public final class TextViewSerializer extends StdSerializer<TextView>
     /**
      * Constructs a new {@code TextViewSerializer}.
      */
-    public TextViewSerializer()
+    TextViewSerializer()
     {
-        this(null);
-    }
-
-    /**
-     * Constructs a new {@code TextViewSerializer}.
-     * @param handledType class
-     */
-    public TextViewSerializer(final Class<TextView> handledType)
-    {
-        super(handledType);
+        super(TextView.class);
     }
 
     @Override
-    public void serialize(final TextView value, final JsonGenerator jgen, final SerializerProvider provider)
+    public void serialize(final TextView value, final JsonGenerator gen, final SerializerProvider provider)
             throws IOException
     {
-        jgen.writeString(value.getText().toString());
+        gen.writeString(value.getText().toString());
     }
 }

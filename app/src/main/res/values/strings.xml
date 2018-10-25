@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Schuss</string>
     <string name="where_to_rent">Choose a location to rent from</string>
@@ -17,4 +18,9 @@
     <string name="guardian_first_name">Guardian First Name</string>
     <string name="guardian_last_name">Guardian Last Name</string>
     <string name="phone_number">Phone Number</string>
+    <string name="address_line_1">Address Line 1</string>
+    <string name="address_line_2">Address Line 2</string>
+    <string name="city">City</string>
+    <string name="state">State</string>
+    <string name="postal_code">Postal Code</string>
 </resources>

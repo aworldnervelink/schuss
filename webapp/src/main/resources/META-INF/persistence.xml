@@ -5,6 +5,7 @@
         http://xmlns.jcp.org/xml/ns/persistence/persistence_2_0.xsd" version="2.0">
 
     <persistence-unit name="schuss">
+        <class>com.appropel.schuss.model.impl.AddressImpl</class>
         <class>com.appropel.schuss.model.impl.DeviceImpl</class>
         <class>com.appropel.schuss.model.impl.PersonImpl</class>
         <class>com.appropel.schuss.model.impl.RentalProviderImpl</class>

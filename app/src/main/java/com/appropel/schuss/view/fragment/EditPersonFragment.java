@@ -6,10 +6,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 
 import com.appropel.schuss.R;
 import com.appropel.schuss.controller.SchussController;
 import com.appropel.schuss.dagger.DaggerWrapper;
+import com.appropel.schuss.model.read.Address;
 import com.appropel.schuss.model.read.Person;
 import com.appropel.schuss.view.util.ViewSerializationUtils;
 import com.appropel.schuss.view.validation.ValidationAlertView;
@@ -63,6 +65,39 @@ public final class EditPersonFragment extends ValidatableFragment implements Val
     @JsonProperty("guardianLastName")
     EditText guardianLastNameEditText;
 
+    /** Address line 1. */
+    @Length(min = 1, max = 63)
+    @BindView(R.id.address_line_1)
+    @ValidationAlertView(R.id.address_line_1_validation)
+    @JsonProperty("addressLine1")
+    EditText addressLine1Text;
+
+    /** Address line 2. */
+    @Length(min = 0, max = 63)
+    @BindView(R.id.address_line_2)
+    @ValidationAlertView(R.id.address_line_2_validation)
+    @JsonProperty("addressLine2")
+    EditText addressLine2Text;
+
+    /** City. */
+    @Length(min = 1, max = 32)
+    @BindView(R.id.city)
+    @ValidationAlertView(R.id.city_validation)
+    @JsonProperty("city")
+    EditText cityText;
+
+    /** State/province. */
+    @BindView(R.id.state_province)
+    @JsonProperty("stateProvince")
+    Spinner stateProvinceSpinner;
+
+    /** Postal code. */
+    @Pattern(regex = Address.POSTAL_CODE_REGEX)
+    @BindView(R.id.postal_code)
+    @ValidationAlertView(R.id.postal_code_validation)
+    @JsonProperty("postalCode")
+    EditText postalCodeText;
+
     /** E-mail address. */
     // TODO: using this annotation prevents leaving the field empty. Need to fix?
 //    @Email
@@ -115,6 +150,9 @@ public final class EditPersonFragment extends ValidatableFragment implements Val
             R.id.last_name,
             R.id.guardian_first_name,
             R.id.guardian_last_name,
+            R.id.address_line_1,
+            R.id.city,
+            R.id.postal_code,
             R.id.email_address,
             R.id.phone_number
     })
@@ -141,6 +179,7 @@ public final class EditPersonFragment extends ValidatableFragment implements Val
     @OnClick(R.id.ok_button)
     public void onOkButtonClicked()
     {
+//        final Address address = ViewSerializationUtils.readValue(this, Address.class);
         final Person person = ViewSerializationUtils.readValue(this, Person.class);
         controller.updatePerson(person);
     }
@@ -151,5 +190,4 @@ public final class EditPersonFragment extends ValidatableFragment implements Val
         unbinder.unbind();
         super.onDestroyView();
     }
-
 }

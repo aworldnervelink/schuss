@@ -15,7 +15,7 @@ public abstract class Person
     /** Regular expression for a telephone number. */
     public static final String TELEPHONE_REGEX = "^\\(?([0-9]{3})\\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$|^$";
 
-    /** Regular expression pattern. */
+    /** Telephone number pattern. */
     protected static final Pattern TELEPHONE_PATTERN = Pattern.compile(TELEPHONE_REGEX);
 
     /**
@@ -43,7 +43,10 @@ public abstract class Person
      */
     public abstract String getGuardianLastName();
 
-    // TODO: insert addresses here
+    /**
+     * Returns the person's address.
+     */
+    public abstract Address getAddress();
 
     /**
      * Returns the person's e-mail address.

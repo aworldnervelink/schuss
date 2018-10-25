@@ -59,10 +59,36 @@
                                  referencedTableName="user"/>
     </changeSet>
 
+    <changeSet id="createAddress" author="kroll">
+        <createTable tableName="address">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="address_line_1" type="varchar(64)">
+                <constraints nullable="false" primaryKey="false" unique="false"/>
+            </column>
+            <column name="address_line_2" type="varchar(64)">
+                <constraints nullable="true" primaryKey="false" unique="false"/>
+            </column>
+            <column name="city" type="varchar(32)">
+                <constraints nullable="false" primaryKey="false" unique="false"/>
+            </column>
+            <column name="postal_code" type="varchar(12)">
+                <constraints nullable="false" primaryKey="false" unique="false"/>
+            </column>
+            <column name="state_province" type="varchar(4)">
+                <constraints nullable="false" primaryKey="false" unique="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
     <changeSet id="createPerson" author="kroll">
         <createTable tableName="person">
             <column name="id" type="bigint" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="address_id" type="bigint">
+                <constraints nullable="false" primaryKey="true" unique="false"/>
             </column>
             <column name="email" type="varchar(256)">
                 <constraints nullable="false" primaryKey="false" unique="false"/>
@@ -95,5 +121,16 @@
                                  onUpdate="RESTRICT"
                                  referencedColumnNames="id"
                                  referencedTableName="user"/>
+        <addForeignKeyConstraint baseColumnNames="address_id"
+                                 baseTableName="person"
+                                 constraintName="fk_person_address"
+                                 deferrable="true"
+                                 initiallyDeferred="true"
+                                 onDelete="CASCADE"
+                                 onUpdate="RESTRICT"
+                                 referencedColumnNames="id"
+                                 referencedTableName="address"/>
+
     </changeSet>
+
 </databaseChangeLog>
