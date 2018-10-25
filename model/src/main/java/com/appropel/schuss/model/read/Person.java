@@ -5,12 +5,13 @@ import com.google.common.base.Preconditions;
 
 import org.immutables.value.Value;
 
+import java.io.Serializable;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 @Value.Immutable
 @JsonDeserialize(builder = ImmutablePerson.Builder.class)
-public abstract class Person
+public abstract class Person implements Serializable
 {
     /** Regular expression for a telephone number. */
     public static final String TELEPHONE_REGEX = "^\\(?([0-9]{3})\\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$|^$";

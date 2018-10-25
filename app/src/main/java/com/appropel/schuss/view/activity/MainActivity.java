@@ -14,7 +14,6 @@ import com.appropel.schuss.databinding.RentalProviderBinding;
 import com.appropel.schuss.model.read.RentalProvider;
 import com.appropel.schuss.service.SchussService;
 import com.appropel.schuss.view.event.ChangeFragmentEvent;
-import com.appropel.schuss.view.event.ImmutableChangeFragmentEvent;
 import com.appropel.schuss.view.fragment.LoginFragment;
 import com.appropel.schuss.view.util.FragmentHolder;
 import com.bumptech.glide.Glide;
@@ -83,8 +82,7 @@ public final class MainActivity extends AppCompatActivity
         ButterKnife.bind(this);
         eventBus.register(this);
 
-        onChangeFragmentEvent(
-                ImmutableChangeFragmentEvent.builder().fragmentClass(LoginFragment.class).build());
+        onChangeFragmentEvent(ChangeFragmentEvent.of(LoginFragment.class));
 
         /*
         final GroupAdapter adapter = new GroupAdapter();
@@ -123,11 +121,7 @@ public final class MainActivity extends AppCompatActivity
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onChangeFragmentEvent(final ChangeFragmentEvent event)
     {
-//        if (event.getFragmentClass().equals(MainTabFragment.class))
-//        {
-//            getFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
-//        }
-        fragmentHolder.changeFragment(event.getFragmentClass(), null, true);
+        fragmentHolder.changeFragment(event.getFragmentClass(), event.getArguments(), true);
     }
 
     /**

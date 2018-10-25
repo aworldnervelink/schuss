@@ -8,7 +8,7 @@ import com.appropel.schuss.common.util.ContextUtils;
 import com.appropel.schuss.common.util.EventBusFacade;
 import com.appropel.schuss.common.util.EventBusWrapper;
 import com.appropel.schuss.common.util.Preferences;
-import com.appropel.schuss.common.util.UserInterface;
+import com.appropel.schuss.controller.UserInterface;
 import com.appropel.schuss.controller.DefaultSchussController;
 import com.appropel.schuss.controller.SchussController;
 import com.appropel.schuss.model.read.ProtocolHeaders;

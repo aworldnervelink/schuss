@@ -3,7 +3,6 @@ package com.appropel.schuss.controller;
 import com.appropel.schuss.common.util.ContextUtils;
 import com.appropel.schuss.common.util.EventBusFacade;
 import com.appropel.schuss.common.util.Preferences;
-import com.appropel.schuss.common.util.UserInterface;
 import com.appropel.schuss.controller.event.PersonEvent;
 import com.appropel.schuss.model.read.Person;
 import com.appropel.schuss.service.SchussService;

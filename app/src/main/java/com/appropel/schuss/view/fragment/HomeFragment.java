@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 
 import com.appropel.schuss.R;
 import com.appropel.schuss.common.util.EventBusFacade;
-import com.appropel.schuss.common.util.UserInterface;
+import com.appropel.schuss.controller.UserInterface;
 import com.appropel.schuss.controller.SchussController;
 import com.appropel.schuss.controller.event.PersonEvent;
 import com.appropel.schuss.dagger.DaggerWrapper;
@@ -87,7 +87,7 @@ public final class HomeFragment extends Fragment
         adapter.clear();
         for (Person person : event.getPersons())
         {
-            adapter.add(new PersonItem(person));
+            adapter.add(new PersonItem(person, userInterface));
         }
     }
 

@@ -1,4 +1,6 @@
-package com.appropel.schuss.common.util;
+package com.appropel.schuss.controller;
+
+import com.appropel.schuss.model.read.Person;
 
 /**
  * Interface for changing the top-level view. All transactions are added to the back
@@ -7,12 +9,18 @@ package com.appropel.schuss.common.util;
 public interface UserInterface
 {
     /**
+     * Shows the home screen.
+     */
+    void showHomeScreen();
+
+    /**
      * Shows the edit person screen.
      */
     void showEditPersonScreen();
 
     /**
-     * Shows the home screen.
+     * Shows the downhill profile screen for the given person.
+     * @param person person
      */
-    void showHomeScreen();
+    void showDownhillProfileScreen(Person person);
 }

@@ -143,7 +143,7 @@ public final class EditPersonFragment extends ValidatableFragment implements Val
 
         // TODO: implement autocomplete for e-mail address
 
-        return view;    // NOPMD TODO
+        return view;
     }
 
     /**

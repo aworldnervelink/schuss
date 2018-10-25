@@ -1,7 +1,8 @@
 package com.appropel.schuss.view.fragment;
 
 import com.appropel.schuss.common.util.EventBusFacade;
-import com.appropel.schuss.common.util.UserInterface;
+import com.appropel.schuss.controller.UserInterface;
+import com.appropel.schuss.model.read.Person;
 import com.appropel.schuss.view.event.ChangeFragmentEvent;
 
 /**
@@ -23,14 +24,21 @@ public final class DefaultUserInterface implements UserInterface
     }
 
     @Override
+    public void showHomeScreen()
+    {
+        eventBus.post(ChangeFragmentEvent.of(HomeFragment.class));
+    }
+
+    @Override
     public void showEditPersonScreen()
     {
         eventBus.post(ChangeFragmentEvent.of(EditPersonFragment.class));
     }
 
     @Override
-    public void showHomeScreen()
+    public void showDownhillProfileScreen(final Person person)
     {
-        eventBus.post(ChangeFragmentEvent.of(HomeFragment.class));
+        eventBus.post(
+                ChangeFragmentEvent.of(DownhillProfileFragment.class, DownhillProfileFragment.PERSON_KEY, person));
     }
 }

@@ -23,4 +23,10 @@
     <string name="city">City</string>
     <string name="state">State</string>
     <string name="postal_code">Postal Code</string>
+    <string name="downhill_profile">Downhill Skiing Profile</string>
+    <string name="skier_type">Skier Type</string>
+    <string name="boot_size">Boot Size</string>
+    <string name="ski_length">Ski Length</string>
+    <string name="pole_length">Pole Length</string>
+    <string name="helmet_size">Helmet Size</string>
 </resources>
