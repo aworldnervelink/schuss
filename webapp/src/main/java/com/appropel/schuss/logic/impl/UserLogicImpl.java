@@ -1,27 +1,21 @@
 package com.appropel.schuss.logic.impl;
 
-import com.appropel.schuss.dao.AddressDao;
 import com.appropel.schuss.dao.UserDao;
+import com.appropel.schuss.logic.ServiceError;
+import com.appropel.schuss.logic.ServiceException;
 import com.appropel.schuss.logic.UserLogic;
-import com.appropel.schuss.model.impl.AddressImpl;
 import com.appropel.schuss.model.impl.DeviceImpl;
 import com.appropel.schuss.model.impl.PersonImpl;
 import com.appropel.schuss.model.impl.UserImpl;
-import com.appropel.schuss.model.read.Person;
-import com.appropel.schuss.model.read.User;
-import com.appropel.schuss.logic.ServiceError;
-import com.appropel.schuss.logic.ServiceException;
 import com.appropel.schuss.security.JwtTokenService;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.nio.charset.Charset;
-import java.util.List;
 
 import at.favre.lib.crypto.bcrypt.BCrypt;
 
@@ -42,9 +36,9 @@ public class UserLogicImpl implements UserLogic
     /** User DAO. */
     private UserDao userDao;
 
-    /** Address DAO. */
-    private AddressDao addressDao;
-
+//    /** Address DAO. */
+//    private AddressDao addressDao;
+//
     /** JWT token service. */
     private JwtTokenService tokenService;
 
@@ -54,11 +48,11 @@ public class UserLogicImpl implements UserLogic
         this.userDao = userDao;
     }
 
-    @Autowired
-    public void setAddressDao(final AddressDao addressDao)
-    {
-        this.addressDao = addressDao;
-    }
+//    @Autowired
+//    public void setAddressDao(final AddressDao addressDao)
+//    {
+//        this.addressDao = addressDao;
+//    }
 
     @Autowired
     public void setTokenService(final JwtTokenService tokenService)
@@ -72,7 +66,7 @@ public class UserLogicImpl implements UserLogic
                        final String advertisingId,
                        final boolean newAccount)
     {
-        final User existingUser = userDao.findUser(emailAddress);
+        final UserImpl existingUser = userDao.findUser(emailAddress);
         if (newAccount)
         {
             if (existingUser == null)
@@ -118,28 +112,19 @@ public class UserLogicImpl implements UserLogic
     }
 
     @Override
-    public void updatePerson(final User user, final Person person)
+    public void updatePerson(final UserImpl user, final PersonImpl person)
     {
         if (person.getId() == 0)
         {
             // This is a new Person.
-            final AddressImpl newAddress = new AddressImpl();
-            // TODO: could be a re-used address, so handle that case also
-            BeanUtils.copyProperties(person.getAddress(), newAddress);
-            addressDao.add(newAddress);
+//            final AddressImpl newAddress = new AddressImpl();
+//            // TODO: could be a re-used address, so handle that case also
+//            BeanUtils.copyProperties(person.getAddress(), newAddress);
+//            addressDao.add(newAddress);
 
-            final PersonImpl newPerson = new PersonImpl();
-            BeanUtils.copyProperties(person, newPerson);
-            newPerson.setAddress(newAddress);
-            ((UserImpl) user).addPerson(newPerson);
+            user.addPerson(person);
             LOGGER.info("Added a new person to {}", user.getEmail());
         }
         // TODO: implement else/update case
-    }
-
-    @Override
-    public List<Person> getPersons()
-    {
-        return null;
     }
 }

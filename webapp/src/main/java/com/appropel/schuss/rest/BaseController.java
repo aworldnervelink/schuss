@@ -1,8 +1,8 @@
 package com.appropel.schuss.rest;
 
 import com.appropel.schuss.dao.UserDao;
+import com.appropel.schuss.model.impl.UserImpl;
 import com.appropel.schuss.model.read.ProtocolHeaders;
-import com.appropel.schuss.model.read.User;
 import com.appropel.schuss.security.JwtTokenService;
 import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -77,7 +77,7 @@ public abstract class BaseController
      * @param request HTTP request that contains a JWT in the headers
      * @return current user or null if not located
      */
-    protected User getCurrentUser(final HttpServletRequest request)
+    protected UserImpl getCurrentUser(final HttpServletRequest request)
     {
         final String userId = jwtTokenService.getUserId(request.getHeader(ProtocolHeaders.TOKEN.toString()));
         return userDao.findUser(userId);

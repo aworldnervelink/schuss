@@ -90,7 +90,7 @@ public final class DownhillProfileFragment extends Fragment
 
     /** Class being serialized. */
     @JsonProperty("@type")
-    static final String TYPE_NAME = "DownhillProfile";
+    final String typeName = "DownhillProfile";  // NOPMD: cannot be static, Jackson won't work!
 
     @Override
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState)

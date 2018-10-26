@@ -2,7 +2,6 @@ package com.appropel.schuss.dao.impl;
 
 import com.appropel.schuss.dao.RentalProviderDao;
 import com.appropel.schuss.model.impl.RentalProviderImpl;
-import com.appropel.schuss.model.read.RentalProvider;
 import com.google.common.collect.ImmutableList;
 
 import org.springframework.stereotype.Repository;
@@ -20,10 +19,10 @@ import javax.jdo.PersistenceManager;
 @Repository
 @SuppressWarnings("checkstyle:DesignForExtension")
 // Cannot be final for AOP enhancement
-public class RentalProviderDaoImpl extends DaoBase<RentalProvider> implements RentalProviderDao
+public class RentalProviderDaoImpl extends DaoBase<RentalProviderImpl> implements RentalProviderDao
 {
     @Override
-    public List<RentalProvider> getRentalProviders()
+    public List<RentalProviderImpl> getRentalProviders()
     {
         final PersistenceManager pm = persistenceManagerFactory.getPersistenceManager();
         final JDOQLTypedQuery<RentalProviderImpl> query = pm.newJDOQLTypedQuery(RentalProviderImpl.class);

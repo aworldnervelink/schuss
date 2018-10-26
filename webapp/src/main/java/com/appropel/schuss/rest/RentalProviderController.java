@@ -1,7 +1,7 @@
 package com.appropel.schuss.rest;
 
 import com.appropel.schuss.dao.RentalProviderDao;
-import com.appropel.schuss.model.read.RentalProvider;
+import com.appropel.schuss.model.impl.RentalProviderImpl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -44,7 +44,7 @@ public class RentalProviderController extends BaseController
     public void getRentalProviders(final ServletResponse response)
             throws IOException
     {
-        final List<RentalProvider> rentalProviders = rentalProviderDao.getRentalProviders();
+        final List<RentalProviderImpl> rentalProviders = rentalProviderDao.getRentalProviders();
         writeAsJson(response.getOutputStream(), rentalProviders);
     }
 }

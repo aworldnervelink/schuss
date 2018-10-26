@@ -3,12 +3,12 @@ package com.appropel.schuss.rest;
 import com.appropel.schuss.dao.PersonDao;
 import com.appropel.schuss.logic.PersonLogic;
 import com.appropel.schuss.logic.UserLogic;
+import com.appropel.schuss.model.impl.PersonImpl;
+import com.appropel.schuss.model.impl.ProfileImpl;
+import com.appropel.schuss.model.impl.UserImpl;
 import com.appropel.schuss.model.read.Person;
 import com.appropel.schuss.model.read.Profile;
-import com.appropel.schuss.model.read.User;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -30,9 +30,6 @@ import javax.servlet.http.HttpServletResponse;
 @SuppressWarnings("checkstyle:DesignForExtension")  // Cannot be final for AOP enhancement
 public class PersonController extends BaseController
 {
-    /** Logger. */
-    private static final Logger LOGGER = LoggerFactory.getLogger(PersonController.class);
-    
     /** Path for this controller. */
     public static final String PERSON_PATH = "/person";
 
@@ -87,8 +84,9 @@ public class PersonController extends BaseController
                              final HttpServletRequest request,
                              final HttpServletResponse response) throws IOException
     {
-        final User user = getCurrentUser(request);
-        userLogic.updatePerson(user, person);
+        final UserImpl user = getCurrentUser(request);
+        final PersonImpl newPerson = PersonImpl.from(person);
+        userLogic.updatePerson(user, newPerson);
     }
 
     /**
@@ -100,7 +98,7 @@ public class PersonController extends BaseController
     @RequestMapping(value = PERSON_PATH + GET_PERSONS_METHOD, method = RequestMethod.GET)
     public void getPersons(final HttpServletRequest request, final HttpServletResponse response) throws IOException
     {
-        final User user = getCurrentUser(request);
+        final UserImpl user = getCurrentUser(request);
         writeAsJson(response.getOutputStream(), user.getPersons());
     }
 
@@ -115,9 +113,9 @@ public class PersonController extends BaseController
                               @RequestBody final Profile profile,
                               final HttpServletRequest request)
     {
-        final User user = getCurrentUser(request);
-        LOGGER.info("personId = {}", personId);
-        final Person person = personDao.getById(personId);
-        personLogic.updateProfile(user, person, profile);
+        final UserImpl user = getCurrentUser(request);
+        final PersonImpl person = personDao.getById(personId);
+        final ProfileImpl newProfile = ProfileImpl.from(profile);
+        personLogic.updateProfile(user, person, newProfile);
     }
 }

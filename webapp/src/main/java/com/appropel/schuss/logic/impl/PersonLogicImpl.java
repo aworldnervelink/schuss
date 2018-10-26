@@ -1,15 +1,11 @@
 package com.appropel.schuss.logic.impl;
 
 import com.appropel.schuss.logic.PersonLogic;
-import com.appropel.schuss.model.impl.DownhillProfileImpl;
 import com.appropel.schuss.model.impl.PersonImpl;
 import com.appropel.schuss.model.impl.ProfileImpl;
-import com.appropel.schuss.model.read.Person;
-import com.appropel.schuss.model.read.Profile;
-import com.appropel.schuss.model.read.User;
+import com.appropel.schuss.model.impl.UserImpl;
 import com.google.common.base.Preconditions;
 
-import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,11 +18,11 @@ import org.springframework.transaction.annotation.Transactional;
 public class PersonLogicImpl implements PersonLogic
 {
     @Override
-    public void updateProfile(final User user, final Person person, final Profile profile)
+    public void updateProfile(final UserImpl user, final PersonImpl person, final ProfileImpl profile)
     {
         // Person must be attached to the user.
-        Person existingPerson = null;
-        for (Person attachedPerson : user.getPersons())
+        PersonImpl existingPerson = null;
+        for (PersonImpl attachedPerson : user.getPersons())
         {
             if (attachedPerson.getId() == person.getId())
             {
@@ -38,18 +34,8 @@ public class PersonLogicImpl implements PersonLogic
         if (profile.getId() == 0)
         {
             // This is a new profile
-            final ProfileImpl newProfile;
-            switch (profile.getProfileType())
-            {
-                case DOWNHILL:
-                    newProfile = new DownhillProfileImpl();
-                    break;
-                default:
-                    throw new IllegalArgumentException("Unknown profile type " + profile.getProfileType());
-            }
-            BeanUtils.copyProperties(profile, newProfile);
-
-            ((PersonImpl) existingPerson).addProfile(newProfile);
+            // TODO: check to ensure user only has one profile of each type
+            existingPerson.addProfile(profile);
         }
         // TODO: handle else/edit case
     }

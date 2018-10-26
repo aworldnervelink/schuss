@@ -19,7 +19,7 @@ public abstract class Person implements Serializable
     public static final String TELEPHONE_REGEX = "^\\(?([0-9]{3})\\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$|^$";
 
     /** Telephone number pattern. */
-    protected static final Pattern TELEPHONE_PATTERN = Pattern.compile(TELEPHONE_REGEX);
+    public static final Pattern TELEPHONE_PATTERN = Pattern.compile(TELEPHONE_REGEX);
 
     /**
      * Returns the identifier.

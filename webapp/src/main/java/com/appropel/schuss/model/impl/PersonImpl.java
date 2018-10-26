@@ -1,11 +1,10 @@
 package com.appropel.schuss.model.impl;
 
-import com.appropel.schuss.model.read.Address;
 import com.appropel.schuss.model.read.Person;
-import com.appropel.schuss.model.read.Profile;
-import com.google.common.collect.ImmutableSet;
+import com.google.common.collect.ImmutableSortedSet;
 
 import org.apache.commons.lang3.builder.CompareToBuilder;
+import org.springframework.beans.BeanUtils;
 import org.springframework.util.StringUtils;
 
 import java.util.Set;
@@ -24,7 +23,7 @@ import javax.jdo.annotations.Persistent;
  */
 @SuppressWarnings("PMD")
 @PersistenceCapable(identityType = IdentityType.APPLICATION, table = "person", detachable = "true")
-public final class PersonImpl extends Person implements Comparable<Person>
+public final class PersonImpl implements Comparable<PersonImpl>
 {
     /** Object unique identifier. */
     @Persistent(primaryKey = "true", valueStrategy = IdGeneratorStrategy.INCREMENT)
@@ -63,13 +62,19 @@ public final class PersonImpl extends Person implements Comparable<Person>
     @Element(column = "person_id")
     private Set<ProfileImpl> profiles = new TreeSet<ProfileImpl>();
 
-    @Override
+    /**
+     * Constructs a new {code PersonImpl}.
+     */
+    public PersonImpl()
+    {
+        address = new AddressImpl();
+    }
+
     public long getId()
     {
         return id;
     }
 
-    @Override
     public String getFirstName()
     {
         return firstName;
@@ -80,7 +85,6 @@ public final class PersonImpl extends Person implements Comparable<Person>
         this.firstName = firstName;
     }
 
-    @Override
     public String getLastName()
     {
         return lastName;
@@ -91,7 +95,6 @@ public final class PersonImpl extends Person implements Comparable<Person>
         this.lastName = lastName;
     }
 
-    @Override
     public String getGuardianFirstName()
     {
         return guardianFirstName;
@@ -102,7 +105,6 @@ public final class PersonImpl extends Person implements Comparable<Person>
         this.guardianFirstName = guardianFirstName;
     }
 
-    @Override
     public String getGuardianLastName()
     {
         return guardianLastName;
@@ -113,8 +115,7 @@ public final class PersonImpl extends Person implements Comparable<Person>
         this.guardianLastName = guardianLastName;
     }
 
-    @Override
-    public Address getAddress()
+    public AddressImpl getAddress()
     {
         return address;
     }
@@ -124,7 +125,6 @@ public final class PersonImpl extends Person implements Comparable<Person>
         this.address = address;
     }
 
-    @Override
     public String getEmailAddress()
     {
         return email;
@@ -135,7 +135,6 @@ public final class PersonImpl extends Person implements Comparable<Person>
         this.email = email;
     }
 
-    @Override
     public String getPhoneNumber()
     {
         return phoneNumber;
@@ -149,7 +148,7 @@ public final class PersonImpl extends Person implements Comparable<Person>
     {
         if (StringUtils.hasText(phoneNumber))
         {
-            final Matcher telephoneMatcher = TELEPHONE_PATTERN.matcher(phoneNumber);
+            final Matcher telephoneMatcher = Person.TELEPHONE_PATTERN.matcher(phoneNumber);
             this.phoneNumber = telephoneMatcher.replaceAll("($1) $2-$3");
         }
         else
@@ -158,9 +157,9 @@ public final class PersonImpl extends Person implements Comparable<Person>
         }
     }
 
-    public Set<Profile> getProfiles()
+    public Set<ProfileImpl> getProfiles()
     {
-        return ImmutableSet.copyOf(profiles);
+        return ImmutableSortedSet.copyOf(profiles);
     }
 
     /**
@@ -172,8 +171,21 @@ public final class PersonImpl extends Person implements Comparable<Person>
         profiles.add(profile);
     }
 
+    /**
+     * Returns a persistent Person from the given lightweight Person.
+     * @param person person
+     * @return persistent person
+     */
+    public static PersonImpl from(final Person person)
+    {
+        final PersonImpl newPerson = new PersonImpl();
+        BeanUtils.copyProperties(person, newPerson);
+        BeanUtils.copyProperties(person.getAddress(), newPerson.address);
+        return newPerson;
+    }
+
     @Override
-    public int compareTo(final Person other)
+    public int compareTo(final PersonImpl other)
     {
         return new CompareToBuilder()
                 .append(getFirstName(), other.getFirstName())

@@ -3,7 +3,6 @@ package com.appropel.schuss.dao.impl;
 import com.appropel.schuss.dao.UserDao;
 import com.appropel.schuss.model.impl.QUserImpl;
 import com.appropel.schuss.model.impl.UserImpl;
-import com.appropel.schuss.model.read.User;
 
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,10 +17,10 @@ import javax.jdo.PersistenceManager;
 @Repository
 @SuppressWarnings("checkstyle:DesignForExtension")
 // Cannot be final for AOP enhancement
-public class UserDaoImpl extends DaoBase<User> implements UserDao
+public class UserDaoImpl extends DaoBase<UserImpl> implements UserDao
 {
     @Override
-    public User findUser(final String emailAddress)
+    public UserImpl findUser(final String emailAddress)
     {
         final PersistenceManager pm = persistenceManagerFactory.getPersistenceManager();
         final JDOQLTypedQuery<UserImpl> query = pm.newJDOQLTypedQuery(UserImpl.class);

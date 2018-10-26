@@ -1,5 +1,6 @@
 package com.appropel.schuss.model.impl;
 
+import com.appropel.schuss.model.read.Profile;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
 import javax.jdo.annotations.Column;
@@ -34,10 +35,9 @@ public final class DownhillProfileImpl extends ProfileImpl
     @Column(name = "helmet_size", length = 20)
     private String helmetSize;
 
-    @Override
-    public Type getProfileType()
+    public Profile.Type getProfileType()
     {
-        return Type.DOWNHILL;
+        return Profile.Type.DOWNHILL;
     }
 
     public String getSkierType()

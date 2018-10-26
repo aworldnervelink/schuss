@@ -1,9 +1,7 @@
 package com.appropel.schuss.logic;
 
-import com.appropel.schuss.model.read.Person;
-import com.appropel.schuss.model.read.User;
-
-import java.util.List;
+import com.appropel.schuss.model.impl.PersonImpl;
+import com.appropel.schuss.model.impl.UserImpl;
 
 /**
  * Business methods for managing Users.
@@ -26,11 +24,5 @@ public interface UserLogic
      * @param user user
      * @param person person
      */
-    void updatePerson(User user, Person person);
-
-    /**
-     * Returns a list of Persons attached to the current User.
-     * @return list of Person
-     */
-    List<Person> getPersons();
+    void updatePerson(UserImpl user, PersonImpl person);
 }

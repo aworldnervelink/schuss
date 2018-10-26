@@ -1,8 +1,8 @@
 package com.appropel.schuss.logic;
 
-import com.appropel.schuss.model.read.Person;
-import com.appropel.schuss.model.read.Profile;
-import com.appropel.schuss.model.read.User;
+import com.appropel.schuss.model.impl.PersonImpl;
+import com.appropel.schuss.model.impl.ProfileImpl;
+import com.appropel.schuss.model.impl.UserImpl;
 
 /**
  * Business logic for managing Persons.
@@ -15,5 +15,5 @@ public interface PersonLogic
      * @param person person
      * @param profile profile
      */
-    void updateProfile(User user, Person person, Profile profile);
+    void updateProfile(UserImpl user, PersonImpl person, ProfileImpl profile);
 }

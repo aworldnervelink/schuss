@@ -1,7 +1,5 @@
 package com.appropel.schuss.model.impl;
 
-import com.appropel.schuss.model.read.Device;
-
 import javax.jdo.annotations.Column;
 import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.IdentityType;
@@ -15,7 +13,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
  */
 @SuppressWarnings("PMD")
 @PersistenceCapable(identityType = IdentityType.APPLICATION, table = "device", detachable = "true")
-public final class DeviceImpl implements Device
+public final class DeviceImpl
 {
     /** Object unique identifier. */
     @Persistent(primaryKey = "true", valueStrategy = IdGeneratorStrategy.INCREMENT)
@@ -38,19 +36,16 @@ public final class DeviceImpl implements Device
         this.advertisingId = checkNotNull(advertisingId);
     }
 
-    @Override
     public long getId()
     {
         return id;
     }
 
-    @Override
     public String getAdvertisingId()
     {
         return advertisingId;
     }
 
-    @Override
     public String getModelName()
     {
         return modelName;

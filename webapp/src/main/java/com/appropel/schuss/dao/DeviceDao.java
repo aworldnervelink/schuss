@@ -1,10 +1,10 @@
 package com.appropel.schuss.dao;
 
-import com.appropel.schuss.model.read.Device;
+import com.appropel.schuss.model.impl.DeviceImpl;
 
 /**
  * DAO methods for Device.
  */
-public interface DeviceDao extends Dao<Device>
+public interface DeviceDao extends Dao<DeviceImpl>
 {
 }
