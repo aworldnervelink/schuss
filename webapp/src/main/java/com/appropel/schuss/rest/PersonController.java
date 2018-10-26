@@ -1,14 +1,20 @@
 package com.appropel.schuss.rest;
 
+import com.appropel.schuss.dao.PersonDao;
+import com.appropel.schuss.logic.PersonLogic;
 import com.appropel.schuss.logic.UserLogic;
 import com.appropel.schuss.model.read.Person;
+import com.appropel.schuss.model.read.Profile;
 import com.appropel.schuss.model.read.User;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
@@ -24,6 +30,9 @@ import javax.servlet.http.HttpServletResponse;
 @SuppressWarnings("checkstyle:DesignForExtension")  // Cannot be final for AOP enhancement
 public class PersonController extends BaseController
 {
+    /** Logger. */
+    private static final Logger LOGGER = LoggerFactory.getLogger(PersonController.class);
+    
     /** Path for this controller. */
     public static final String PERSON_PATH = "/person";
 
@@ -33,13 +42,37 @@ public class PersonController extends BaseController
     /** Get persons method. */
     public static final String GET_PERSONS_METHOD = "/getPersons";
 
+    /** Update profile method. */
+    public static final String UPDATE_PROFILE_METHOD = "/updateProfile";
+
+    /** Parameter for Person ID. */
+    public static final String PERSON_ID_PARAM = "personId";
+
     /** User business logic. */
     private UserLogic userLogic;
+
+    /** Person DAO. */
+    private PersonDao personDao;
+
+    /** Person business logic. */
+    private PersonLogic personLogic;
 
     @Autowired
     public void setUserLogic(final UserLogic userLogic)
     {
         this.userLogic = userLogic;
+    }
+
+    @Autowired
+    public void setPersonDao(final PersonDao personDao)
+    {
+        this.personDao = personDao;
+    }
+
+    @Autowired
+    public void setPersonLogic(final PersonLogic personLogic)
+    {
+        this.personLogic = personLogic;
     }
 
     /**
@@ -69,5 +102,22 @@ public class PersonController extends BaseController
     {
         final User user = getCurrentUser(request);
         writeAsJson(response.getOutputStream(), user.getPersons());
+    }
+
+    /**
+     * Creates or updates a Profile connected to the given Person.
+     * @param personId person ID
+     * @param profile profile
+     * @param request servlet request
+     */
+    @RequestMapping(value = PERSON_PATH + UPDATE_PROFILE_METHOD, method = RequestMethod.POST)
+    public void updateProfile(@RequestParam(value = PERSON_ID_PARAM) final long personId,
+                              @RequestBody final Profile profile,
+                              final HttpServletRequest request)
+    {
+        final User user = getCurrentUser(request);
+        LOGGER.info("personId = {}", personId);
+        final Person person = personDao.getById(personId);
+        personLogic.updateProfile(user, person, profile);
     }
 }

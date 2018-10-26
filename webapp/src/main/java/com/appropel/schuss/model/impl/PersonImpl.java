@@ -2,6 +2,8 @@ package com.appropel.schuss.model.impl;
 
 import com.appropel.schuss.model.read.Address;
 import com.appropel.schuss.model.read.Person;
+import com.appropel.schuss.model.read.Profile;
+import com.google.common.collect.ImmutableSet;
 
 import org.apache.commons.lang3.builder.CompareToBuilder;
 import org.springframework.util.StringUtils;
@@ -156,9 +158,9 @@ public final class PersonImpl extends Person implements Comparable<Person>
         }
     }
 
-    public Set<ProfileImpl> getProfiles()
+    public Set<Profile> getProfiles()
     {
-        return profiles;
+        return ImmutableSet.copyOf(profiles);
     }
 
     /**

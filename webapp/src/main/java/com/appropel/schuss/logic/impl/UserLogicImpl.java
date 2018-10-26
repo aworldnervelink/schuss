@@ -134,6 +134,7 @@ public class UserLogicImpl implements UserLogic
             ((UserImpl) user).addPerson(newPerson);
             LOGGER.info("Added a new person to {}", user.getEmail());
         }
+        // TODO: implement else/update case
     }
 
     @Override

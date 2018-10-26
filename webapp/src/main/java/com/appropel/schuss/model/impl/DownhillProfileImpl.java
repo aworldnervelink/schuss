@@ -1,5 +1,7 @@
 package com.appropel.schuss.model.impl;
 
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
 import javax.jdo.annotations.Column;
 import javax.jdo.annotations.PersistenceCapable;
 
@@ -8,6 +10,7 @@ import javax.jdo.annotations.PersistenceCapable;
  */
 @SuppressWarnings("PMD")
 @PersistenceCapable(table = "downhill_profile")
+@JsonTypeName("DownhillProfile")
 public final class DownhillProfileImpl extends ProfileImpl
     // NOTE: can't extend or implement DownhillProfile - hierarchy is breaking down here.
 {

@@ -88,6 +88,9 @@ public final class DownhillProfileFragment extends Fragment
     @JsonProperty("profileType")
     final Profile.Type type = Profile.Type.DOWNHILL;
 
+    /** Class being serialized. */
+    @JsonProperty("@type")
+    static final String TYPE_NAME = "DownhillProfile";
 
     @Override
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState)

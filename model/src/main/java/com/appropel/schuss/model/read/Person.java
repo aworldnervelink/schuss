@@ -1,11 +1,13 @@
 package com.appropel.schuss.model.read;
 
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.google.common.base.Preconditions;
 
 import org.immutables.value.Value;
 
 import java.io.Serializable;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -58,6 +60,11 @@ public abstract class Person implements Serializable
      * Returns the person's contact phone number.
      */
     public abstract String getPhoneNumber();
+
+    /**
+     * Returns a Set of all Profiles for this Person.
+     */
+    public abstract Set<Profile> getProfiles();
 
     @Value.Check
     protected void check()

@@ -1,7 +1,7 @@
 package com.appropel.schuss.dao.impl;
 
 import com.appropel.schuss.dao.PersonDao;
-import com.appropel.schuss.model.read.Person;
+import com.appropel.schuss.model.impl.PersonImpl;
 
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,6 +13,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Repository
 @SuppressWarnings("checkstyle:DesignForExtension")
 // Cannot be final for AOP enhancement
-public class PersonDaoImpl extends DaoBase<Person> implements PersonDao
+public class PersonDaoImpl extends DaoBase<PersonImpl> implements PersonDao
 {
 }

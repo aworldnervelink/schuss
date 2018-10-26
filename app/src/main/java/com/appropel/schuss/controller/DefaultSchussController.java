@@ -136,6 +136,14 @@ public final class DefaultSchussController implements SchussController
     @Override
     public void updateProfile(final Person person, final Profile profile)
     {
-        // TODO.
+        service.updateProfile(person.getId(), profile)
+                .enqueue(new SchussServiceCallback<Void>(eventBus, objectMapper)
+                {
+                    @Override
+                    void onRequestSuccess(final Void response)
+                    {
+                        userInterface.showHomeScreen();
+                    }
+                });
     }
 }
