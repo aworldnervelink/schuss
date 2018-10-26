@@ -1,5 +1,8 @@
 package com.appropel.schuss.model.impl;
 
+import com.appropel.schuss.model.read.Device;
+import com.appropel.schuss.model.read.Person;
+import com.appropel.schuss.model.read.User;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.ImmutableSortedSet;
 
@@ -21,7 +24,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
  */
 @SuppressWarnings("PMD")
 @PersistenceCapable(identityType = IdentityType.APPLICATION, table = "user", detachable = "true")
-public final class UserImpl
+public final class UserImpl implements User
 {
     /** Object unique identifier. */
     @Persistent(primaryKey = "true", valueStrategy = IdGeneratorStrategy.INCREMENT)
@@ -56,27 +59,32 @@ public final class UserImpl
         this.password = checkNotNull(password);
     }
 
+    @Override
     public long getId()
     {
         return id;
     }
 
+    @Override
     public String getEmail()
     {
         return email;
     }
 
+    @Override
     public String getPassword()
     {
         return password;
     }
 
-    public Set<DeviceImpl> getDevices()
+    @Override
+    public Set<Device> getDevices()
     {
         return ImmutableSet.copyOf(devices);
     }
 
-    public Set<PersonImpl> getPersons()
+    @Override
+    public Set<Person> getPersons()
     {
         return ImmutableSortedSet.copyOf(persons);
     }

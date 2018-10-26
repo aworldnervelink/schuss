@@ -11,7 +11,7 @@ import com.appropel.schuss.common.util.Preferences;
 import com.appropel.schuss.controller.UserInterface;
 import com.appropel.schuss.controller.DefaultSchussController;
 import com.appropel.schuss.controller.SchussController;
-import com.appropel.schuss.model.read.ProtocolHeaders;
+import com.appropel.schuss.rest.ProtocolHeaders;
 import com.appropel.schuss.service.SchussService;
 import com.appropel.schuss.view.fragment.DefaultUserInterface;
 import com.appropel.schuss.view.util.DefaultContextUtils;

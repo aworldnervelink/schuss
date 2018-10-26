@@ -200,7 +200,7 @@ task remoteServiceJar(type: Jar) {
     baseName = 'schuss-service'
     dependsOn classes
     from sourceSets.main.output
-    include('com/appropel/schuss/service/**', 'com/appropel/schuss/logic/Service*')
+    include('com/appropel/schuss/service/**', 'com/appropel/schuss/logic/Service*', 'com/appropel/schuss/rest/Protocol*')
 }
 
 artifacts {

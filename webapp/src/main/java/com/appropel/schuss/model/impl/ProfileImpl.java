@@ -19,12 +19,13 @@ import javax.jdo.annotations.Persistent;
 @PersistenceCapable(identityType = IdentityType.APPLICATION, detachable = "true")
 @Inheritance(strategy = InheritanceStrategy.SUBCLASS_TABLE)
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME)
-public abstract class ProfileImpl implements Comparable<ProfileImpl>
+public abstract class ProfileImpl implements Profile, Comparable<ProfileImpl>
 {
     /** Object unique identifier. */
     @Persistent(primaryKey = "true", valueStrategy = IdGeneratorStrategy.INCREMENT)
     private long id;
 
+    @Override
     public long getId()
     {
         return id;
@@ -34,6 +35,7 @@ public abstract class ProfileImpl implements Comparable<ProfileImpl>
      * Returns the profile type.
      * @return profile type
      */
+    @Override
     public abstract Profile.Type getProfileType();
 
     /**

@@ -1,6 +1,7 @@
 package com.appropel.schuss.model.impl;
 
 import com.appropel.schuss.model.read.Person;
+import com.appropel.schuss.model.read.Profile;
 import com.google.common.collect.ImmutableSortedSet;
 
 import org.apache.commons.lang3.builder.CompareToBuilder;
@@ -23,7 +24,7 @@ import javax.jdo.annotations.Persistent;
  */
 @SuppressWarnings("PMD")
 @PersistenceCapable(identityType = IdentityType.APPLICATION, table = "person", detachable = "true")
-public final class PersonImpl implements Comparable<PersonImpl>
+public final class PersonImpl implements Person, Comparable<PersonImpl>
 {
     /** Object unique identifier. */
     @Persistent(primaryKey = "true", valueStrategy = IdGeneratorStrategy.INCREMENT)
@@ -70,11 +71,13 @@ public final class PersonImpl implements Comparable<PersonImpl>
         address = new AddressImpl();
     }
 
+    @Override
     public long getId()
     {
         return id;
     }
 
+    @Override
     public String getFirstName()
     {
         return firstName;
@@ -85,6 +88,7 @@ public final class PersonImpl implements Comparable<PersonImpl>
         this.firstName = firstName;
     }
 
+    @Override
     public String getLastName()
     {
         return lastName;
@@ -95,6 +99,7 @@ public final class PersonImpl implements Comparable<PersonImpl>
         this.lastName = lastName;
     }
 
+    @Override
     public String getGuardianFirstName()
     {
         return guardianFirstName;
@@ -105,6 +110,7 @@ public final class PersonImpl implements Comparable<PersonImpl>
         this.guardianFirstName = guardianFirstName;
     }
 
+    @Override
     public String getGuardianLastName()
     {
         return guardianLastName;
@@ -115,6 +121,7 @@ public final class PersonImpl implements Comparable<PersonImpl>
         this.guardianLastName = guardianLastName;
     }
 
+    @Override
     public AddressImpl getAddress()
     {
         return address;
@@ -125,6 +132,7 @@ public final class PersonImpl implements Comparable<PersonImpl>
         this.address = address;
     }
 
+    @Override
     public String getEmailAddress()
     {
         return email;
@@ -135,6 +143,7 @@ public final class PersonImpl implements Comparable<PersonImpl>
         this.email = email;
     }
 
+    @Override
     public String getPhoneNumber()
     {
         return phoneNumber;
@@ -157,7 +166,8 @@ public final class PersonImpl implements Comparable<PersonImpl>
         }
     }
 
-    public Set<ProfileImpl> getProfiles()
+    @Override
+    public Set<Profile> getProfiles()
     {
         return ImmutableSortedSet.copyOf(profiles);
     }

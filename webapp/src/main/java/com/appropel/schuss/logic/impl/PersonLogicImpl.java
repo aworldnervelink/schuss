@@ -4,6 +4,7 @@ import com.appropel.schuss.logic.PersonLogic;
 import com.appropel.schuss.model.impl.PersonImpl;
 import com.appropel.schuss.model.impl.ProfileImpl;
 import com.appropel.schuss.model.impl.UserImpl;
+import com.appropel.schuss.model.read.Person;
 import com.google.common.base.Preconditions;
 
 import org.springframework.stereotype.Component;
@@ -22,11 +23,11 @@ public class PersonLogicImpl implements PersonLogic
     {
         // Person must be attached to the user.
         PersonImpl existingPerson = null;
-        for (PersonImpl attachedPerson : user.getPersons())
+        for (Person attachedPerson : user.getPersons())
         {
             if (attachedPerson.getId() == person.getId())
             {
-                existingPerson = attachedPerson;
+                existingPerson = (PersonImpl) attachedPerson;
             }
         }
         Preconditions.checkState(existingPerson != null, "Person must be attached to User!");

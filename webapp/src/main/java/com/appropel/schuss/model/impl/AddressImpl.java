@@ -1,5 +1,7 @@
 package com.appropel.schuss.model.impl;
 
+import com.appropel.schuss.model.read.Address;
+
 import javax.jdo.annotations.Column;
 import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.IdentityType;
@@ -11,7 +13,7 @@ import javax.jdo.annotations.Persistent;
  */
 @SuppressWarnings("PMD")
 @PersistenceCapable(identityType = IdentityType.APPLICATION, table = "address", detachable = "true")
-public final class AddressImpl
+public final class AddressImpl implements Address
 {
     /** Object unique identifier. */
     @Persistent(primaryKey = "true", valueStrategy = IdGeneratorStrategy.INCREMENT)
@@ -37,11 +39,13 @@ public final class AddressImpl
     @Column(name = "postal_code", length = 12)
     private String postalCode;
 
+    @Override
     public long getId()
     {
         return id;
     }
 
+    @Override
     public String getAddressLine1()
     {
         return addressLine1;
@@ -52,6 +56,7 @@ public final class AddressImpl
         this.addressLine1 = addressLine1;
     }
 
+    @Override
     public String getAddressLine2()
     {
         return addressLine2;
@@ -62,6 +67,7 @@ public final class AddressImpl
         this.addressLine2 = addressLine2;
     }
 
+    @Override
     public String getCity()
     {
         return city;
@@ -72,6 +78,7 @@ public final class AddressImpl
         this.city = city;
     }
 
+    @Override
     public String getStateProvince()
     {
         return stateProvince;
@@ -82,6 +89,7 @@ public final class AddressImpl
         this.stateProvince = stateProvince;
     }
 
+    @Override
     public String getPostalCode()
     {
         return postalCode;

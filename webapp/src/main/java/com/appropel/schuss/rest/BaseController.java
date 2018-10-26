@@ -2,7 +2,6 @@ package com.appropel.schuss.rest;
 
 import com.appropel.schuss.dao.UserDao;
 import com.appropel.schuss.model.impl.UserImpl;
-import com.appropel.schuss.model.read.ProtocolHeaders;
 import com.appropel.schuss.security.JwtTokenService;
 import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;

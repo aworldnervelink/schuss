@@ -13,61 +13,61 @@ import java.util.regex.Pattern;
 
 @Value.Immutable
 @JsonDeserialize(builder = ImmutablePerson.Builder.class)
-public abstract class Person implements Serializable
+public interface Person extends Serializable
 {
     /** Regular expression for a telephone number. */
-    public static final String TELEPHONE_REGEX = "^\\(?([0-9]{3})\\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$|^$";
+    String TELEPHONE_REGEX = "^\\(?([0-9]{3})\\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$|^$";
 
     /** Telephone number pattern. */
-    public static final Pattern TELEPHONE_PATTERN = Pattern.compile(TELEPHONE_REGEX);
+    Pattern TELEPHONE_PATTERN = Pattern.compile(TELEPHONE_REGEX);
 
     /**
      * Returns the identifier.
      */
-    public abstract long getId();
+    long getId();
 
     /**
      * Returns the first name of the person.
      */
-    public abstract String getFirstName();
+    String getFirstName();
 
     /**
      * Returns the last name of the person.
      */
-    public abstract String getLastName();
+    String getLastName();
 
     /**
      * Returns the first name of the person's guardian (may be empty).
      */
-    public abstract String getGuardianFirstName();
+    String getGuardianFirstName();
 
     /**
      * Returns the last name of the person's guardian (may be empty).
      */
-    public abstract String getGuardianLastName();
+    String getGuardianLastName();
 
     /**
      * Returns the person's address.
      */
-    public abstract Address getAddress();
+    Address getAddress();
 
     /**
      * Returns the person's e-mail address.
      */
-    public abstract String getEmailAddress();
+    String getEmailAddress();
 
     /**
      * Returns the person's contact phone number.
      */
-    public abstract String getPhoneNumber();
+    String getPhoneNumber();
 
     /**
      * Returns a Set of all Profiles for this Person.
      */
-    public abstract Set<Profile> getProfiles();
+    Set<Profile> getProfiles();
 
     @Value.Check
-    protected void check()
+    default void check()
     {
         final Matcher telephoneMatcher = TELEPHONE_PATTERN.matcher(getPhoneNumber());
         Preconditions.checkState(telephoneMatcher.matches());

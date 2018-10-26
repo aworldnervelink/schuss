@@ -1,6 +1,6 @@
 package com.appropel.schuss.security;
 
-import com.appropel.schuss.model.read.ProtocolHeaders;
+import com.appropel.schuss.rest.ProtocolHeaders;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

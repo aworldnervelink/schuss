@@ -1,4 +1,4 @@
-package com.appropel.schuss.model.read;
+package com.appropel.schuss.rest;
 
 /**
  * HTTP headers used in the VX app protocol.

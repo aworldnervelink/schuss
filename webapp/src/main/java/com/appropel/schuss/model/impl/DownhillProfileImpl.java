@@ -1,5 +1,6 @@
 package com.appropel.schuss.model.impl;
 
+import com.appropel.schuss.model.read.DownhillProfile;
 import com.appropel.schuss.model.read.Profile;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
@@ -12,7 +13,7 @@ import javax.jdo.annotations.PersistenceCapable;
 @SuppressWarnings("PMD")
 @PersistenceCapable(table = "downhill_profile")
 @JsonTypeName("DownhillProfile")
-public final class DownhillProfileImpl extends ProfileImpl
+public final class DownhillProfileImpl extends ProfileImpl implements DownhillProfile
     // NOTE: can't extend or implement DownhillProfile - hierarchy is breaking down here.
 {
     /** Skier type. */
@@ -35,11 +36,13 @@ public final class DownhillProfileImpl extends ProfileImpl
     @Column(name = "helmet_size", length = 20)
     private String helmetSize;
 
+    @Override
     public Profile.Type getProfileType()
     {
         return Profile.Type.DOWNHILL;
     }
 
+    @Override
     public String getSkierType()
     {
         return skierType;
@@ -50,6 +53,7 @@ public final class DownhillProfileImpl extends ProfileImpl
         this.skierType = skierType;
     }
 
+    @Override
     public String getBootSize()
     {
         return bootSize;
@@ -60,6 +64,7 @@ public final class DownhillProfileImpl extends ProfileImpl
         this.bootSize = bootSize;
     }
 
+    @Override
     public String getSkiSize()
     {
         return skiSize;
@@ -70,6 +75,7 @@ public final class DownhillProfileImpl extends ProfileImpl
         this.skiSize = skiSize;
     }
 
+    @Override
     public String getSkiPoleLength()
     {
         return skiPoleLength;
@@ -80,6 +86,7 @@ public final class DownhillProfileImpl extends ProfileImpl
         this.skiPoleLength = skiPoleLength;
     }
 
+    @Override
     public String getHelmetSize()
     {
         return helmetSize;
