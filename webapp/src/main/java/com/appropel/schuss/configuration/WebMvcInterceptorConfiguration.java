@@ -32,6 +32,7 @@ public class WebMvcInterceptorConfiguration extends WebMvcConfigurerAdapter
                 .addPathPatterns("/**")
                 // ...except the new user/sign in
                 .excludePathPatterns(UserController.USER_PATH + UserController.NEW_ACCOUNT_PARAM)
-                .excludePathPatterns(UserController.USER_PATH + UserController.SIGN_IN_METHOD);
+                .excludePathPatterns(UserController.USER_PATH + UserController.SIGN_IN_METHOD)
+                .excludePathPatterns("/images/**"); // TODO: hacky way to show images
     }
 }

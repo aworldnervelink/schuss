@@ -39,4 +39,9 @@ public interface SchussController
      * @param profile profile
      */
     void updateProfile(final Person person, final Profile profile);
+
+    /**
+     * Fetches the list of rental providers.
+     */
+    void getRentalProviders();
 }

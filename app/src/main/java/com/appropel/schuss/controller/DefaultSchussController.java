@@ -4,8 +4,10 @@ import com.appropel.schuss.common.util.ContextUtils;
 import com.appropel.schuss.common.util.EventBusFacade;
 import com.appropel.schuss.common.util.Preferences;
 import com.appropel.schuss.controller.event.PersonEvent;
+import com.appropel.schuss.controller.event.ProviderEvent;
 import com.appropel.schuss.model.read.Person;
 import com.appropel.schuss.model.read.Profile;
+import com.appropel.schuss.model.read.RentalProvider;
 import com.appropel.schuss.service.SchussService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -143,6 +145,20 @@ public final class DefaultSchussController implements SchussController
                     void onRequestSuccess(final Void response)
                     {
                         userInterface.showHomeScreen();
+                    }
+                });
+    }
+
+    @Override
+    public void getRentalProviders()
+    {
+        service.getRentalProviders()
+                .enqueue(new SchussServiceCallback<List<RentalProvider>>(eventBus, objectMapper)
+                {
+                    @Override
+                    void onRequestSuccess(final List<RentalProvider> response)
+                    {
+                        eventBus.post(ProviderEvent.of(response));
                     }
                 });
     }
