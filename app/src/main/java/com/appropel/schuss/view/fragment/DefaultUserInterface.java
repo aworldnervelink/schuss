@@ -41,4 +41,10 @@ public final class DefaultUserInterface implements UserInterface
         eventBus.post(
                 ChangeFragmentEvent.of(DownhillProfileFragment.class, DownhillProfileFragment.PERSON_KEY, person));
     }
+
+    @Override
+    public void showRentalRequestScreen()
+    {
+        eventBus.post(ChangeFragmentEvent.of(RentalRequestFragment.class));
+    }
 }

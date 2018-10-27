@@ -66,7 +66,7 @@ public final class HomeFragment extends Fragment
         personView.setAdapter(adapter);
         personView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        return view;    // NOPMD TODO
+        return view;
     }
 
     @Override
@@ -98,6 +98,15 @@ public final class HomeFragment extends Fragment
     public void onAddPersonClicked()
     {
         userInterface.showEditPersonScreen();
+    }
+
+    /**
+     * Handler for when the user clicks 'add a request'.
+     */
+    @OnClick(R.id.add_request_button)
+    public void onAddRentalRequest()
+    {
+        userInterface.showRentalRequestScreen();
     }
 
     @Override

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Schuss</string>
-    <string name="where_to_rent">Choose a location to rent from</string>
+    <string name="where_to_rent">Where would you like to rent from?</string>
     <string name="welcome_msg">Welcome to Schuss! Please enter your information below.</string>
     <string name="email_address">E-mail Address</string>
     <string name="register">Sign In</string>
@@ -29,4 +29,7 @@
     <string name="ski_length">Ski Length</string>
     <string name="pole_length">Pole Length</string>
     <string name="helmet_size">Helmet Size</string>
+    <string name="my_rentals">My Rentals</string>
+    <string name="add_request">Request a Rental</string>
+    <string name="who_is_renting">Who are you renting for?</string>
 </resources>

@@ -23,4 +23,9 @@ public interface UserInterface
      * @param person person
      */
     void showDownhillProfileScreen(Person person);
+
+    /**
+     * Shows the rental request screen.
+     */
+    void showRentalRequestScreen();
 }
