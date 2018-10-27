@@ -90,6 +90,9 @@ dependencies {
     compileOnly 'org.immutables:value:2.6.3'
     annotationProcessor 'org.immutables:value:2.6.3'
 
+    // Apache Commons Lang
+    implementation 'org.apache.commons:commons-lang3:3.8.1'
+
     // Google Advertising
     // TODO: Version is out of date, updating causes app to crash, app ID needs to be added
     implementation ('com.google.android.gms:play-services-ads:15.0.1') {

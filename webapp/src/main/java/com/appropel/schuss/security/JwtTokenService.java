@@ -72,7 +72,7 @@ public final class JwtTokenService
      * Returns JWT token which includes VX user ID, Google Advertising ID.
      *
      * @param userId        VX user ID.
-     * @param advertisingId Advertising ID.              .
+     * @param advertisingId Advertising ID.
      * @return              token string or null.
      */
     public String getToken(final String userId, final String advertisingId)
@@ -90,17 +90,20 @@ public final class JwtTokenService
     }
 
     /**
-     * Check whether token is valid or not.
+     * Check whether token valid or not and compare user data and token's user data.
      *
      * @param token         JWT user's token.
+     * @param userId        user ID.
+     * @param advertisingId Advertising ID.
      * @return              True if token valid and relates to user.
      */
-    public boolean isTokenValid(final String token)
+    public boolean isTokenValid(final String token, final String userId, final String advertisingId)
     {
         try
         {
             Claims claims = Jwts.parser().setSigningKey(JWT_TOKENS_KEY).parseClaimsJws(token).getBody();
-            return claims.containsKey(USER_ID_PARAM_KEY) && claims.containsKey(ADVERTISING_ID_PARAM_KEY);
+            return claims.get(USER_ID_PARAM_KEY).equals(userId)
+                    && claims.get(ADVERTISING_ID_PARAM_KEY).equals(advertisingId);
         }
         catch (Exception ex)
         {

@@ -59,7 +59,7 @@ dependencies {
     compile 'com.squareup.retrofit2:converter-jackson:2.4.0'
 
     // BCrypt password encryption
-    implementation 'at.favre.lib:bcrypt:0.5.0'
+    compile 'at.favre.lib:bcrypt:0.5.0'
 
     // JSON Web Tokens
     compile 'io.jsonwebtoken:jjwt:0.7.0'
@@ -71,7 +71,7 @@ dependencies {
     compile 'com.google.guava:guava:27.0-jre'
 
     // Apache Commons Lang
-    implementation 'org.apache.commons:commons-lang3:3.8.1'
+    compile 'org.apache.commons:commons-lang3:3.8.1'
 
     // Logging
     compile group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.3'

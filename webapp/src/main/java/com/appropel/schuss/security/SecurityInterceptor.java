@@ -41,7 +41,23 @@ public final class SecurityInterceptor extends HandlerInterceptorAdapter
             return false;
         }
 
-        return tokenService.isTokenValid(userToken);
+        String advertisingId = request.getHeader(ProtocolHeaders.ADVERTISING_ID.toString());
+        if (advertisingId == null)
+        {
+            LOGGER.warn("Authentication failed. User's Advertising ID is null.");
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            return false;
+        }
+
+        String userId = request.getHeader(ProtocolHeaders.EMAIL_ADDRESS.toString());
+        if (userId == null)
+        {
+            LOGGER.warn("Authentication failed. User ID is null.");
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            return false;
+        }
+
+        return tokenService.isTokenValid(userToken, userId, advertisingId);
         // TODO: if false, return a specific error code?
     }
 }

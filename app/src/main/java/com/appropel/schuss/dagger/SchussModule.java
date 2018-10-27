@@ -19,6 +19,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import net.orange_box.storebox.StoreBox;
 
+import org.apache.commons.lang3.StringUtils;
 import org.greenrobot.eventbus.EventBus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -168,6 +169,15 @@ public final class SchussModule
                 {
                     builder.addHeader(ProtocolHeaders.TOKEN.toString(), preferences.getUserToken());
 
+                }
+                if (preferences.getAdvertisingId() != null)
+                {
+                    builder.addHeader(ProtocolHeaders.ADVERTISING_ID.toString(), preferences.getAdvertisingId());
+                }
+                if (StringUtils.isNotBlank(preferences.getEmailAddress()))
+                {
+                    builder.addHeader(ProtocolHeaders.EMAIL_ADDRESS.toString(),
+                            String.valueOf(preferences.getEmailAddress()));
                 }
                 return chain.proceed(builder.build());
             }
