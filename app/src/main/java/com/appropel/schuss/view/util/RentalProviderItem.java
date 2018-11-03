@@ -2,6 +2,7 @@ package com.appropel.schuss.view.util;
 
 import android.app.Fragment;
 
+import com.appropel.schuss.BuildConfig;
 import com.appropel.schuss.R;
 import com.appropel.schuss.dagger.SchussModule;
 import com.appropel.schuss.databinding.RentalProviderBinding;
@@ -49,11 +50,11 @@ public final class RentalProviderItem extends BindableItem<RentalProviderBinding
                 new BrightnessFilterTransformation(0.5f));
 
         Glide.with(fragment)
-                .load(SchussModule.APP_SERVER_URL + "images/" + rentalProvider.getBackgroundUrl())
+                .load(BuildConfig.APP_SERVER_HOST + "images/" + rentalProvider.getBackgroundUrl())
                 .apply(bitmapTransform(multi))
                 .into(binding.backgroundView);
         Glide.with(fragment)
-                .load(SchussModule.APP_SERVER_URL + "images/" + rentalProvider.getLogoUrl())
+                .load(BuildConfig.APP_SERVER_HOST + "images/" + rentalProvider.getLogoUrl())
                 .into(binding.logoView);
     }
 

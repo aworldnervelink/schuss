@@ -3,7 +3,9 @@ package com.appropel.schuss.dagger;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.VisibleForTesting;
+import android.text.TextUtils;
 
+import com.appropel.schuss.BuildConfig;
 import com.appropel.schuss.common.util.ContextUtils;
 import com.appropel.schuss.common.util.EventBusFacade;
 import com.appropel.schuss.common.util.EventBusWrapper;
@@ -49,10 +51,6 @@ public final class SchussModule
 {
     /** Logger. */
     static final Logger LOGGER = LoggerFactory.getLogger(SchussModule.class);
-
-    /** URL to app server. */
-    // TODO: configurable
-    public static final String APP_SERVER_URL = "http://192.168.1.24:8080/";
 
     /** Application context. */
     @NonNull
@@ -183,8 +181,10 @@ public final class SchussModule
             }
         });
 
+        final String appServerUrl = BuildConfig.APP_SERVER_HOST;
+        LOGGER.info("App server URL: {}", appServerUrl);
         final Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(APP_SERVER_URL)
+                .baseUrl(appServerUrl)
                 .client(httpClientBuilder.build())
                 .addConverterFactory(JacksonConverterFactory.create(objectMapper))
                 .build();

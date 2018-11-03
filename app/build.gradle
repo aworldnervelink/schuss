@@ -31,6 +31,19 @@ android {
     lintOptions {
         tasks.lint.enabled = false
     }
+    flavorDimensions "server"
+    productFlavors {
+        dev {
+            buildConfigField "String", "APP_SERVER_HOST", '"http://192.168.1.24:8080/"'
+            dimension "server"
+        }
+
+        prod {
+            // TODO: Need HTTPS here! Requires a custom domain for EB instance.
+            buildConfigField "String", "APP_SERVER_HOST", '"http://schuss-env-1.22pnrpzqs9.us-east-2.elasticbeanstalk.com/"'
+            dimension "server"
+        }
+    }
 }
 
 dependencies {
