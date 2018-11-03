@@ -2,6 +2,7 @@ group 'com.appropel.schuss'
 version '1.0-SNAPSHOT'
 
 apply plugin: 'java'
+apply plugin: 'war'
 apply plugin: 'org.liquibase.gradle'
 apply plugin: 'org.springframework.boot'    // http://docs.spring.io/spring-boot/docs/current/reference/html/build-tool-plugins-gradle-plugin.html
 apply plugin: 'checkstyle'
@@ -34,7 +35,7 @@ dependencies {
     compile 'com.vividsolutions:jts:1.13'
 
     // Postgres JDBC driver
-    compile 'org.postgresql:postgresql:42.2.2'
+    compile 'org.postgresql:postgresql:42.2.5'
 
     // Spring ORM
     compile 'org.springframework:spring-orm:4.3.5.RELEASE'
