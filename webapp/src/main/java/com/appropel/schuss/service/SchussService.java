@@ -3,6 +3,7 @@ package com.appropel.schuss.service;
 import com.appropel.schuss.model.read.Person;
 import com.appropel.schuss.model.read.Profile;
 import com.appropel.schuss.model.read.RentalProvider;
+import com.appropel.schuss.model.read.User;
 import com.appropel.schuss.rest.PersonController;
 import com.appropel.schuss.rest.RentalProviderController;
 import com.appropel.schuss.rest.UserController;
@@ -56,6 +57,13 @@ public interface SchussService
      */
     @GET(PersonController.PERSON_PATH + PersonController.GET_PERSONS_METHOD)
     Call<List<Person>> getPersons();
+
+    /**
+     * Returns full info about the current User.
+     * @return User
+     */
+    @GET(UserController.USER_PATH + UserController.GET_USER_METHOD)
+    Call<User> getUser();
 
     /**
      * Creates or updates a Profile attached to the given Person.

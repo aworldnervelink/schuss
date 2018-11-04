@@ -3,11 +3,11 @@ package com.appropel.schuss.controller;
 import com.appropel.schuss.common.util.ContextUtils;
 import com.appropel.schuss.common.util.EventBusFacade;
 import com.appropel.schuss.common.util.Preferences;
-import com.appropel.schuss.controller.event.PersonEvent;
 import com.appropel.schuss.controller.event.ProviderEvent;
 import com.appropel.schuss.model.read.Person;
 import com.appropel.schuss.model.read.Profile;
 import com.appropel.schuss.model.read.RentalProvider;
+import com.appropel.schuss.model.read.User;
 import com.appropel.schuss.service.SchussService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -122,15 +122,15 @@ public final class DefaultSchussController implements SchussController
     }
 
     @Override
-    public void getPersons()
+    public void getUser()
     {
-        service.getPersons()
-                .enqueue(new SchussServiceCallback<List<Person>>(eventBus, objectMapper)
+        service.getUser()
+                .enqueue(new SchussServiceCallback<User>(eventBus, objectMapper)
                 {
                     @Override
-                    void onRequestSuccess(final List<Person> response)
+                    void onRequestSuccess(final User response)
                     {
-                        eventBus.post(PersonEvent.of(response));
+                        eventBus.post(response);
                     }
                 });
     }

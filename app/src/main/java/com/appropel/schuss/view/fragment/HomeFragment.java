@@ -10,11 +10,11 @@ import android.view.ViewGroup;
 
 import com.appropel.schuss.R;
 import com.appropel.schuss.common.util.EventBusFacade;
-import com.appropel.schuss.controller.UserInterface;
 import com.appropel.schuss.controller.SchussController;
-import com.appropel.schuss.controller.event.PersonEvent;
+import com.appropel.schuss.controller.UserInterface;
 import com.appropel.schuss.dagger.DaggerWrapper;
 import com.appropel.schuss.model.read.Person;
+import com.appropel.schuss.model.read.User;
 import com.appropel.schuss.view.util.PersonItem;
 import com.xwray.groupie.GroupAdapter;
 
@@ -74,7 +74,7 @@ public final class HomeFragment extends Fragment
     {
         super.onStart();
         eventBus.register(this);
-        controller.getPersons();
+        controller.getUser();
     }
 
     /**
@@ -82,7 +82,7 @@ public final class HomeFragment extends Fragment
      * @param event event
      */
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onPersonEvent(final PersonEvent event)
+    public void onUserEvent(final User event)
     {
         adapter.clear();
         for (Person person : event.getPersons())

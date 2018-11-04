@@ -3,16 +3,15 @@ package com.appropel.schuss.dagger;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.VisibleForTesting;
-import android.text.TextUtils;
 
 import com.appropel.schuss.BuildConfig;
 import com.appropel.schuss.common.util.ContextUtils;
 import com.appropel.schuss.common.util.EventBusFacade;
 import com.appropel.schuss.common.util.EventBusWrapper;
 import com.appropel.schuss.common.util.Preferences;
-import com.appropel.schuss.controller.UserInterface;
 import com.appropel.schuss.controller.DefaultSchussController;
 import com.appropel.schuss.controller.SchussController;
+import com.appropel.schuss.controller.UserInterface;
 import com.appropel.schuss.rest.ProtocolHeaders;
 import com.appropel.schuss.service.SchussService;
 import com.appropel.schuss.view.fragment.DefaultUserInterface;

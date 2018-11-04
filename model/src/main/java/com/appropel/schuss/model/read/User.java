@@ -30,7 +30,11 @@ public interface User
      * Returns the user's (encrypted) password.
      * @return encrypted password
      */
-    String getPassword();
+    @Value.Default
+    default String getPassword()
+    {
+        return "";
+    }
 
     /**
      * Returns the devices that the user has run the application on.

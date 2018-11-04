@@ -4,7 +4,6 @@ import android.app.Fragment;
 
 import com.appropel.schuss.BuildConfig;
 import com.appropel.schuss.R;
-import com.appropel.schuss.dagger.SchussModule;
 import com.appropel.schuss.databinding.RentalProviderBinding;
 import com.appropel.schuss.model.read.RentalProvider;
 import com.bumptech.glide.Glide;

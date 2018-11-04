@@ -3,6 +3,7 @@ package com.appropel.schuss.model.impl;
 import com.appropel.schuss.model.read.Device;
 import com.appropel.schuss.model.read.Person;
 import com.appropel.schuss.model.read.User;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.ImmutableSortedSet;
 
@@ -72,6 +73,7 @@ public final class UserImpl implements User
     }
 
     @Override
+    @JsonIgnore
     public String getPassword()
     {
         return password;

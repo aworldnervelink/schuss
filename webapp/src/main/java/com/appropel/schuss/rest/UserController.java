@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
@@ -27,6 +28,9 @@ public class UserController extends BaseController
 
     /** Sign in method. */
     public static final String SIGN_IN_METHOD = "/signIn";
+
+    /** Get user method. */
+    public static final String GET_USER_METHOD = "/getUser";
 
     /** Email parameter. */
     public static final String EMAIL_PARAM = "email";
@@ -75,5 +79,17 @@ public class UserController extends BaseController
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
             writeAsJson(response.getOutputStream(), e.getServiceError());
         }
+    }
+
+    /**
+     * Returns information about the logged-in user.
+     * @param request servlet request
+     * @param response servlet response
+     * @throws IOException .
+     */
+    @RequestMapping(value = USER_PATH + GET_USER_METHOD, method = RequestMethod.GET)
+    public void getUser(final HttpServletRequest request, final HttpServletResponse response) throws IOException
+    {
+        writeAsJson(response.getOutputStream(), getCurrentUser(request));
     }
 }

@@ -29,9 +29,9 @@ public interface SchussController
     void updatePerson(final Person person);
 
     /**
-     * Fetches the list of Persons attached to the current User.
+     * Fetches the current User.
      */
-    void getPersons();
+    void getUser();
 
     /**
      * Updates a Profile.
