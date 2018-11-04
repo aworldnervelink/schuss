@@ -160,4 +160,9 @@
         <item>L - Large</item>
         <item>XL - Extra Large</item>
     </string-array>
+
+    <!-- MUST correspond with the enumeration values in Profile.Type! -->
+    <string-array name="profile_type">
+        <item>Downhill Ski</item>
+    </string-array>
 </resources>

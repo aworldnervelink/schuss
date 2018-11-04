@@ -32,4 +32,5 @@
     <string name="my_rentals">My Rentals</string>
     <string name="add_request">Request a Rental</string>
     <string name="who_is_renting">Who are you renting for?</string>
+    <string name="profiles">Profiles:</string>
 </resources>

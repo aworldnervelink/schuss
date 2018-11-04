@@ -7,19 +7,18 @@
         <variable name="person" type="com.appropel.schuss.model.read.Person"/>
     </data>
 
-    <android.support.constraint.ConstraintLayout android:layout_width="match_parent"
-                                                 android:layout_height="80dp">
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="105dp">
 
         <TextView
             android:id="@+id/first_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
             android:text="@{person.firstName}"
             android:textSize="18sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            tools:layout_editor_absoluteX="8dp"
+            tools:layout_editor_absoluteY="8dp"/>
 
         <TextView
             android:id="@+id/last_name"
@@ -82,5 +81,27 @@
             android:text="+"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>
+
+        <TextView
+            android:id="@+id/textView24"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/profiles"
+            android:textSize="10sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/city"/>
+
+        <TextView
+            android:id="@+id/profiles"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="TextView"
+            android:textSize="10sp"
+            app:layout_constraintBaseline_toBaselineOf="@+id/textView24"
+            app:layout_constraintStart_toEndOf="@+id/textView24"/>
     </android.support.constraint.ConstraintLayout>
+
 </layout>

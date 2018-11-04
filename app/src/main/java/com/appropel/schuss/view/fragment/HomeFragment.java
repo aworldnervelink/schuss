@@ -87,7 +87,7 @@ public final class HomeFragment extends Fragment
         adapter.clear();
         for (Person person : event.getPersons())
         {
-            adapter.add(new PersonItem(person, userInterface));
+            adapter.add(new PersonItem(person, userInterface, getActivity()));
         }
     }
 

@@ -12,7 +12,10 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 })
 public interface Profile
 {
-    /** Enumerates the types of profiles in the system. */
+    /**
+     * Enumerates the types of profiles in the system. The array value profile_type MUST be kept in sync with
+     * these values.
+     */
     public enum Type
     {
         DOWNHILL;
