@@ -1,10 +1,12 @@
 package com.appropel.schuss.model.impl;
 
 import com.appropel.schuss.model.read.Profile;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
 import org.springframework.beans.BeanUtils;
 
+import javax.jdo.annotations.Column;
 import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.Inheritance;
@@ -25,10 +27,20 @@ public abstract class ProfileImpl implements Profile, Comparable<ProfileImpl>
     @Persistent(primaryKey = "true", valueStrategy = IdGeneratorStrategy.INCREMENT)
     private long id;
 
+    /** Related person. */
+    @Column(name = "person_id")
+    private PersonImpl person;
+
     @Override
     public long getId()
     {
         return id;
+    }
+
+    @JsonIgnore
+    public PersonImpl getPerson()
+    {
+        return person;
     }
 
     /**

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:tools="http://schemas.android.com/tools"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable name="person" type="com.appropel.schuss.model.read.Person"/>
+    </data>
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="80dp">
+
+        <CheckBox
+            android:id="@+id/include_check_box"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <TextView
+            android:id="@+id/first_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="@{person.firstName}"
+            android:textSize="18sp"
+            app:layout_constraintBaseline_toBaselineOf="@+id/include_check_box"
+            app:layout_constraintStart_toEndOf="@+id/include_check_box"/>
+
+        <TextView
+            android:id="@+id/last_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="@{person.lastName}"
+            android:textSize="18sp"
+            app:layout_constraintBaseline_toBaselineOf="@+id/include_check_box"
+            app:layout_constraintStart_toEndOf="@+id/first_name"/>
+
+        <Spinner
+            android:id="@+id/profile_spinner"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:entries="@array/profile_type"
+            app:layout_constraintStart_toEndOf="@+id/last_name"
+            app:layout_constraintTop_toTopOf="@+id/last_name"/>
+
+    </android.support.constraint.ConstraintLayout>
+
+</layout>

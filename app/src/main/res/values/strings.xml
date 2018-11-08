@@ -33,4 +33,7 @@
     <string name="add_request">Request a Rental</string>
     <string name="who_is_renting">Who are you renting for?</string>
     <string name="profiles">Profiles:</string>
+    <string name="where">Where?</string>
+    <string name="who_what">Who/What?</string>
+    <string name="when">When?</string>
 </resources>

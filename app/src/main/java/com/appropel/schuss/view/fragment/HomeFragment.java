@@ -55,6 +55,9 @@ public final class HomeFragment extends Fragment
     /** View adapter. */
     private GroupAdapter adapter;
 
+    /** User data. */
+    private User user;
+
     @Override
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState)
     {
@@ -89,6 +92,7 @@ public final class HomeFragment extends Fragment
         {
             adapter.add(new PersonItem(person, userInterface, getActivity()));
         }
+        user = event;
     }
 
     /**
@@ -106,7 +110,7 @@ public final class HomeFragment extends Fragment
     @OnClick(R.id.add_request_button)
     public void onAddRentalRequest()
     {
-        userInterface.showRentalRequestScreen();
+        userInterface.showRentalRequestScreen(user);
     }
 
     @Override

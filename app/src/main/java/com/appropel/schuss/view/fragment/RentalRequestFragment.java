@@ -13,7 +13,10 @@ import com.appropel.schuss.common.util.EventBusFacade;
 import com.appropel.schuss.controller.SchussController;
 import com.appropel.schuss.controller.event.ProviderEvent;
 import com.appropel.schuss.dagger.DaggerWrapper;
+import com.appropel.schuss.model.read.Person;
 import com.appropel.schuss.model.read.RentalProvider;
+import com.appropel.schuss.model.read.User;
+import com.appropel.schuss.view.util.PersonRentalItem;
 import com.appropel.schuss.view.util.RentalProviderItem;
 import com.xwray.groupie.GroupAdapter;
 
@@ -24,6 +27,7 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 
 /**
@@ -31,9 +35,16 @@ import butterknife.Unbinder;
  */
 public final class RentalRequestFragment extends Fragment
 {
+    /** Key for finding a User in argument Bundle. */
+    public static final String USER_KEY = "user";
+
     /** View that holds a list of rental providers. */
-    @BindView(R.id.rental_providers_list)
+    @BindView(R.id.rental_provider_view)
     RecyclerView providerView;
+
+    /** View that holds a list of people. */
+    @BindView(R.id.person_view)
+    RecyclerView personView;
 
     /** View unbinder. */
     private Unbinder unbinder;
@@ -49,6 +60,12 @@ public final class RentalRequestFragment extends Fragment
     /** View adapter. */
     private GroupAdapter providerAdapter;
 
+    /** View adapter. */
+    private GroupAdapter personAdapter;     // NOPMD
+
+    /** User data. */
+    private User user;      // NOPMD
+
     @Override
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState)
     {
@@ -59,6 +76,18 @@ public final class RentalRequestFragment extends Fragment
         providerAdapter = new GroupAdapter();
         providerView.setAdapter(providerAdapter);
         providerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+        personAdapter = new GroupAdapter();
+        personView.setAdapter(personAdapter);
+        personView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+        user = (User) getArguments().getSerializable(USER_KEY);
+        for (Person person : user.getPersons())
+        {
+            personAdapter.add(new PersonRentalItem(person));
+        }
+
+        onWhereButtonClicked();     // Start at 'Where' screen
 
         return view;    // NOPMD TODO
     }
@@ -84,6 +113,26 @@ public final class RentalRequestFragment extends Fragment
         {
             providerAdapter.add(new RentalProviderItem(provider, this));
         }
+    }
+
+    /**
+     * Handler for when the user clicks the 'Where?' button.
+     */
+    @OnClick(R.id.where_button)
+    public void onWhereButtonClicked()
+    {
+        providerView.setVisibility(View.VISIBLE);
+        personView.setVisibility(View.INVISIBLE);
+    }
+
+    /**
+     * Handler for when the user clicks the 'Who/What?' button.
+     */
+    @OnClick(R.id.who_what_button)
+    public void onWhoWhatButtonClicked()
+    {
+        providerView.setVisibility(View.INVISIBLE);
+        personView.setVisibility(View.VISIBLE);
     }
 
     @Override

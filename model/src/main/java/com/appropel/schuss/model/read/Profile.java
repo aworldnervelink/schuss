@@ -3,6 +3,8 @@ package com.appropel.schuss.model.read;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
+import java.io.Serializable;
+
 /**
  * Base class for all profiles.
  */
@@ -10,7 +12,7 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 @JsonSubTypes({
         @JsonSubTypes.Type(value = DownhillProfile.class, name = "DownhillProfile")
 })
-public interface Profile
+public interface Profile extends Serializable
 {
     /**
      * Enumerates the types of profiles in the system. The array value profile_type MUST be kept in sync with

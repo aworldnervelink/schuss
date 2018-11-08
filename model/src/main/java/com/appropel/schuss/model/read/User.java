@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import org.immutables.value.Value;
 import org.immutables.value.internal.$processor$.meta.$GsonMirrors;
 
+import java.io.Serializable;
 import java.util.Set;
 
 /**
@@ -13,7 +14,7 @@ import java.util.Set;
  */
 @Value.Immutable
 @JsonDeserialize(builder = ImmutableUser.Builder.class)
-public interface User
+public interface User extends Serializable
 {
     /**
      * Returns the identifier.

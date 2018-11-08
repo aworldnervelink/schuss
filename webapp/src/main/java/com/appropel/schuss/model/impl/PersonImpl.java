@@ -13,7 +13,6 @@ import java.util.TreeSet;
 import java.util.regex.Matcher;
 
 import javax.jdo.annotations.Column;
-import javax.jdo.annotations.Element;
 import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.PersistenceCapable;
@@ -59,8 +58,7 @@ public final class PersonImpl implements Person, Comparable<PersonImpl>
     private String phoneNumber;
 
     /** Profiles. */
-    @Persistent(defaultFetchGroup = "true")
-    @Element(column = "person_id")
+    @Persistent(mappedBy = "person", defaultFetchGroup = "true")
     private Set<ProfileImpl> profiles = new TreeSet<ProfileImpl>();
 
     /**

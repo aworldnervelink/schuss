@@ -1,6 +1,7 @@
 package com.appropel.schuss.controller;
 
 import com.appropel.schuss.model.read.Person;
+import com.appropel.schuss.model.read.User;
 
 /**
  * Interface for changing the top-level view. All transactions are added to the back
@@ -26,6 +27,7 @@ public interface UserInterface
 
     /**
      * Shows the rental request screen.
+     * @param user user
      */
-    void showRentalRequestScreen();
+    void showRentalRequestScreen(User user);
 }

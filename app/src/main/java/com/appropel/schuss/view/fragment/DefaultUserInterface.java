@@ -3,6 +3,7 @@ package com.appropel.schuss.view.fragment;
 import com.appropel.schuss.common.util.EventBusFacade;
 import com.appropel.schuss.controller.UserInterface;
 import com.appropel.schuss.model.read.Person;
+import com.appropel.schuss.model.read.User;
 import com.appropel.schuss.view.event.ChangeFragmentEvent;
 
 /**
@@ -43,8 +44,8 @@ public final class DefaultUserInterface implements UserInterface
     }
 
     @Override
-    public void showRentalRequestScreen()
+    public void showRentalRequestScreen(final User user)
     {
-        eventBus.post(ChangeFragmentEvent.of(RentalRequestFragment.class));
+        eventBus.post(ChangeFragmentEvent.of(RentalRequestFragment.class, RentalRequestFragment.USER_KEY, user));
     }
 }
