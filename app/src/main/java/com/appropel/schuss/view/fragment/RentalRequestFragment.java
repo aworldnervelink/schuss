@@ -8,7 +8,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.TimePicker;
 
 import com.appropel.schuss.R;
 import com.appropel.schuss.common.util.EventBusFacade;
@@ -16,7 +18,9 @@ import com.appropel.schuss.controller.SchussController;
 import com.appropel.schuss.controller.event.ProviderEvent;
 import com.appropel.schuss.dagger.DaggerWrapper;
 import com.appropel.schuss.model.read.Person;
+import com.appropel.schuss.model.read.Profile;
 import com.appropel.schuss.model.read.RentalProvider;
+import com.appropel.schuss.model.read.Request;
 import com.appropel.schuss.model.read.User;
 import com.appropel.schuss.view.util.PersonRentalItem;
 import com.appropel.schuss.view.util.RentalProviderItem;
@@ -26,6 +30,10 @@ import com.xwray.groupie.OnItemClickListener;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -62,6 +70,18 @@ public final class RentalRequestFragment extends Fragment
     @BindView(R.id.who_what_layout)
     View whoWhatLayout;
 
+    /** 'When' layout. */
+    @BindView(R.id.when_layout)
+    View whenLayout;
+
+    /** Arrival time picker. */
+    @BindView(R.id.arrival_time)
+    TimePicker arrivalTimePicker;
+
+    /** Confirmation button. */
+    @BindView(R.id.confirm_button)
+    Button confirmButton;
+
     /** View unbinder. */
     private Unbinder unbinder;
 
@@ -81,6 +101,9 @@ public final class RentalRequestFragment extends Fragment
 
     /** User data. */
     private User user;      // NOPMD
+
+    /** Selected resort. */
+    RentalProvider rentalProvider;
 
     @Override
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState)
@@ -109,8 +132,9 @@ public final class RentalRequestFragment extends Fragment
             public void onItemClick(@NonNull final Item item, @NonNull final View view)
             {
                 final RentalProviderItem rpi = (RentalProviderItem) item;
-                final RentalProvider rentalProvider = rpi.getRentalProvider();
+                rentalProvider = rpi.getRentalProvider();
                 providerNameView.setText(rentalProvider.getName());
+                confirmButton.setEnabled(true);
             }
         });
 
@@ -150,6 +174,7 @@ public final class RentalRequestFragment extends Fragment
     {
         whereLayout.setVisibility(View.VISIBLE);
         whoWhatLayout.setVisibility(View.INVISIBLE);
+        whenLayout.setVisibility(View.INVISIBLE);
     }
 
     /**
@@ -160,6 +185,46 @@ public final class RentalRequestFragment extends Fragment
     {
         whereLayout.setVisibility(View.INVISIBLE);
         whoWhatLayout.setVisibility(View.VISIBLE);
+        whenLayout.setVisibility(View.INVISIBLE);
+    }
+
+    /**
+     * Handler for when the user clicks the 'Who/What?' button.
+     */
+    @OnClick(R.id.when_button)
+    public void onWhenClicked()
+    {
+        whereLayout.setVisibility(View.INVISIBLE);
+        whoWhatLayout.setVisibility(View.INVISIBLE);
+        whenLayout.setVisibility(View.VISIBLE);
+    }
+
+    /**
+     * Handler for when the user clicks the Confirm button.
+     */
+    @OnClick(R.id.confirm_button)
+    public void onConfirmClicked()
+    {
+        // Collect the checked profiles from the person recycler view.
+        final List<Profile> profiles = new ArrayList<>();
+        for (int i = 0; i < personAdapter.getItemCount(); ++i)
+        {
+            final PersonRentalItem item = (PersonRentalItem) personAdapter.getItem(i);
+            if (item.isChecked() && !item.getPerson().getProfiles().isEmpty())
+            {
+                profiles.add(item.getPerson().getProfiles().iterator().next());
+                // TODO: for now the assumption is that there is one profile, the Downhill. Later we will need
+                // to inspect the spinner to see what the user picked.
+            }
+        }
+
+        // Construct a date from the chosen arrival time.
+        final Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY, arrivalTimePicker.getHour());
+        calendar.set(Calendar.MINUTE, arrivalTimePicker.getMinute());
+
+        final Request request = Request.of(rentalProvider, profiles, calendar.getTime());
+        controller.createRequest(request);
     }
 
     @Override

@@ -36,4 +36,6 @@
     <string name="where">Where?</string>
     <string name="who_what">Who/What?</string>
     <string name="when">When?</string>
+    <string name="arrival_time">Approximately when will you arrive at the rental shop?</string>
+    <string name="confirm">Confirm</string>
 </resources>

@@ -2,6 +2,7 @@ package com.appropel.schuss.controller;
 
 import com.appropel.schuss.model.read.Person;
 import com.appropel.schuss.model.read.Profile;
+import com.appropel.schuss.model.read.Request;
 
 /**
  * Interface defining the Controller layer.
@@ -44,4 +45,10 @@ public interface SchussController
      * Fetches the list of rental providers.
      */
     void getRentalProviders();
+
+    /**
+     * Creates a new rental request.
+     * @param request request
+     */
+    void createRequest(final Request request);
 }

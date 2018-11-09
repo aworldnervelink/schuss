@@ -7,6 +7,7 @@ import com.appropel.schuss.controller.event.ProviderEvent;
 import com.appropel.schuss.model.read.Person;
 import com.appropel.schuss.model.read.Profile;
 import com.appropel.schuss.model.read.RentalProvider;
+import com.appropel.schuss.model.read.Request;
 import com.appropel.schuss.model.read.User;
 import com.appropel.schuss.service.SchussService;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -161,5 +162,11 @@ public final class DefaultSchussController implements SchussController
                         eventBus.post(ProviderEvent.of(response));
                     }
                 });
+    }
+
+    @Override
+    public void createRequest(final Request request)
+    {
+        // NOPMD
     }
 }
