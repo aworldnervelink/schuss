@@ -61,4 +61,9 @@ public final class RentalProviderItem extends BindableItem<RentalProviderBinding
     {
         return R.layout.rental_provider;
     }
+
+    public RentalProvider getRentalProvider()
+    {
+        return rentalProvider;
+    }
 }

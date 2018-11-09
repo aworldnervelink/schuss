@@ -2,11 +2,13 @@ package com.appropel.schuss.view.fragment;
 
 import android.app.Fragment;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.appropel.schuss.R;
 import com.appropel.schuss.common.util.EventBusFacade;
@@ -19,6 +21,8 @@ import com.appropel.schuss.model.read.User;
 import com.appropel.schuss.view.util.PersonRentalItem;
 import com.appropel.schuss.view.util.RentalProviderItem;
 import com.xwray.groupie.GroupAdapter;
+import com.xwray.groupie.Item;
+import com.xwray.groupie.OnItemClickListener;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -45,6 +49,18 @@ public final class RentalRequestFragment extends Fragment
     /** View that holds a list of people. */
     @BindView(R.id.person_view)
     RecyclerView personView;
+
+    /** Text view that shows selected resort name. */
+    @BindView(R.id.provider_name)
+    TextView providerNameView;
+
+    /** 'Where' layout. */
+    @BindView(R.id.where_layout)
+    View whereLayout;
+
+    /** 'Who/What' layout. */
+    @BindView(R.id.who_what_layout)
+    View whoWhatLayout;
 
     /** View unbinder. */
     private Unbinder unbinder;
@@ -87,6 +103,17 @@ public final class RentalRequestFragment extends Fragment
             personAdapter.add(new PersonRentalItem(person));
         }
 
+        providerAdapter.setOnItemClickListener(new OnItemClickListener()
+        {
+            @Override
+            public void onItemClick(@NonNull final Item item, @NonNull final View view)
+            {
+                final RentalProviderItem rpi = (RentalProviderItem) item;
+                final RentalProvider rentalProvider = rpi.getRentalProvider();
+                providerNameView.setText(rentalProvider.getName());
+            }
+        });
+
         onWhereButtonClicked();     // Start at 'Where' screen
 
         return view;    // NOPMD TODO
@@ -121,8 +148,8 @@ public final class RentalRequestFragment extends Fragment
     @OnClick(R.id.where_button)
     public void onWhereButtonClicked()
     {
-        providerView.setVisibility(View.VISIBLE);
-        personView.setVisibility(View.INVISIBLE);
+        whereLayout.setVisibility(View.VISIBLE);
+        whoWhatLayout.setVisibility(View.INVISIBLE);
     }
 
     /**
@@ -131,8 +158,8 @@ public final class RentalRequestFragment extends Fragment
     @OnClick(R.id.who_what_button)
     public void onWhoWhatButtonClicked()
     {
-        providerView.setVisibility(View.INVISIBLE);
-        personView.setVisibility(View.VISIBLE);
+        whereLayout.setVisibility(View.INVISIBLE);
+        whoWhatLayout.setVisibility(View.VISIBLE);
     }
 
     @Override
