@@ -14,6 +14,11 @@ import java.util.List;
 @JsonDeserialize(builder = ImmutableRequest.Builder.class)
 public interface Request
 {
+    /**
+     * Returns the identifier.
+     */
+    long getId();
+
     /** Returns the shop providing the equipment. */
     RentalProvider getRentalProvider();
 

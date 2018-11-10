@@ -139,6 +139,29 @@
 
     </changeSet>
 
+    <changeSet id="createProfile" author="kroll">
+        <createTable tableName="profile">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="person_id" type="bigint">
+                <constraints nullable="false" primaryKey="false" unique="false"/>
+            </column>
+        </createTable>
+        <addForeignKeyConstraint baseColumnNames="person_id"
+                                 baseTableName="profile"
+                                 constraintName="fk_profile_person"
+                                 deferrable="true"
+                                 initiallyDeferred="true"
+                                 onDelete="CASCADE"
+                                 onUpdate="RESTRICT"
+                                 referencedColumnNames="id"
+                                 referencedTableName="person"/>
+        <createIndex tableName="profile" indexName="profile_n49">
+            <column name="person_id"/>
+        </createIndex>
+    </changeSet>
+
     <changeSet id="createDownhillProfile" author="kroll">
         <createTable tableName="downhill_profile">
             <column name="id" type="bigint" autoIncrement="true">
@@ -159,20 +182,80 @@
             <column name="skier_type" type="varchar(30)">
                 <constraints nullable="false" primaryKey="false" unique="false"/>
             </column>
-            <column name="person_id" type="bigint">
-                <constraints nullable="false" primaryKey="false" unique="false"/>
-            </column>
         </createTable>
-        <addForeignKeyConstraint baseColumnNames="person_id"
+        <addForeignKeyConstraint baseColumnNames="id"
                                  baseTableName="downhill_profile"
-                                 constraintName="fk_downhill_profile_person"
+                                 constraintName="fk_request_profile_request"
                                  deferrable="true"
                                  initiallyDeferred="true"
                                  onDelete="CASCADE"
                                  onUpdate="RESTRICT"
                                  referencedColumnNames="id"
-                                 referencedTableName="person"/>
+                                 referencedTableName="profile"/>
+    </changeSet>
 
+    <changeSet id="createRequest" author="kroll">
+        <createTable tableName="request">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="rental_provider_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="arrival_time" type="timestamp with time zone">
+                <constraints nullable="false"/>
+            </column>
+            <column name="creation_time" type="timestamp with time zone">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <addForeignKeyConstraint baseColumnNames="rental_provider_id"
+                                 baseTableName="request"
+                                 constraintName="fk_request_rental_provider"
+                                 deferrable="true"
+                                 initiallyDeferred="true"
+                                 onDelete="CASCADE"
+                                 onUpdate="RESTRICT"
+                                 referencedColumnNames="id"
+                                 referencedTableName="rental_provider"/>
+        <createIndex tableName="request" indexName="request_n49">
+            <column name="rental_provider_id"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet id="createRequestProfile" author="kroll">
+        <createTable tableName="request_profile">
+            <column name="request_id" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="profile_id" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+        </createTable>
+        <addForeignKeyConstraint baseColumnNames="request_id"
+                                 baseTableName="request_profile"
+                                 constraintName="fk_request_profile_request"
+                                 deferrable="true"
+                                 initiallyDeferred="true"
+                                 onDelete="CASCADE"
+                                 onUpdate="RESTRICT"
+                                 referencedColumnNames="id"
+                                 referencedTableName="request"/>
+        <addForeignKeyConstraint baseColumnNames="profile_id"
+                                 baseTableName="request_profile"
+                                 constraintName="fk_request_profile_profile"
+                                 deferrable="true"
+                                 initiallyDeferred="true"
+                                 onDelete="CASCADE"
+                                 onUpdate="RESTRICT"
+                                 referencedColumnNames="id"
+                                 referencedTableName="profile"/>
+        <createIndex tableName="request_profile" indexName="request_profile_n49">
+            <column name="request_id"/>
+        </createIndex>
+        <createIndex tableName="request_profile" indexName="request_profile_n50">
+            <column name="profile_id"/>
+        </createIndex>
     </changeSet>
 
 </databaseChangeLog>

@@ -4,6 +4,7 @@ import com.appropel.schuss.model.read.Profile;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
+import org.apache.commons.lang3.builder.CompareToBuilder;
 import org.springframework.beans.BeanUtils;
 
 import javax.jdo.annotations.Column;
@@ -18,8 +19,8 @@ import javax.jdo.annotations.Persistent;
  * Implementation of abstract Profile.
  */
 @SuppressWarnings({"PMD", "DesignForExtension"})
-@PersistenceCapable(identityType = IdentityType.APPLICATION, detachable = "true")
-@Inheritance(strategy = InheritanceStrategy.SUBCLASS_TABLE)
+@PersistenceCapable(identityType = IdentityType.APPLICATION, detachable = "true", table = "profile")
+@Inheritance(strategy = InheritanceStrategy.NEW_TABLE)
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME)
 public abstract class ProfileImpl implements Profile, Comparable<ProfileImpl>
 {
@@ -73,6 +74,9 @@ public abstract class ProfileImpl implements Profile, Comparable<ProfileImpl>
     @Override
     public int compareTo(final ProfileImpl other)
     {
-        return getProfileType().compareTo(other.getProfileType());
+        return new CompareToBuilder()
+                .append(getProfileType(), other.getProfileType())
+                .append(getPerson(), other.getPerson())
+                .toComparison();
     }
 }

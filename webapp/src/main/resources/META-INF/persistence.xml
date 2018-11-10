@@ -10,6 +10,7 @@
         <class>com.appropel.schuss.model.impl.DownhillProfileImpl</class>
         <class>com.appropel.schuss.model.impl.PersonImpl</class>
         <class>com.appropel.schuss.model.impl.RentalProviderImpl</class>
+        <class>com.appropel.schuss.model.impl.RequestImpl</class>
         <class>com.appropel.schuss.model.impl.UserImpl</class>
     </persistence-unit>
 
