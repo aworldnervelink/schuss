@@ -46,6 +46,13 @@ public interface User extends Serializable
 
     /**
      * Returns a set of all Persons associated to this user account.
+     * @return immutable set of persons
      */
     Set<Person> getPersons();
+
+    /**
+     * Returns a set of the user's requests.
+     * @return immutable set of requests
+     */
+    Set<Request> getRequests();
 }

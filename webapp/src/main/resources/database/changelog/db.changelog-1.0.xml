@@ -199,6 +199,9 @@
             <column name="id" type="bigint" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
+            <column name="user_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
             <column name="rental_provider_id" type="bigint">
                 <constraints nullable="false"/>
             </column>
@@ -218,8 +221,20 @@
                                  onUpdate="RESTRICT"
                                  referencedColumnNames="id"
                                  referencedTableName="rental_provider"/>
+        <addForeignKeyConstraint baseColumnNames="user_id"
+                                 baseTableName="request"
+                                 constraintName="fk_request_user"
+                                 deferrable="true"
+                                 initiallyDeferred="true"
+                                 onDelete="CASCADE"
+                                 onUpdate="RESTRICT"
+                                 referencedColumnNames="id"
+                                 referencedTableName="user"/>
         <createIndex tableName="request" indexName="request_n49">
             <column name="rental_provider_id"/>
+        </createIndex>
+        <createIndex tableName="request" indexName="request_n50">
+            <column name="user_id"/>
         </createIndex>
     </changeSet>
 

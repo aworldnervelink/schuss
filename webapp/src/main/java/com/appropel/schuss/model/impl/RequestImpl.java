@@ -2,7 +2,11 @@ package com.appropel.schuss.model.impl;
 
 import com.appropel.schuss.model.read.Profile;
 import com.appropel.schuss.model.read.Request;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.common.collect.ImmutableList;
+
+import org.apache.commons.lang3.builder.CompareToBuilder;
+import org.springframework.beans.BeanUtils;
 
 import java.util.Date;
 import java.util.List;
@@ -22,11 +26,17 @@ import javax.jdo.annotations.Persistent;
  */
 @SuppressWarnings("PMD")
 @PersistenceCapable(identityType = IdentityType.APPLICATION, table = "request", detachable = "true")
-public final class RequestImpl implements Request
+public final class RequestImpl implements Request, Comparable<RequestImpl>
 {
     /** Object unique identifier. */
     @Persistent(primaryKey = "true", valueStrategy = IdGeneratorStrategy.INCREMENT)
     private long id;
+
+    /** User making the request. */
+    @Persistent(defaultFetchGroup = "false")
+    @Column(name = "user_id")
+    @JsonIgnore
+    private UserImpl user;
 
     /** Rental provider. */
     @Persistent(defaultFetchGroup = "true")
@@ -71,9 +81,49 @@ public final class RequestImpl implements Request
         return creationTime;
     }
 
+    public void setCreationTime(final Date creationTime)
+    {
+        this.creationTime = creationTime;
+    }
+
     @Override
     public Date getArrivalTime()
     {
         return arrivalTime;
+    }
+
+    public void setArrivalTime(final Date arrivalTime)
+    {
+        this.arrivalTime = arrivalTime;
+    }
+
+    /**
+     * Creates a new persistent RequestImpl from the given objects.
+     * @param request request data
+     * @param user user
+     * @param rentalProvider rental provider
+     * @param profiles profiles
+     * @return initialized request
+     */
+    public static RequestImpl from(final Request request,
+                                   final UserImpl user,
+                                   final RentalProviderImpl rentalProvider,
+                                   final Set<ProfileImpl> profiles)
+    {
+        final RequestImpl newRequest = new RequestImpl();
+        BeanUtils.copyProperties(request, newRequest);
+        newRequest.user = user;
+        newRequest.rentalProvider = rentalProvider;
+        newRequest.profiles = profiles;
+        return newRequest;
+    }
+
+    @Override
+    public int compareTo(final RequestImpl other)
+    {
+        return new CompareToBuilder()
+                .append(creationTime, other.creationTime)
+                .append(id, other.id)
+                .toComparison();
     }
 }

@@ -1,11 +1,14 @@
 package com.appropel.schuss.model.read;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.google.common.base.Preconditions;
 
 import org.immutables.value.Value;
 
 import java.util.Date;
 import java.util.List;
+
+import static com.google.common.base.Preconditions.checkState;
 
 /**
  * A request for rental.
@@ -14,6 +17,9 @@ import java.util.List;
 @JsonDeserialize(builder = ImmutableRequest.Builder.class)
 public interface Request
 {
+    /** Comparison date in November 2018. */
+    static final Date CHECK_DATE = new Date(1541876067094L);
+
     /**
      * Returns the identifier.
      */
@@ -41,9 +47,17 @@ public interface Request
                       )
     {
         return ImmutableRequest.builder()
+                .id(0)
                 .rentalProvider(rentalProvider)
                 .profiles(profiles)
                 .arrivalTime(arrivalTime)
                 .build();
+    }
+
+    @Value.Check
+    default void check()
+    {
+        checkState(getCreationTime().after(CHECK_DATE));
+        checkState(getArrivalTime().after(CHECK_DATE));
     }
 }

@@ -167,6 +167,14 @@ public final class DefaultSchussController implements SchussController
     @Override
     public void createRequest(final Request request)
     {
-        // NOPMD
+        service.createRequest(request)
+                .enqueue(new SchussServiceCallback<Void>(eventBus, objectMapper)
+                {
+                    @Override
+                    void onRequestSuccess(final Void response)
+                    {
+                        userInterface.showHomeScreen();
+                    }
+                });
     }
 }

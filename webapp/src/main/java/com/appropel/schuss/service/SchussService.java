@@ -3,9 +3,11 @@ package com.appropel.schuss.service;
 import com.appropel.schuss.model.read.Person;
 import com.appropel.schuss.model.read.Profile;
 import com.appropel.schuss.model.read.RentalProvider;
+import com.appropel.schuss.model.read.Request;
 import com.appropel.schuss.model.read.User;
 import com.appropel.schuss.rest.PersonController;
 import com.appropel.schuss.rest.RentalProviderController;
+import com.appropel.schuss.rest.RequestController;
 import com.appropel.schuss.rest.UserController;
 
 import java.util.List;
@@ -74,4 +76,12 @@ public interface SchussService
     @POST(PersonController.PERSON_PATH + PersonController.UPDATE_PROFILE_METHOD)
     Call<Void> updateProfile(@Query(PersonController.PERSON_ID_PARAM) long personId,
                              @Body Profile profile);
+
+    /**
+     * Creates a new rental request.
+     * @param request request
+     * @return void
+     */
+    @POST(RequestController.REQUEST_PATH + RequestController.CREATE_METHOD)
+    Call<Void> createRequest(@Body Request request);
 }

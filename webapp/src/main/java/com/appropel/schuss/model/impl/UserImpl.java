@@ -2,6 +2,7 @@ package com.appropel.schuss.model.impl;
 
 import com.appropel.schuss.model.read.Device;
 import com.appropel.schuss.model.read.Person;
+import com.appropel.schuss.model.read.Request;
 import com.appropel.schuss.model.read.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.common.collect.ImmutableSet;
@@ -49,6 +50,10 @@ public final class UserImpl implements User
     @Element(column = "user_id")
     private Set<PersonImpl> persons = new TreeSet<>();
 
+    /** Requests. */
+    @Persistent(mappedBy = "user", defaultFetchGroup = "true")
+    private Set<RequestImpl> requests = new TreeSet<>();
+
     /**
      * Constructs a new {@code UserImpl}.
      * @param email e-mail address
@@ -89,6 +94,12 @@ public final class UserImpl implements User
     public Set<Person> getPersons()
     {
         return ImmutableSortedSet.copyOf(persons);
+    }
+
+    @Override
+    public Set<Request> getRequests()
+    {
+        return ImmutableSortedSet.copyOf(requests);
     }
 
     /**
