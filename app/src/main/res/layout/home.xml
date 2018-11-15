@@ -52,7 +52,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
 
-    <android.support.v7.widget.RecyclerView
+    <ListView
         android:id="@+id/rental_list"
         android:layout_width="0dp"
         android:layout_height="0dp"
