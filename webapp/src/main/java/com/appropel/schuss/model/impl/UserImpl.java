@@ -2,6 +2,7 @@ package com.appropel.schuss.model.impl;
 
 import com.appropel.schuss.model.read.Device;
 import com.appropel.schuss.model.read.Person;
+import com.appropel.schuss.model.read.RentalProvider;
 import com.appropel.schuss.model.read.Request;
 import com.appropel.schuss.model.read.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -54,6 +55,15 @@ public final class UserImpl implements User
     @Persistent(mappedBy = "user", defaultFetchGroup = "true")
     private Set<RequestImpl> requests = new TreeSet<>();
 
+    /** Role. */
+    @Column(name = "role", length = 20)
+    private Role role;
+
+    /** Rental provider. */
+    @Persistent(defaultFetchGroup = "true")
+    @Column(name = "rental_provider_id")
+    private RentalProviderImpl rentalProvider;
+
     /**
      * Constructs a new {@code UserImpl}.
      * @param email e-mail address
@@ -63,6 +73,7 @@ public final class UserImpl implements User
     {
         this.email = checkNotNull(email);
         this.password = checkNotNull(password);
+        role = Role.RENTER;
     }
 
     @Override
@@ -118,5 +129,17 @@ public final class UserImpl implements User
     public void addPerson(final PersonImpl person)
     {
         persons.add(person);
+    }
+
+    @Override
+    public Role getRole()
+    {
+        return role;
+    }
+
+    @Override
+    public RentalProvider getRentalProvider()
+    {
+        return rentalProvider;
     }
 }

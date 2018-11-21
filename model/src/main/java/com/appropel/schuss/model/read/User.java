@@ -17,6 +17,17 @@ import java.util.Set;
 public interface User extends Serializable
 {
     /**
+     * Defines the roles that an account can play.
+     */
+    public enum Role
+    {
+        /** This account represents one or more people who rent equipment. */
+        RENTER,
+        /** This account is a worker who provides rental equipment. */
+        WORKER;
+    }
+
+    /**
      * Returns the identifier.
      */
     long getId();
@@ -55,4 +66,16 @@ public interface User extends Serializable
      * @return immutable set of requests
      */
     Set<Request> getRequests();
+
+    /**
+     * Returns the role of this account.
+     * @return role
+     */
+    Role getRole();
+
+    /**
+     * Returns the rental provider associated with this account, if role == WORKER.
+     * @return rental provider
+     */
+    RentalProvider getRentalProvider();
 }

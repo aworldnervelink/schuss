@@ -78,6 +78,10 @@ dependencies {
     compile group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.3'
 }
 
+processResources {
+    exclude('local.properties')
+}
+
 //
 // Enhance model implementation classes with DataNucleus
 //
