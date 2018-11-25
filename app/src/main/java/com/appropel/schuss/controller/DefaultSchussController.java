@@ -11,6 +11,7 @@ import com.appropel.schuss.model.read.RentalProvider;
 import com.appropel.schuss.model.read.Request;
 import com.appropel.schuss.model.read.User;
 import com.appropel.schuss.service.SchussService;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.slf4j.Logger;
@@ -105,6 +106,14 @@ public final class DefaultSchussController implements SchussController
                     {
                         preferences.setUserToken(user.getToken());
                         preferences.setEmailAddress(emailAddress);
+                        try
+                        {
+                            preferences.setUser(objectMapper.writeValueAsString(user));
+                        }
+                        catch (JsonProcessingException e)
+                        {
+                            LOGGER.error("JSON exception", e);
+                        }
                         switch (user.getRole())
                         {
                             case RENTER:
@@ -144,6 +153,14 @@ public final class DefaultSchussController implements SchussController
                     @Override
                     void onRequestSuccess(final User response)
                     {
+                        try
+                        {
+                            preferences.setUser(objectMapper.writeValueAsString(response));
+                        }
+                        catch (JsonProcessingException e)
+                        {
+                            LOGGER.error("JSON exception", e);
+                        }
                         eventBus.post(response);
                     }
                 });

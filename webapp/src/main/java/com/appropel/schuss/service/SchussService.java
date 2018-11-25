@@ -90,6 +90,6 @@ public interface SchussService
      * Returns the requests for the current user.
      * @return rental requests
      */
-    @POST(RequestController.REQUEST_PATH + RequestController.GET_METHOD)
+    @GET(RequestController.REQUEST_PATH + RequestController.GET_METHOD)
     Call<Set<Request>> getRequests();
 }

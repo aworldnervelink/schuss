@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.appropel.schuss.R;
 import com.appropel.schuss.common.util.EventBusFacade;
+import com.appropel.schuss.common.util.Preferences;
 import com.appropel.schuss.controller.SchussController;
 import com.appropel.schuss.controller.UserInterface;
 import com.appropel.schuss.dagger.DaggerWrapper;
@@ -21,10 +22,13 @@ import com.appropel.schuss.model.read.Person;
 import com.appropel.schuss.model.read.Request;
 import com.appropel.schuss.model.read.User;
 import com.appropel.schuss.view.util.PersonItem;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.xwray.groupie.GroupAdapter;
 
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.io.IOException;
 
 import javax.inject.Inject;
 
@@ -38,6 +42,12 @@ import butterknife.Unbinder;
  */
 public final class HomeFragment extends Fragment
 {
+    /** Logger. */
+    private static final Logger LOGGER = LoggerFactory.getLogger(HomeFragment.class);
+
+    /** Key for finding a User in argument Bundle. */
+    public static final String USER_KEY = "user";
+
     /** List of Persons. */
     @BindView(R.id.person_list)
     RecyclerView personView;
@@ -57,6 +67,14 @@ public final class HomeFragment extends Fragment
     /** Event bus. */
     @Inject
     EventBusFacade eventBus;
+
+    /** Preferences. */
+    @Inject
+    Preferences preferences;
+
+    /** Object mapper. */
+    @Inject
+    ObjectMapper objectMapper;
 
     /** View unbinder. */
     private Unbinder unbinder;
@@ -91,26 +109,24 @@ public final class HomeFragment extends Fragment
     public void onStart()
     {
         super.onStart();
-        eventBus.register(this);
-        controller.getUser();
-    }
+//        eventBus.register(this);
 
-    /**
-     * Handler for when person data arrives from the server.
-     * @param event event
-     */
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onUserEvent(final User event)
-    {
+        try
+        {
+            user = objectMapper.readValue(preferences.getUser(), User.class);
+        }
+        catch (IOException e)
+        {
+            LOGGER.error("JSON exception", e);
+        }
         personAdapter.clear();
-        for (Person person : event.getPersons())
+        for (Person person : user.getPersons())
         {
             personAdapter.add(new PersonItem(person, userInterface, getActivity()));
         }
         requestAdapter.clear();
-        requestAdapter.addAll(event.getRequests());
+        requestAdapter.addAll(user.getRequests());
         requestAdapter.notifyDataSetChanged();
-        user = event;
     }
 
     /**
@@ -132,9 +148,9 @@ public final class HomeFragment extends Fragment
     }
 
     @Override
-    public void onStop()
+    public void onStop()    // NOPMD: may use bus again in the future
     {
-        eventBus.unregister(this);
+//        eventBus.unregister(this);
         super.onStop();
     }
 

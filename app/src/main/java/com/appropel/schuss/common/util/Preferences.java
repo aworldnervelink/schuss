@@ -11,6 +11,7 @@ public interface Preferences
     String KEY_EMAIL_ADDRESS = "emailAddress";
     String KEY_ADVERTISING_ID = "advertisingId";
     String KEY_USER_TOKEN = "key_userToken";
+    String KEY_USER = "key_user";
 
     /**
      * Returns the user's e-mail address.
@@ -57,4 +58,18 @@ public interface Preferences
      */
     @KeyByString(KEY_USER_TOKEN)
     void setUserToken(String userToken);
+
+    /**
+     * Returns the logged-in user (JSON format).
+     * @return user
+     */
+    @KeyByString(KEY_USER)
+    String getUser();
+
+    /**
+     * Sets the logged-in user (JSON format).
+     * @param user user
+     */
+    @KeyByString(KEY_USER)
+    void setUser(String user);
 }
