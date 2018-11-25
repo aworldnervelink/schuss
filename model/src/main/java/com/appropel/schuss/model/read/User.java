@@ -9,6 +9,8 @@ import org.immutables.value.internal.$processor$.meta.$GsonMirrors;
 import java.io.Serializable;
 import java.util.Set;
 
+import javax.annotation.Nullable;
+
 /**
  * Represents a user of the application - can also be thought of as an account.
  */
@@ -77,5 +79,6 @@ public interface User extends Serializable
      * Returns the rental provider associated with this account, if role == WORKER.
      * @return rental provider
      */
+    @Nullable
     RentalProvider getRentalProvider();
 }

@@ -4,6 +4,7 @@ import com.appropel.schuss.common.util.ContextUtils;
 import com.appropel.schuss.common.util.EventBusFacade;
 import com.appropel.schuss.common.util.Preferences;
 import com.appropel.schuss.controller.event.ProviderEvent;
+import com.appropel.schuss.controller.event.RequestEvent;
 import com.appropel.schuss.model.read.Person;
 import com.appropel.schuss.model.read.Profile;
 import com.appropel.schuss.model.read.RentalProvider;
@@ -16,6 +17,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -174,6 +176,20 @@ public final class DefaultSchussController implements SchussController
                     void onRequestSuccess(final Void response)
                     {
                         userInterface.showHomeScreen();
+                    }
+                });
+    }
+
+    @Override
+    public void getRequests()
+    {
+        service.getRequests()
+                .enqueue(new SchussServiceCallback<Set<Request>>(eventBus, objectMapper)
+                {
+                    @Override
+                    void onRequestSuccess(final Set<Request> response)
+                    {
+                        eventBus.post(RequestEvent.of(response));
                     }
                 });
     }

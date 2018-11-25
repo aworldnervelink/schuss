@@ -11,6 +11,7 @@ import com.appropel.schuss.rest.RequestController;
 import com.appropel.schuss.rest.UserController;
 
 import java.util.List;
+import java.util.Set;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -84,4 +85,11 @@ public interface SchussService
      */
     @POST(RequestController.REQUEST_PATH + RequestController.CREATE_METHOD)
     Call<Void> createRequest(@Body Request request);
+
+    /**
+     * Returns the requests for the current user.
+     * @return rental requests
+     */
+    @POST(RequestController.REQUEST_PATH + RequestController.GET_METHOD)
+    Call<Set<Request>> getRequests();
 }

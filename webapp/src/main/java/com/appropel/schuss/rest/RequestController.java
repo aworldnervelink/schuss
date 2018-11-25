@@ -6,8 +6,10 @@ import com.appropel.schuss.dao.RequestDao;
 import com.appropel.schuss.model.impl.ProfileImpl;
 import com.appropel.schuss.model.impl.RentalProviderImpl;
 import com.appropel.schuss.model.impl.RequestImpl;
+import com.appropel.schuss.model.impl.UserImpl;
 import com.appropel.schuss.model.read.Profile;
 import com.appropel.schuss.model.read.Request;
+import com.appropel.schuss.model.read.User;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,6 +23,9 @@ import java.util.Set;
 import java.util.TreeSet;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import static com.google.common.base.Preconditions.checkState;
 
 /**
  * Controller for request methods.
@@ -35,6 +40,12 @@ public class RequestController extends BaseController
 
     /** Create path. */
     public static final String CREATE_METHOD = "/create";
+
+    /** Get path. */
+    public static final String GET_METHOD = "/get";
+
+    /** Rental provider ID. */
+    public static final String RENTAL_PROVIDER_ID_PARAM = "rentalProviderId";
 
     /** Rental Provider DAO. */
     private RentalProviderDao rentalProviderDao;
@@ -80,5 +91,24 @@ public class RequestController extends BaseController
         }
         final RequestImpl newRequest = RequestImpl.from(request, getCurrentUser(httpRequest), rentalProvider, profiles);
         requestDao.add(newRequest);
+    }
+
+    /**
+     * Returns requests for the provider associated with the current user.
+     * @param request HTTP request
+     * @param response HTTP response
+     * @throws IOException
+     */
+    @RequestMapping(value = REQUEST_PATH + GET_METHOD, method = RequestMethod.GET)
+    public void getRequests(final HttpServletRequest request, final HttpServletResponse response) throws IOException
+    {
+        final UserImpl user = getCurrentUser(request);
+        if (user.getRole() == User.Role.WORKER)
+        {
+            final RentalProviderImpl rentalProvider = (RentalProviderImpl) user.getRentalProvider();
+            checkState(rentalProvider != null, "User must have a rental provider");
+            final Set<RequestImpl> requests = requestDao.getRequestsForProvider(rentalProvider);
+            writeAsJson(response.getOutputStream(), requests);
+        }
     }
 }

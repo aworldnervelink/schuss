@@ -51,4 +51,9 @@ public interface SchussController
      * @param request request
      */
     void createRequest(final Request request);
+
+    /**
+     * Fetches requests for the current user/rental provider.
+     */
+    void getRequests();
 }
