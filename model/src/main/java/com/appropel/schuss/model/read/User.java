@@ -81,4 +81,10 @@ public interface User extends Serializable
      */
     @Nullable
     RentalProvider getRentalProvider();
+
+    /**
+     * Returns the user token associated with this account.
+     * @return user token
+     */
+    String getToken();
 }

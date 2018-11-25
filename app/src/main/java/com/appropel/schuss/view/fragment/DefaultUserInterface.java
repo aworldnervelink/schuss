@@ -48,4 +48,10 @@ public final class DefaultUserInterface implements UserInterface
     {
         eventBus.post(ChangeFragmentEvent.of(RentalRequestFragment.class, RentalRequestFragment.USER_KEY, user));
     }
+
+    @Override
+    public void showEmployeeHomeScreen()
+    {
+        eventBus.post(ChangeFragmentEvent.of(EmployeeHomeFragment.class));
+    }
 }

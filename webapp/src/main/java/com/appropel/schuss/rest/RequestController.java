@@ -97,7 +97,7 @@ public class RequestController extends BaseController
      * Returns requests for the provider associated with the current user.
      * @param request HTTP request
      * @param response HTTP response
-     * @throws IOException
+     * @throws IOException .
      */
     @RequestMapping(value = REQUEST_PATH + GET_METHOD, method = RequestMethod.GET)
     public void getRequests(final HttpServletRequest request, final HttpServletResponse response) throws IOException

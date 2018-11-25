@@ -98,14 +98,25 @@ public final class DefaultSchussController implements SchussController
                        password,
                        preferences.getAdvertisingId(),
                        newAccount)
-                .enqueue(new SchussServiceCallback<String>(eventBus, objectMapper)
+                .enqueue(new SchussServiceCallback<User>(eventBus, objectMapper)
                 {
                     @Override
-                    void onRequestSuccess(final String response)
+                    void onRequestSuccess(final User user)
                     {
-                        preferences.setUserToken(response);
+                        preferences.setUserToken(user.getToken());
                         preferences.setEmailAddress(emailAddress);
-                        userInterface.showHomeScreen();
+                        switch (user.getRole())
+                        {
+                            case RENTER:
+                                userInterface.showHomeScreen();
+                                break;
+                            case WORKER:
+                                userInterface.showEmployeeHomeScreen();
+                                break;
+                            default:
+                                LOGGER.error("Unknown role {}", user.getRole());
+                                break;
+                        }
                     }
                 });
     }

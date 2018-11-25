@@ -41,10 +41,10 @@ public interface SchussService
      * @return JWT if successful
      */
     @POST(UserController.USER_PATH + UserController.SIGN_IN_METHOD)
-    Call<String> signIn(@Query(UserController.EMAIL_PARAM) String email,
-                        @Query(UserController.PASSWORD_PARAM) String password,
-                        @Query(UserController.ADVERTISING_ID_PARAM) String advertisingId,
-                        @Query(UserController.NEW_ACCOUNT_PARAM) boolean newAccount);
+    Call<User> signIn(@Query(UserController.EMAIL_PARAM) String email,
+                      @Query(UserController.PASSWORD_PARAM) String password,
+                      @Query(UserController.ADVERTISING_ID_PARAM) String advertisingId,
+                      @Query(UserController.NEW_ACCOUNT_PARAM) boolean newAccount);
 
     /**
      * Creates or updates a Person attached to the given User.

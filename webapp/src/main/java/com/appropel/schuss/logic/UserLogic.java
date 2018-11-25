@@ -15,9 +15,9 @@ public interface UserLogic
      * @param password encrypted password
      * @param advertisingId Google advertising identifier
      * @param newAccount true if a new account should be created
-     * @return JWT token
+     * @return user including JWT token
      */
-    String signIn(String emailAddress, String password, String advertisingId, boolean newAccount);
+    UserImpl signIn(String emailAddress, String password, String advertisingId, boolean newAccount);
 
     /**
      * Creates or edits a Person attached to the given User.

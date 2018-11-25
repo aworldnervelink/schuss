@@ -30,4 +30,9 @@ public interface UserInterface
      * @param user user
      */
     void showRentalRequestScreen(User user);
+
+    /**
+     * Shows the employee home screen.
+     */
+    void showEmployeeHomeScreen();
 }

@@ -17,6 +17,7 @@ import javax.jdo.annotations.Column;
 import javax.jdo.annotations.Element;
 import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.IdentityType;
+import javax.jdo.annotations.NotPersistent;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 
@@ -63,6 +64,10 @@ public final class UserImpl implements User
     @Persistent(defaultFetchGroup = "true")
     @Column(name = "rental_provider_id")
     private RentalProviderImpl rentalProvider;
+
+    /** Security token. */
+    @NotPersistent
+    private String token;
 
     /**
      * Constructs a new {@code UserImpl}.
@@ -141,5 +146,16 @@ public final class UserImpl implements User
     public RentalProvider getRentalProvider()
     {
         return rentalProvider;
+    }
+
+    @Override
+    public String getToken()
+    {
+        return token;
+    }
+
+    public void setToken(final String token)
+    {
+        this.token = token;
     }
 }

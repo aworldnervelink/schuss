@@ -61,7 +61,7 @@ public class UserLogicImpl implements UserLogic
     }
 
     @Override
-    public String signIn(final String emailAddress,
+    public UserImpl signIn(final String emailAddress,
                        final String password,
                        final String advertisingId,
                        final boolean newAccount)
@@ -78,7 +78,8 @@ public class UserLogicImpl implements UserLogic
                 user.addDevice(device);
                 userDao.add(user);
                 LOGGER.info("Created new user {}.", emailAddress);
-                return tokenService.getToken(user.getEmail(), advertisingId);
+                user.setToken(tokenService.getToken(user.getEmail(), advertisingId));
+                return user;
             }
             else
             {
@@ -94,7 +95,8 @@ public class UserLogicImpl implements UserLogic
                         password.getBytes(UTF8), existingUser.getPassword().getBytes(UTF8)).verified)
                 {
                     LOGGER.info("Logged in user {}", emailAddress);
-                    return tokenService.getToken(existingUser.getEmail(), advertisingId);
+                    existingUser.setToken(tokenService.getToken(existingUser.getEmail(), advertisingId));
+                    return existingUser;
 
                 }
                 else
