@@ -38,4 +38,6 @@
     <string name="when">When?</string>
     <string name="arrival_time">Approximately when will you arrive at the rental shop?</string>
     <string name="confirm">Confirm</string>
+    <string name="arrival_time_short">Arrival Time</string>
+    <string name="renters">Renters</string>
 </resources>
