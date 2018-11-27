@@ -165,4 +165,13 @@
     <string-array name="profile_type">
         <item>Downhill Ski</item>
     </string-array>
+
+    <!-- MUST correspond with the enumeration values in Request.Status! -->
+    <string-array name="status">
+        <item>Open</item>
+        <item>In Progress</item>
+        <item>Ready</item>
+        <item>In Use</item>
+        <item>Complete</item>
+    </string-array>
 </resources>

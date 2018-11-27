@@ -26,6 +26,9 @@ public final class RequestAdapter extends ArrayAdapter<Request>
     /** Time formatter. */
     private static final Format TIME_FORMAT = new SimpleDateFormat("HH:mm", Locale.getDefault());
 
+    /** Context. */
+    private final Context context;
+
     /**
      * Constructs a new {@code RequestAdapter}.
      * @param context Android Context
@@ -33,6 +36,7 @@ public final class RequestAdapter extends ArrayAdapter<Request>
     public RequestAdapter(final Context context)
     {
         super(context, R.layout.rental_request_summary);
+        this.context = context;
     }
 
     @Override
@@ -61,6 +65,10 @@ public final class RequestAdapter extends ArrayAdapter<Request>
             sb.append(person.getLastName());
         }
         renterNamesView.setText(sb.toString());
+
+        final TextView statusView = view.findViewById(R.id.status);
+        final String[] statusNames = context.getResources().getStringArray(R.array.status);
+        statusView.setText(statusNames[request.getStatus().ordinal()]);
 
         return view;
     }
