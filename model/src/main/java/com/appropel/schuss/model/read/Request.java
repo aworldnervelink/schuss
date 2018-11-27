@@ -21,6 +21,23 @@ public interface Request
     static final Date CHECK_DATE = new Date(1541876067094L);
 
     /**
+     * Defines the statuses that a request can travel through.
+     */
+    public enum Status
+    {
+        /** Opened but no action taken. */
+        OPEN,
+        /** Equipment is being retrieved. */
+        IN_PROGRESS,
+        /** Ready for pickup by the renter. */
+        READY,
+        /** Being used by the renter. */
+        IN_USE,
+        /** Returned and complete. */
+        COMPLETE
+    }
+
+    /**
      * Returns the identifier.
      */
     long getId();
@@ -54,10 +71,14 @@ public interface Request
                 .build();
     }
 
+    /** Returns the current status. */
+    Status getStatus();
+
     @Value.Check
     default void check()
     {
         checkState(getCreationTime().after(CHECK_DATE));
         checkState(getArrivalTime().after(CHECK_DATE));
+        checkState(getStatus() != null);
     }
 }

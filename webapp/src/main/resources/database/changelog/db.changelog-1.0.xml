@@ -300,4 +300,12 @@
             <column name="rental_provider_id"/>
         </createIndex>
     </changeSet>
+
+    <changeSet id="addStatusToRequest" author="kroll">
+        <addColumn tableName="request">
+            <column name="status" type="varchar(20)" defaultValue="OPEN">
+                <constraints nullable="false" unique="false"/>
+            </column>
+        </addColumn>
+    </changeSet>
 </databaseChangeLog>

@@ -59,6 +59,10 @@ public final class RequestImpl implements Request, Comparable<RequestImpl>
     @Column(name = "arrival_time")
     private Date arrivalTime;
 
+    /** Status. */
+    @Column(name = "status", length = 20)
+    private Status status = Status.OPEN;
+
     @Override
     public long getId()
     {
@@ -98,6 +102,12 @@ public final class RequestImpl implements Request, Comparable<RequestImpl>
     public void setArrivalTime(final Date arrivalTime)
     {
         this.arrivalTime = arrivalTime;
+    }
+
+    @Override
+    public Status getStatus()
+    {
+        return status;
     }
 
     /**
