@@ -2,7 +2,9 @@ package com.appropel.schuss.model.impl;
 
 import com.appropel.schuss.model.read.Profile;
 import com.appropel.schuss.model.read.Request;
+import com.appropel.schuss.model.util.JsonViews;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonView;
 import com.google.common.collect.ImmutableList;
 
 import org.apache.commons.lang3.builder.CompareToBuilder;
@@ -70,6 +72,7 @@ public final class RequestImpl implements Request, Comparable<RequestImpl>
     }
 
     @Override
+    @JsonView(JsonViews.RequestQueue.class)
     public List<Profile> getProfiles()
     {
         return ImmutableList.copyOf(profiles);

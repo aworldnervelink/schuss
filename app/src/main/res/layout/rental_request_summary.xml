@@ -90,6 +90,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
+        android:gravity="center_vertical"
         android:maxLines="4"
         android:text="TextView"
         app:layout_constraintBottom_toBottomOf="parent"

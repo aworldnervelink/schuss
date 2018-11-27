@@ -8,6 +8,8 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.appropel.schuss.R;
+import com.appropel.schuss.model.read.Person;
+import com.appropel.schuss.model.read.Profile;
 import com.appropel.schuss.model.read.Request;
 
 import java.text.Format;
@@ -45,9 +47,21 @@ public final class RequestAdapter extends ArrayAdapter<Request>
         final TextView rentersView = view.findViewById(R.id.renters);
         rentersView.setText(String.format("%d", request.getProfiles().size()));
 
-//        final TextView renterNamesView = view.findViewById(R.id.renter_names);
-//        StringBuilder sb = new StringBuilder();
-//        for ()
+        final TextView renterNamesView = view.findViewById(R.id.renter_names);
+        StringBuilder sb = new StringBuilder();
+        for (final Profile profile : request.getProfiles())
+        {
+            if (sb.length() > 0)
+            {
+                sb.append(", ");
+            }
+            final Person person = profile.getPerson();
+            sb.append(person.getFirstName());
+            sb.append(' ');
+            sb.append(person.getLastName());
+        }
+        renterNamesView.setText(sb.toString());
+
         return view;
     }
 }

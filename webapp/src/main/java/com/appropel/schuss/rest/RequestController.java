@@ -10,6 +10,7 @@ import com.appropel.schuss.model.impl.UserImpl;
 import com.appropel.schuss.model.read.Profile;
 import com.appropel.schuss.model.read.Request;
 import com.appropel.schuss.model.read.User;
+import com.appropel.schuss.model.util.JsonViews;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -108,7 +109,7 @@ public class RequestController extends BaseController
             final RentalProviderImpl rentalProvider = (RentalProviderImpl) user.getRentalProvider();
             checkState(rentalProvider != null, "User must have a rental provider");
             final Set<RequestImpl> requests = requestDao.getRequestsForProvider(rentalProvider);
-            writeAsJson(response.getOutputStream(), requests);
+            writeAsJson(response.getOutputStream(), requests, JsonViews.RequestQueue.class);
         }
     }
 }

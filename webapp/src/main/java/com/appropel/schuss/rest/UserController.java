@@ -2,6 +2,7 @@ package com.appropel.schuss.rest;
 
 import com.appropel.schuss.logic.ServiceException;
 import com.appropel.schuss.logic.UserLogic;
+import com.appropel.schuss.model.util.JsonViews;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -72,7 +73,8 @@ public class UserController extends BaseController
     {
         try
         {
-            writeAsJson(response.getOutputStream(), userLogic.signIn(email, password, advertisingId, newAccount));
+            writeAsJson(response.getOutputStream(), userLogic.signIn(email, password, advertisingId, newAccount),
+                    JsonViews.RenterHome.class);
         }
         catch (ServiceException e)
         {
@@ -90,6 +92,6 @@ public class UserController extends BaseController
     @RequestMapping(value = USER_PATH + GET_USER_METHOD, method = RequestMethod.GET)
     public void getUser(final HttpServletRequest request, final HttpServletResponse response) throws IOException
     {
-        writeAsJson(response.getOutputStream(), getCurrentUser(request));
+        writeAsJson(response.getOutputStream(), getCurrentUser(request), JsonViews.RenterHome.class);
     }
 }

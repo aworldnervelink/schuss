@@ -3,7 +3,6 @@ package com.appropel.schuss.rest;
 import com.appropel.schuss.dao.UserDao;
 import com.appropel.schuss.model.impl.UserImpl;
 import com.appropel.schuss.security.JwtTokenService;
-import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -68,7 +67,7 @@ public abstract class BaseController
      */
     void writeAsJson(final OutputStream stream, final Object object, final Class view) throws IOException
     {
-        objectMapper.disable(MapperFeature.DEFAULT_VIEW_INCLUSION).writerWithView(view).writeValue(stream, object);
+        objectMapper.writerWithView(view).withDefaultPrettyPrinter().writeValue(stream, object);
     }
 
     /**

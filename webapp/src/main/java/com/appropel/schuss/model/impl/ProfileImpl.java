@@ -1,8 +1,9 @@
 package com.appropel.schuss.model.impl;
 
 import com.appropel.schuss.model.read.Profile;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.appropel.schuss.model.util.JsonViews;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.fasterxml.jackson.annotation.JsonView;
 
 import org.apache.commons.lang3.builder.CompareToBuilder;
 import org.springframework.beans.BeanUtils;
@@ -38,7 +39,7 @@ public abstract class ProfileImpl implements Profile, Comparable<ProfileImpl>
         return id;
     }
 
-    @JsonIgnore
+    @JsonView(JsonViews.RequestQueue.class)
     public PersonImpl getPerson()
     {
         return person;

@@ -5,6 +5,8 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
 import java.io.Serializable;
 
+import javax.annotation.Nullable;
+
 /**
  * Base class for all profiles.
  */
@@ -32,4 +34,10 @@ public interface Profile extends Serializable
      * Returns the type of profile.
      */
     Type getProfileType();
+
+    /**
+     * Returns the person that owns this profile (only serialized in certain views).
+     */
+    @Nullable
+    Person getPerson();
 }

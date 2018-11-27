@@ -2,6 +2,8 @@ package com.appropel.schuss.model.impl;
 
 import com.appropel.schuss.model.read.Person;
 import com.appropel.schuss.model.read.Profile;
+import com.appropel.schuss.model.util.JsonViews;
+import com.fasterxml.jackson.annotation.JsonView;
 import com.google.common.collect.ImmutableSortedSet;
 
 import org.apache.commons.lang3.builder.CompareToBuilder;
@@ -165,6 +167,7 @@ public final class PersonImpl implements Person, Comparable<PersonImpl>
     }
 
     @Override
+    @JsonView(JsonViews.RenterHome.class)
     public Set<Profile> getProfiles()
     {
         return ImmutableSortedSet.copyOf(profiles);
