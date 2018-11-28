@@ -5,12 +5,14 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.appropel.schuss.R;
 import com.appropel.schuss.dagger.DaggerWrapper;
 import com.appropel.schuss.model.read.Request;
+import com.appropel.schuss.view.util.ProfileAdapter;
 
 import java.text.Format;
 import java.text.SimpleDateFormat;
@@ -35,6 +37,10 @@ public final class RequestDetailsFragment extends DialogFragment
     @BindView(R.id.arrival_time_digits)
     TextView arrivalTimeView;
 
+    /** List of profiles. */
+    @BindView(R.id.profile_list)
+    ListView profileList;
+
     /** Status spinner. */
     @BindView(R.id.status_spinner)
     Spinner statusSpinner;
@@ -53,6 +59,10 @@ public final class RequestDetailsFragment extends DialogFragment
         DaggerWrapper.INSTANCE.getComponent().inject(this);
 
         request = (Request) getArguments().getSerializable(REQUEST_KEY);
+
+        final ProfileAdapter profileAdapter = new ProfileAdapter(getActivity());
+        profileList.setAdapter(profileAdapter);
+        profileAdapter.addAll(request.getProfiles());
 
         return view;
     }
