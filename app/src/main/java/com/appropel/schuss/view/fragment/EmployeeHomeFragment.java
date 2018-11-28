@@ -1,6 +1,8 @@
 package com.appropel.schuss.view.fragment;
 
+import android.app.DialogFragment;
 import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,7 +16,9 @@ import com.appropel.schuss.common.util.Preferences;
 import com.appropel.schuss.controller.SchussController;
 import com.appropel.schuss.controller.event.RequestEvent;
 import com.appropel.schuss.dagger.DaggerWrapper;
+import com.appropel.schuss.model.read.Request;
 import com.appropel.schuss.model.read.User;
+import com.appropel.schuss.view.event.ChangeFragmentEvent;
 import com.appropel.schuss.view.util.RequestAdapter;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -29,6 +33,7 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnItemClick;
 import butterknife.Unbinder;
 
 /**
@@ -113,6 +118,30 @@ public final class EmployeeHomeFragment extends Fragment
         requestAdapter.clear();
         requestAdapter.addAll(event.getRequests());
         requestAdapter.notifyDataSetChanged();
+    }
+
+    /**
+     * Event handler for when the user clicks a rental request in the list.
+     * @param listView listView that generated the click
+     * @param position position in the list
+     */
+    @OnItemClick(R.id.rental_list)
+    public void onItemClick(final ListView listView, final int position)
+    {
+        final Request request = (Request) listView.getItemAtPosition(position);
+
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        Fragment prev = getFragmentManager().findFragmentByTag(RequestDetailsFragment.class.getSimpleName());
+        if (prev != null)
+        {
+            ft.remove(prev);
+        }
+        ft.addToBackStack(null);
+
+        // Create and show the dialog.
+        DialogFragment newFragment = new RequestDetailsFragment();
+        newFragment.setArguments(ChangeFragmentEvent.createArguments(RequestDetailsFragment.REQUEST_KEY, request));
+        newFragment.show(ft, RequestDetailsFragment.class.getSimpleName());
     }
 
     @Override

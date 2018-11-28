@@ -24,7 +24,7 @@ import java.util.Locale;
 public final class RequestAdapter extends ArrayAdapter<Request>
 {
     /** Time formatter. */
-    private static final Format TIME_FORMAT = new SimpleDateFormat("HH:mm", Locale.getDefault());
+    private final Format timeFormat = new SimpleDateFormat("HH:mm", Locale.getDefault());
 
     /** Context. */
     private final Context context;
@@ -47,7 +47,7 @@ public final class RequestAdapter extends ArrayAdapter<Request>
                 : LayoutInflater.from(getContext()).inflate(R.layout.rental_request_summary, parent, false);
 
         final TextView arrivalTimeView = view.findViewById(R.id.arrival_time_digits);
-        arrivalTimeView.setText(TIME_FORMAT.format(request.getArrivalTime()));
+        arrivalTimeView.setText(timeFormat.format(request.getArrivalTime()));
         final TextView rentersView = view.findViewById(R.id.renters);
         rentersView.setText(String.format("%d", request.getProfiles().size()));
 

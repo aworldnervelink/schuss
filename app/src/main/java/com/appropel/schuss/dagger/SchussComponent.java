@@ -7,6 +7,7 @@ import com.appropel.schuss.view.fragment.EmployeeHomeFragment;
 import com.appropel.schuss.view.fragment.HomeFragment;
 import com.appropel.schuss.view.fragment.LoginFragment;
 import com.appropel.schuss.view.fragment.RentalRequestFragment;
+import com.appropel.schuss.view.fragment.RequestDetailsFragment;
 
 import javax.inject.Singleton;
 
@@ -28,4 +29,5 @@ public interface SchussComponent
     void inject(LoginFragment loginFragment);
     void inject(MainActivity mainActivity);
     void inject(RentalRequestFragment rentalRequestFragment);
+    void inject(RequestDetailsFragment requestDetailsFragment);
 }

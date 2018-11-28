@@ -66,7 +66,7 @@ public abstract class ChangeFragmentEvent
      * @return created arguments bundle
      */
     @NonNull
-    private static Bundle createArguments(@NonNull final String key, @NonNull final Serializable value)
+    public static Bundle createArguments(@NonNull final String key, @NonNull final Serializable value)
     {
         final Bundle args = new Bundle();
         args.putSerializable(key, value);

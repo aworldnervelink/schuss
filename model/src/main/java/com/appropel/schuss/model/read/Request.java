@@ -5,6 +5,7 @@ import com.google.common.base.Preconditions;
 
 import org.immutables.value.Value;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
@@ -15,7 +16,7 @@ import static com.google.common.base.Preconditions.checkState;
  */
 @Value.Immutable
 @JsonDeserialize(builder = ImmutableRequest.Builder.class)
-public interface Request
+public interface Request extends Serializable
 {
     /** Comparison date in November 2018. */
     static final Date CHECK_DATE = new Date(1541876067094L);
