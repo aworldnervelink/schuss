@@ -110,6 +110,11 @@ public final class RequestImpl implements Request, Comparable<RequestImpl>
         return status;
     }
 
+    public void setStatus(final Status status)
+    {
+        this.status = status;
+    }
+
     /**
      * Creates a new persistent RequestImpl from the given objects.
      * @param request request data

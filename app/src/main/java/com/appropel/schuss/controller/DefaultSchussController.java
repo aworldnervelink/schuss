@@ -221,4 +221,18 @@ public final class DefaultSchussController implements SchussController
                     }
                 });
     }
+
+    @Override
+    public void updateRequest(final long requestId, final Request.Status status)
+    {
+        service.updateRequest(requestId, status)
+                .enqueue(new SchussServiceCallback<Set<Request>>(eventBus, objectMapper)
+                {
+                    @Override
+                    void onRequestSuccess(final Set<Request> response)
+                    {
+                        eventBus.post(RequestEvent.of(response));
+                    }
+                });
+    }
 }

@@ -10,6 +10,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.appropel.schuss.R;
+import com.appropel.schuss.controller.SchussController;
 import com.appropel.schuss.dagger.DaggerWrapper;
 import com.appropel.schuss.model.read.Request;
 import com.appropel.schuss.view.util.ProfileAdapter;
@@ -17,6 +18,8 @@ import com.appropel.schuss.view.util.ProfileAdapter;
 import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -44,6 +47,10 @@ public final class RequestDetailsFragment extends DialogFragment
     /** Status spinner. */
     @BindView(R.id.status_spinner)
     Spinner statusSpinner;
+
+    /** Controller. */
+    @Inject
+    SchussController controller;
 
     /** View unbinder. */
     private Unbinder unbinder;
@@ -74,6 +81,16 @@ public final class RequestDetailsFragment extends DialogFragment
 
         arrivalTimeView.setText(timeFormat.format(request.getArrivalTime()));
         statusSpinner.setSelection(request.getStatus().ordinal());
+    }
+
+    @Override
+    public void onStop()
+    {
+        // On close of the dialog update the status.
+        final Request.Status status = Request.Status.values()[statusSpinner.getSelectedItemPosition()];
+        controller.updateRequest(request.getId(), status);
+
+        super.onStop();
     }
 
     @Override

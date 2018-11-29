@@ -12,11 +12,14 @@ import com.appropel.schuss.model.read.Request;
 import com.appropel.schuss.model.read.User;
 import com.appropel.schuss.model.util.JsonViews;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
@@ -36,6 +39,9 @@ import static com.google.common.base.Preconditions.checkState;
 @SuppressWarnings("checkstyle:DesignForExtension")  // Cannot be final for AOP enhancement
 public class RequestController extends BaseController
 {
+    /** Logger. */
+    private static final Logger LOGGER = LoggerFactory.getLogger(RequestController.class);
+
     /** Path for this controller. */
     public static final String REQUEST_PATH = "/request";
 
@@ -45,8 +51,17 @@ public class RequestController extends BaseController
     /** Get path. */
     public static final String GET_METHOD = "/get";
 
+    /** Update path. */
+    public static final String UPDATE_METHOD = "/update";
+
     /** Rental provider ID. */
     public static final String RENTAL_PROVIDER_ID_PARAM = "rentalProviderId";
+
+    /** Request ID. */
+    public static final String REQUEST_ID_PARAM = "requestId";
+
+    /** Status param. */
+    public static final String STATUS_PARAM = "status";
 
     /** Rental Provider DAO. */
     private RentalProviderDao rentalProviderDao;
@@ -111,5 +126,31 @@ public class RequestController extends BaseController
             final Set<RequestImpl> requests = requestDao.getRequestsForProvider(rentalProvider);
             writeAsJson(response.getOutputStream(), requests, JsonViews.RequestQueue.class);
         }
+        else
+        {
+            LOGGER.warn("getRequests() called but user {} is not a WORKER!", user.getId());
+        }
+    }
+
+    /**
+     * Updates a particular httpServletRequest.
+     * @param requestId httpServletRequest ID
+     * @param status status
+     * @param httpServletRequest HTTP httpServletRequest
+     * @param response HTTP response
+     * @throws IOException .
+     */
+    @RequestMapping(value = REQUEST_PATH + UPDATE_METHOD, method = RequestMethod.POST)
+    public void updateRequest(@RequestParam(value = REQUEST_ID_PARAM) final long requestId,
+                              @RequestParam(value = STATUS_PARAM) final Request.Status status,
+                              final HttpServletRequest httpServletRequest,
+                              final HttpServletResponse response) throws IOException
+    {
+        // TODO: should we check security to ensure that the user can access the httpServletRequest?
+        final RequestImpl request = requestDao.getById(requestId);
+        request.setStatus(status);
+
+        // Pass the call along to getRequests so that an updated list is returned to the user.
+        getRequests(httpServletRequest, response);
     }
 }

@@ -21,13 +21,13 @@ public interface SchussController
      * @param password password
      * @param newAccount new account flag
      */
-    void signIn(String emailAddress, String password, final boolean newAccount);
+    void signIn(String emailAddress, String password, boolean newAccount);
 
     /**
      * Creates or updates a person.
      * @param person person
      */
-    void updatePerson(final Person person);
+    void updatePerson(Person person);
 
     /**
      * Fetches the current User.
@@ -39,7 +39,7 @@ public interface SchussController
      * @param person person
      * @param profile profile
      */
-    void updateProfile(final Person person, final Profile profile);
+    void updateProfile(Person person, Profile profile);
 
     /**
      * Fetches the list of rental providers.
@@ -50,10 +50,17 @@ public interface SchussController
      * Creates a new rental request.
      * @param request request
      */
-    void createRequest(final Request request);
+    void createRequest(Request request);
 
     /**
      * Fetches requests for the current user/rental provider.
      */
     void getRequests();
+
+    /**
+     * Updates the status of a particular request.
+     * @param requestId request ID
+     * @param status status
+     */
+    void updateRequest(long requestId, Request.Status status);
 }

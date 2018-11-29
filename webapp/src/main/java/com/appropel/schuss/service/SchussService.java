@@ -92,4 +92,14 @@ public interface SchussService
      */
     @GET(RequestController.REQUEST_PATH + RequestController.GET_METHOD)
     Call<Set<Request>> getRequests();
+
+    /**
+     * Updates the status of a particular request.
+     * @param requestId request ID
+     * @param status sstatus
+     * @return rental requests
+     */
+    @POST(RequestController.REQUEST_PATH + RequestController.UPDATE_METHOD)
+    Call<Set<Request>> updateRequest(@Query(RequestController.REQUEST_ID_PARAM) long requestId,
+                                     @Query(RequestController.STATUS_PARAM) Request.Status status);
 }
