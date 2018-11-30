@@ -1,6 +1,7 @@
 package com.appropel.schuss.configuration;
 
 import com.appropel.schuss.rest.UserController;
+import com.appropel.schuss.rest.UtilityController;
 import com.appropel.schuss.security.SecurityInterceptor;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,10 +30,11 @@ public class WebMvcInterceptorConfiguration extends WebMvcConfigurerAdapter
     {
         registry.addInterceptor(securityInterceptor)
                 // Apply to all methods...
-                .addPathPatterns("/**")
+                .addPathPatterns("/*")
                 // ...except the new user/sign in
                 .excludePathPatterns(UserController.USER_PATH + UserController.NEW_ACCOUNT_PARAM)
                 .excludePathPatterns(UserController.USER_PATH + UserController.SIGN_IN_METHOD)
-                .excludePathPatterns("/images/**"); // TODO: hacky way to show images
+                .excludePathPatterns(UtilityController.UTILITY_PATH + "/*")
+                .excludePathPatterns("/images/*"); // TODO: hacky way to show images
     }
 }
