@@ -45,9 +45,9 @@
             android:id="@+id/profile_spinner"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
+            android:layout_marginEnd="8dp"
             android:entries="@array/profile_type"
-            app:layout_constraintStart_toEndOf="@+id/last_name"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/last_name"/>
 
     </android.support.constraint.ConstraintLayout>

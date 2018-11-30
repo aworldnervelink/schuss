@@ -58,6 +58,10 @@ public final class RentalRequestFragment extends Fragment
     @BindView(R.id.person_view)
     RecyclerView personView;
 
+    /** Text view with the 'choose' prompt. */
+    @BindView(R.id.choose_message)
+    TextView chooseMessageView;
+
     /** Text view that shows selected resort name. */
     @BindView(R.id.provider_name)
     TextView providerNameView;
@@ -134,6 +138,7 @@ public final class RentalRequestFragment extends Fragment
                 final RentalProviderItem rpi = (RentalProviderItem) item;
                 rentalProvider = rpi.getRentalProvider();
                 providerNameView.setText(rentalProvider.getName());
+                chooseMessageView.setVisibility(View.INVISIBLE);
                 confirmButton.setEnabled(true);
             }
         });

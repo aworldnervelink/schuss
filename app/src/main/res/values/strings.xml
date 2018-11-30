@@ -41,4 +41,6 @@
     <string name="arrival_time_short">Arrival Time</string>
     <string name="renters">Renters</string>
     <string name="status">Status</string>
+    <string name="add_profile">Add a profile</string>
+    <string name="choose_provider">Choose a location from the list above...</string>
 </resources>
