@@ -107,6 +107,9 @@ dependencies {
     // Apache Commons Lang
     implementation 'org.apache.commons:commons-lang3:3.8.1'
 
+    // Calligraphy font library
+    compile 'uk.co.chrisjenx:calligraphy:2.2.0'
+
     // Google Advertising
     // TODO: Version is out of date, updating causes app to crash, app ID needs to be added
     implementation ('com.google.android.gms:play-services-ads:15.0.1') {

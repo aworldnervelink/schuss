@@ -1,5 +1,6 @@
 package com.appropel.schuss.view.activity;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
@@ -21,6 +22,7 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 /**
  * Main activity.
@@ -53,6 +55,13 @@ public final class MainActivity extends AppCompatActivity
 
         // Request advertising ID.
         controller.requestAdvertisingId();
+    }
+
+
+    @Override
+    protected void attachBaseContext(final Context newBase)
+    {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
 
     @Override
