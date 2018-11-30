@@ -9,6 +9,7 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
+import com.appropel.schuss.BuildConfig;
 import com.appropel.schuss.R;
 import com.appropel.schuss.common.util.Preferences;
 import com.appropel.schuss.controller.SchussController;
@@ -21,7 +22,11 @@ import com.mobsandgeeks.saripaar.annotation.Length;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 import com.mobsandgeeks.saripaar.annotation.Password;
 
+import java.text.DateFormat;
+import java.text.Format;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import javax.inject.Inject;
 
@@ -64,6 +69,10 @@ public final class LoginFragment extends ValidatableFragment implements Validato
     @BindView(R.id.sign_in_button)
     RadioButton signInButton;
 
+    /** Version string. */
+    @BindView(R.id.version)
+    TextView versionView;
+
     /** Controller. */
     @Inject
     SchussController controller;
@@ -75,6 +84,9 @@ public final class LoginFragment extends ValidatableFragment implements Validato
     /** View unbinder. */
     private Unbinder unbinder;
 
+    /** Date formatter. */
+    private final Format dateFormat = DateFormat.getDateInstance();
+
     @Override
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState)
     {
@@ -82,6 +94,9 @@ public final class LoginFragment extends ValidatableFragment implements Validato
         unbinder = ButterKnife.bind(this, view);
         DaggerWrapper.INSTANCE.getComponent().inject(this);
 
+        final Date buildDate = new Date(BuildConfig.TIMESTAMP);
+        versionView.setText(String.format(Locale.getDefault(), "Schuss %s (%d) %s",
+                BuildConfig.VERSION_NAME, BuildConfig.VERSION_CODE, dateFormat.format(buildDate)));
         return view;
     }
 

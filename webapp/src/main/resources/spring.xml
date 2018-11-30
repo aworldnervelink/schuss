@@ -32,7 +32,7 @@
     </bean>
 
     <!--
-        See VX-90... the important connection params are expected to be in the environment to support
+        The important connection params are expected to be in the environment to support
         deployment via AWS.
     -->
     <bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource" destroy-method="close">

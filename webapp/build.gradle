@@ -78,10 +78,10 @@ dependencies {
     compile group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.3'
 }
 
-// TODO: this should only be for 'bootWar' builds
-//processResources {
-//    exclude('local.properties')
-//}
+bootRun {
+    // support passing -Dsystem.property=value to bootRun task
+    systemProperties = System.properties
+}
 
 //
 // Enhance model implementation classes with DataNucleus
