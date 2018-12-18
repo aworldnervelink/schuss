@@ -86,5 +86,6 @@ public interface User extends Serializable
      * Returns the user token associated with this account.
      * @return user token
      */
+    @Nullable
     String getToken();
 }

@@ -4,9 +4,11 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 import org.immutables.value.Value;
 
+import java.io.Serializable;
+
 @Value.Immutable
 @JsonDeserialize(builder = ImmutableRentalProvider.Builder.class)
-public interface RentalProvider
+public interface RentalProvider extends Serializable
 {
     /**
      * Returns the identifier.

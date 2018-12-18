@@ -69,6 +69,7 @@ public interface Request extends Serializable
                 .rentalProvider(rentalProvider)
                 .profiles(profiles)
                 .arrivalTime(arrivalTime)
+                .status(Status.OPEN)
                 .build();
     }
 

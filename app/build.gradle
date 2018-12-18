@@ -8,7 +8,7 @@ android {
         applicationId "com.appropel.schuss"
         minSdkVersion 23
         targetSdkVersion 27
-        versionCode 2
+        versionCode 6
         versionName "1.0-Beta"
         buildConfigField "long", "TIMESTAMP", System.currentTimeMillis() + "L"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -108,7 +108,7 @@ dependencies {
     implementation 'org.apache.commons:commons-lang3:3.8.1'
 
     // Calligraphy font library
-    compile 'uk.co.chrisjenx:calligraphy:2.2.0'
+    implementation 'uk.co.chrisjenx:calligraphy:2.2.0'
 
     // Google Advertising
     // TODO: Version is out of date, updating causes app to crash, app ID needs to be added

@@ -25,10 +25,14 @@ import com.appropel.schuss.view.util.PersonItem;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.xwray.groupie.GroupAdapter;
 
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.Format;
 
 import javax.inject.Inject;
 
@@ -109,16 +113,34 @@ public final class HomeFragment extends Fragment
     public void onStart()
     {
         super.onStart();
-//        eventBus.register(this);
+        eventBus.register(this);
 
         try
         {
             user = objectMapper.readValue(preferences.getUser(), User.class);
+//            onUser(user);
         }
         catch (IOException e)
         {
             LOGGER.error("JSON exception", e);
         }
+    }
+
+    @Override
+    public void onResume()
+    {
+        super.onResume();
+        controller.getUser();
+    }
+
+    /**
+     * Handler for when current user data is received.
+     * @param user user
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onUser(final User user)
+    {
+        this.user = user;
         personAdapter.clear();
         for (Person person : user.getPersons())
         {
@@ -150,7 +172,7 @@ public final class HomeFragment extends Fragment
     @Override
     public void onStop()    // NOPMD: may use bus again in the future
     {
-//        eventBus.unregister(this);
+        eventBus.unregister(this);
         super.onStop();
     }
 
@@ -164,6 +186,9 @@ public final class HomeFragment extends Fragment
     /** Quick and dirty adapter to show rental requests. */
     public static final class RequestAdapter extends ArrayAdapter<Request>
     {
+        /** Date formatter. */
+        final Format dateFormat = DateFormat.getDateInstance(DateFormat.LONG);
+
         /**
          * Constructs a new {@code RequestAdapter}.
          * @param context Android Context
@@ -180,7 +205,7 @@ public final class HomeFragment extends Fragment
         {
             final Request request = getItem(position);
             final TextView view = (TextView) super.getView(position, convertView, parent);
-            view.setText(request.getRentalProvider().getName());
+            view.setText(request.getRentalProvider().getName() + " " + dateFormat.format(request.getArrivalTime()));
             return view;
         }
     }
